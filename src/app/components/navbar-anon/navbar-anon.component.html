@@ -1,0 +1,29 @@
+<div class="navbar navbar-anon">
+    <div class="container">
+        <a class="logo"
+           href="#">Web<span>Finances</span></a>
+
+        <mat-icon (click)="onToggleHamburger()"
+                  id="mobile-menu-open"
+                  class="mobile-menu mobile-menu-open">menu</mat-icon>
+
+        <nav [ngClass]="{ 'hamburger-menu': showMobileMenu }">
+            <mat-icon (click)="onToggleHamburger()"
+                      id="mobile-menu-exit"
+                      class="mobile-menu mobile-menu-exit">close</mat-icon>
+
+            <ul class="left-nav">
+                <li class="current"><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+
+            <ul class="right-nav">
+                <li><a href="#">Login</a></li>
+                <li class="register"><a href="#">Register</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+

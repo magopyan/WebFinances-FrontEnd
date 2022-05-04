@@ -1,0 +1,136 @@
+.navbar {
+  background-color: var(--primary-light);
+  padding: 1rem;
+}
+
+.navbar nav {
+  display: none;
+}
+
+.navbar .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  place-content: space-between;
+}
+
+.navbar .logo {
+  font-weight: bold;
+  color: var(--primary-blue);
+  font-size: 1.2rem;
+}
+
+.navbar .logo span {
+  color: var(--text-green);
+}
+
+.navbar .mobile-menu {
+  cursor: pointer;
+}
+
+nav.menu-btn {
+  display: block;
+}
+
+.mobile-menu-exit {
+  float: right;
+  margin: .5rem;
+  cursor: pointer;
+}
+
+nav {
+  position: fixed;
+  z-index: 999;
+  width: 50%;
+  right: 0;
+  top: 0;
+  background: var(--primary-dark);
+  height: 100vh;
+  padding: 1em;
+}
+
+nav ul.left-nav {
+  margin-top: 5em;
+}
+
+nav li a {
+  color: var(--primary-light);
+  display: block;
+  padding: .5em;
+  font-size: 1.3em;
+  text-align: right;
+}
+
+nav li a:hover {
+  font-weight: bold;
+}
+
+@media only screen and (min-width: 1080px) {
+  .container {
+    width: 1080px;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    text-align: left;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .mobile-menu {
+    display: none;
+  }
+  .navbar .container {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 180px auto;
+        grid-template-columns: 180px auto;
+    -webkit-box-pack: unset;
+        -ms-flex-pack: unset;
+            justify-content: unset;
+  }
+  .navbar nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    background: none;
+    position: unset;
+    height: auto;
+    width: 100%;
+    padding: 0;
+  }
+  .navbar nav ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .navbar nav a {
+    color: black;
+    font-size: 1rem;
+    padding: .1rem 1rem;
+  }
+  .navbar nav ul.left-nav {
+    margin: 0;
+  }
+  .navbar nav li.current a {
+    font-weight: bold;
+  }
+  .navbar nav li.go-premium-cta a {
+    font-weight: bold;
+    color: var(--primary-blue);
+    border: 3px solid var(--primary-blue);
+    border-radius: 5rem;
+    margin-top: -.3rem;
+  }
+  .navbar nav li.go-premium-cta a:hover {
+    color: var(--primary-light);
+    background: var(--primary-blue);
+  }
+}
+/*# sourceMappingURL=navbar-anon.component.css.map */

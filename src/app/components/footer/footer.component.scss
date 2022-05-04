@@ -1,0 +1,59 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    background: none;
+    position: unset;
+    height: auto;
+    padding: 0;
+    width: 100%;
+    background-color: var(--primary-blue);
+    color: var(--primary-light);
+}
+
+p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+address {
+    font-style: normal;
+}
+
+.icon {
+    margin-right: 0.4rem;
+    vertical-align: text-top;
+    font-size: 1.2rem;   
+    width: 1.2rem;
+    height: 1.2rem; 
+}
+
+.footer-left-col {
+    margin: 1rem 3rem 1rem 8rem;
+
+    .brand-name {
+        font-weight: 500;
+    }
+
+    .copyright {
+        font-style: italic;
+        font-size: 0.8rem;
+    }
+}
+
+.footer-right-col {
+    margin: 1rem 8rem 1rem 3rem;
+    font-size: 0.9rem;
+
+    p {
+        margin-bottom: 0.5rem;
+    }
+
+    .phone {
+        margin-bottom: 0;
+    }
+}
+
+
+
+
+

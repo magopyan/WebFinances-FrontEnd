@@ -1,0 +1,145 @@
+.navbar {
+    background-color: var(--primary-light);
+    padding: 1rem;
+
+    .container {
+        display: flex;
+        place-content: space-between;
+    }
+
+    .logo {
+        font-weight: bold;
+        color: var(--primary-blue);
+        font-size: 1.2rem;
+
+        span {
+            color: var(--text-green);
+        }
+    }
+
+    .mobile-menu {
+        cursor: pointer;
+    }
+}
+
+nav {
+    display: none;
+}
+
+.hamburger-menu {
+    // not existing in HTML
+   display: block;
+}
+
+.mobile-menu-exit {
+    float: right;
+    margin: .5rem;
+    cursor: pointer;
+}
+
+
+nav {
+    position: fixed;
+    z-index: 999;
+    width: 40%;
+    right: 0;
+    top: 0;
+    background: var(--primary-dark);
+    height: 100vh;
+    padding: 1em;
+
+    ul.left-nav {
+        margin-top: 5em;
+    }
+
+    li {
+        a {
+            color: var(--primary-light);
+            display: block;
+            padding: .5em;
+            font-size: 1.3em;
+            text-align: right;
+
+            &:hover {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+
+
+// SCREEN DEPENDENCIES
+//////////////////////////////////////////////////////////////////////
+
+@media only screen and (min-width: 768px) {
+
+    .mobile-menu {
+        display: none;
+    }
+
+    .navbar .container {
+        display: grid;
+        grid-template-columns: 180px auto;
+        justify-content: unset;
+    }
+
+    .navbar nav {
+        display: flex;
+        justify-content: space-between;
+        background: none;
+        position: unset;
+        height: auto;
+        width: 100%;
+        padding: 0;
+
+        ul {
+            display: flex;
+        }
+
+        a {
+            color: black;
+            font-size: 1rem;
+            padding: .1rem 1rem;
+        }
+
+        ul.left-nav {
+            margin: 0;
+        }
+
+        li.current a {
+            font-weight: bold;
+        }
+
+        li.register a {
+            font-weight: bold;
+            color: var(--primary-blue);
+            border: 3px solid var(--primary-blue);
+            border-radius: 8rem;
+            margin-top: -.3rem;
+
+            &:hover {
+                color: var(--primary-light);
+                background: var(--primary-blue);
+            }
+        }
+    }
+}
+
+
+
+@media only screen and (min-width: 1080px) {
+
+    .container {
+
+        // was separate 
+        width: 1080px;
+        margin: 0 auto;
+        // was separate ^
+
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
