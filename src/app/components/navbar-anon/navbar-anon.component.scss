@@ -1,13 +1,34 @@
+
+.active-link {
+    font-weight: bold;
+}
+
 .navbar {
     background-color: var(--primary-light);
-    padding: 1rem;
+    //padding: 1rem;
 
     .container {
         display: flex;
         place-content: space-between;
     }
 
+    .item-container {
+        padding: 1rem 0;
+
+        &:hover {
+            box-shadow: inset 0 -3px 0 var(--primary-blue);
+            //border-bottom: 3px solid var(--primary-blue);
+        }
+    }
+
+    .register-container {
+        &:hover {
+            box-shadow: inset 0 -3px 0 var(--text-green);
+        }
+    }
+
     .logo {
+        padding: 1rem 0;
         font-weight: bold;
         color: var(--primary-blue);
         font-size: 1.2rem;
@@ -29,6 +50,10 @@ nav {
 .hamburger-menu {
     // not existing in HTML
    display: block;
+}
+
+.mobile-menu-open {
+    margin: 1rem;
 }
 
 .mobile-menu-exit {
@@ -60,9 +85,9 @@ nav {
             font-size: 1.3em;
             text-align: right;
 
-            &:hover {
-                font-weight: bold;
-            }
+            // &:hover {
+            //     font-weight: bold;
+            // }
         }
     }
 }
@@ -107,20 +132,34 @@ nav {
             margin: 0;
         }
 
-        li.current a {
-            font-weight: bold;
+        .login-container {
+            margin-top: 0.1rem;
+            margin-right: 1rem;
+        }
+
+        li.login a {
+            font-weight: 500;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            border-radius: 30px;
+            margin-top: -0.2rem;
+        
+            &:hover {
+                //color: var(--primary-light);
+                background: var(--primary-white-blue2);
+            }
         }
 
         li.register a {
-            font-weight: bold;
-            color: var(--primary-blue);
-            border: 3px solid var(--primary-blue);
-            border-radius: 8rem;
-            margin-top: -.3rem;
+            font-weight: 600;
+            color: var(--text-green);
+            border: 4px solid var(--text-green);
+            border-radius: 30px;
+            margin-top: -0.2rem;
 
             &:hover {
                 color: var(--primary-light);
-                background: var(--primary-blue);
+                background: var(--text-green);
             }
         }
     }

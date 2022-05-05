@@ -1,7 +1,7 @@
 <div class="navbar navbar-anon">
     <div class="container">
         <a class="logo"
-           href="#">Web<span>Finances</span></a>
+           routerLink="/">Web<span>Finances</span></a>
 
         <mat-icon (click)="onToggleHamburger()"
                   id="mobile-menu-open"
@@ -13,14 +13,14 @@
                       class="mobile-menu mobile-menu-exit">close</mat-icon>
 
             <ul class="left-nav">
-                <li class="current"><a href="#">Home</a></li>
-                <li><a href="#">Features</a></li>
-                <li><a href="#">Contact</a></li>
+                <div class="item-container"><li><a routerLink="/" routerLinkActive="active-link">Home</a></li></div>
+                <div class="item-container"><li><a routerLink="/">Features</a></li></div>
+                <div class="item-container"><li><a routerLink="/">Contact</a></li></div>
             </ul>
 
             <ul class="right-nav">
-                <li><a href="#">Login</a></li>
-                <li class="register"><a href="#">Register</a></li>
+                <div class="item-container login-container"><li class="login"><a routerLink="/">Login</a></li></div>
+                <div class="item-container register-container"><li class="register"><a routerLink="/">Register</a></li></div>
             </ul>
         </nav>
     </div>
