@@ -1,13 +1,19 @@
 footer {
     display: flex;
-    justify-content: space-between;
-    background: none;
-    position: unset;
-    height: auto;
+    align-items: center;
+    justify-content: center;
     padding: 0;
     width: 100%;
     background-color: var(--primary-blue);
     color: var(--primary-light);
+
+    .container {
+        margin: 0 1rem;
+        display: block;
+        text-align: left;
+        height: auto;
+        padding: 1rem 0;
+    }       
 }
 
 p {
@@ -22,15 +28,13 @@ address {
 .icon {
     margin-right: 0.4rem;
     vertical-align: text-top;
-    font-size: 1.2rem;   
-    width: 1.2rem;
-    height: 1.2rem; 
+    font-size: 1rem;   
+    width: 1rem;
+    height: 1rem; 
 }
 
 .footer-left-col {
-    margin: 1rem 3rem 1rem 8rem;
-
-    .brand-name {
+     .brand-name {
         font-weight: 500;
     }
 
@@ -40,16 +44,55 @@ address {
     }
 }
 
-.footer-right-col {
-    margin: 1rem 8rem 1rem 3rem;
-    font-size: 0.9rem;
+.footer-col {
+    font-size: 0.8rem;
 
-    p {
+    .copyright {
+        font-size: 0.7rem;
+    }
+}
+
+.footer-right-col {
+    margin-top: 1rem;
+}
+
+
+@media only screen and (min-width: 768px) {
+    footer .container {
+        display: flex;
+        justify-content: space-between;
+        position: unset;
+        height: auto;
+        width: 100%;
+    }
+
+    .icon {
+        font-size: 1.2rem;
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+
+    .email {
         margin-bottom: 0.5rem;
     }
 
-    .phone {
-        margin-bottom: 0;
+    .footer-right-col {
+        font-size: 0.9rem;
+        margin-top: 0;
+    
+    }
+    .footer-left-col {
+        font-size: 1rem;
+    }
+ }
+
+@media only screen and (min-width: 1080px) {
+    footer .container {
+        width: 1080px;
+        margin: 0 auto;    
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
     }
 }
 
