@@ -4,6 +4,7 @@
 :root {
     --primary-blue: #1E90FF;
     --text-green: #03C03C;
+    --text-dark: #1C1C1C;
     --primary-green: #AAF0D1;
     --primary-white-blue: #EDF3FB;
     --primary-white-blue2: #dceafc;
@@ -16,6 +17,10 @@ body {
     margin: 0;
     font-size: 1em;
     font-family: "Poppins";
+}
+
+section {
+    padding: 5rem 2rem;
 }
 
 ul {

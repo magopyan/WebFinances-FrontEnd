@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarAnonComponent } from './components/navbar-anon/navbar-anon.component';
 import { HomeComponent } from './components/home/home.component';
+import { HeroComponent } from './components/hero/hero.component';
+import { FeaturesSectionComponent } from './components/features-section/features-section.component';
 
 
 const appRoutes: Routes = [
@@ -20,7 +22,9 @@ const appRoutes: Routes = [
     AppComponent,
     FooterComponent,
     NavbarAnonComponent,
-    HomeComponent
+    HomeComponent,
+    HeroComponent,
+    FeaturesSectionComponent
   ],
   imports: [
     BrowserModule,
