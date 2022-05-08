@@ -48,19 +48,25 @@ input[type="submit"] {
 
 .contact-right {
 
-    padding: 4rem 0 1rem 0;
-    // border-right: 5px solid var(--primary-blue);
-    border-left: 4px solid var(--primary-blue);
-    border-bottom: 4px solid var(--primary-blue);
+    //border-right: 5px solid var(--primary-blue);
+    border-top: 5px solid var(--primary-blue);
+    // border-left: px solid var(--primary-blue);
+    border-bottom: 5px solid var(--primary-blue);
     border-radius: 0.2rem;
     //border: 5px solid var(--primary-blue);
-    text-align: left;
+    text-align: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    height: fit-content;
 
     address {
-        padding-left: 1rem;
         font-style: normal;
         font-size: 1.3rem;
         color: #1977d1;
+        margin: 1rem 0;
+        text-align: justify;
+        display: inline-block;
+        text-align: left;
 
         span {
             color: black;
@@ -79,6 +85,10 @@ input[type="submit"] {
         font-size: 1.3rem;
         width: 1.3rem;
         height: 1.3rem;
+    }
+
+    .location {
+        margin-bottom: 0;
     }
 }
 
@@ -103,9 +113,9 @@ input[type="submit"] {
     }
 
     .contact-right {
-        margin: 19rem 0 10rem 10rem;
-        padding-left: 1rem;
-        padding-right: 3rem;
+       margin: 15rem 0 0 10rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
         
         address {
             vertical-align: middle;
