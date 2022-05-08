@@ -11,10 +11,12 @@ import { NavbarAnonComponent } from './components/navbar-anon/navbar-anon.compon
 import { HomeComponent } from './components/home/home.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { FeaturesSectionComponent } from './components/features-section/features-section.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent}
+  { path: '', component: HomeComponent },
+  { path: 'contact', component: ContactComponent }
 ]
 
 @NgModule({
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     NavbarAnonComponent,
     HomeComponent,
     HeroComponent,
-    FeaturesSectionComponent
+    FeaturesSectionComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

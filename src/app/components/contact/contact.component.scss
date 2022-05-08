@@ -1,0 +1,121 @@
+.contact-section {
+    background-color: var(--primary-green);
+}
+
+.container {
+    padding: 0 1rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: .5rem;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: .3rem;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type="submit"] {
+    background-color: var(--primary-blue);
+    color: white;
+    font-weight: bold;
+    font-size: 1.3rem;
+    border: none;
+    margin-bottom: 5rem;
+    border-radius: 5rem;
+    display: inline-block;
+    padding: 1rem 2rem;
+    width: unset;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #1977d1;
+    }
+}
+
+.contact-right {
+
+    padding: 4rem 0 1rem 0;
+    // border-right: 5px solid var(--primary-blue);
+    border-left: 4px solid var(--primary-blue);
+    border-bottom: 4px solid var(--primary-blue);
+    border-radius: 0.2rem;
+    //border: 5px solid var(--primary-blue);
+    text-align: left;
+
+    address {
+        padding-left: 1rem;
+        font-style: normal;
+        font-size: 1.3rem;
+        color: #1977d1;
+
+        span {
+            color: black;
+        }
+    }
+
+    p {
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        margin-bottom: 0.8rem;
+    }
+
+    .icon {
+        margin-right: 0.4rem;
+        vertical-align: text-top;
+        font-size: 1.3rem;
+        width: 1.3rem;
+        height: 1.3rem;
+    }
+}
+
+
+@media only screen and (min-width: 1080px) { 
+
+    .container {
+        width: 1080px;
+        margin: 0 auto;
+    }
+
+    section {
+        padding: 4rem 4rem 0 6rem;
+    }
+
+    .contact-section {
+        position: relative;
+
+        .container {
+            display: flex;
+        }
+    }
+
+    .contact-right {
+        margin: 19rem 0 10rem 10rem;
+        padding-left: 1rem;
+        padding-right: 3rem;
+        
+        address {
+            vertical-align: middle;
+        }
+
+        .icon {
+            font-size: 1.4rem;
+            width: 1.4rem;
+            height: 1.4rem;
+            margin-right: 0.8rem;
+        }
+    }
+}
