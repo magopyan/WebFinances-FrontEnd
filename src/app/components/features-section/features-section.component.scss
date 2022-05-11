@@ -59,8 +59,8 @@ ul.features-list {
             &:before {
                 width: 30px;
                 height: 30px;
-                left: -3rem;
-                bottom: 0rem;
+                left: -2.7rem;
+                bottom: 0.3rem;
             }
         }
     }
@@ -70,6 +70,7 @@ ul.features-list {
 
         h2 {
             margin: 0 0 6rem 5rem;
+            font-size: 1.8rem;
         }
         // relative, zashtoto img shte e absolute
         img {
@@ -100,10 +101,10 @@ ul.features-list {
             content: '';
             position: absolute;
             width: 200px;
-            height: 20em;
+            height: 20rem;
             background: url('https://assets.codepen.io/2621168/dots.svg') no-repeat;
-            left: 4.5em;
-            top: 2em;
+            left: 4.5rem;
+            top: 2rem;
         }
     }
 }

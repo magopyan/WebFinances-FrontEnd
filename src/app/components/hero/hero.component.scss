@@ -3,6 +3,9 @@
     background-color: var(--primary-green);
 }
 
+a {
+    text-decoration: none;
+}
 
 .left-col {
 
@@ -14,18 +17,15 @@
     .hero-text {
         color: var(--text-dark);
         margin-bottom: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .bottom {
         display: inline-block;
-    
-        .bottom-text {
+
+        .sign-in {
             color: #787878;
-    
-            a {
-                color: #787878;
-                text-decoration: underline;
-            }
+            text-decoration: underline;
         }
 
         .get-started {
@@ -37,12 +37,17 @@
             font-weight: 500;
             display: inline-block;
             margin-bottom: 0.5rem;
-        
+
             &:hover {
                 background-color: #1977d1
             }
         }
     }
+}
+
+.bottom-text {
+    color: #787878;
+    font-size: 0.9rem;
 }
 
 .hero-img {
@@ -61,6 +66,10 @@
 
     .hero-text {
         font-size: 1.5rem;
+    }
+
+    .bottom-text {
+        font-size: 1rem;
     }
 }
 
@@ -83,6 +92,11 @@
 
         .left-col {
             margin: 0 4rem 0 5rem;
+
+            .hero-text {
+                font-size: 1.3rem;
+                font-weight: 400;
+            }
 
             h1 {
                 margin-top: 2rem;

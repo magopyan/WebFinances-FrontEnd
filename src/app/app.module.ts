@@ -4,6 +4,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -14,8 +17,9 @@ import { FeaturesSectionComponent } from './components/features-section/features
 import { ContactComponent } from './components/contact/contact.component';
 
 
+
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'contact', component: ContactComponent }
 ]
 
@@ -34,7 +38,9 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     MatIconModule,
     NoopAnimationsModule,
-    RouterModule.forRoot(appRoutes, { enableTracing: true })
+    RouterModule.forRoot(appRoutes, { enableTracing: true }),
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

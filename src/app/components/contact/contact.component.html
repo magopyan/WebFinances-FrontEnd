@@ -1,24 +1,30 @@
 <section class="contact-section">
     <div class="container">
         <div class="contact-left">
-            <h2>Contact</h2>
+            <h2>Contact Us</h2>
 
-            <form action="">
+            <form (ngSubmit)="onSubmitContactForm()">
                 <label for="name">Name</label>
                 <input type="text"
                        id="name"
-                       name="name">
+                       name="name"
+                       [(ngModel)]="name">
+                <div class="error error-name" [ngClass]="{ hidden: isNameValid }"><span>Please enter your name!</span></div>
 
-                <label for="name">Email</label>
-                <input type="text"
-                        id="email"
-                        name="email">
+                <label for="email">Email</label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       [(ngModel)]="email">
+                <div class="error error-email" [ngClass]="{ hidden: isEmailValid }"><span>Please enter a valid email!</span></div>
 
                 <label for="message">Message</label>
                 <textarea name="message"
                           id="message"
-                          cols="30"
-                          rows="10"></textarea>
+                          cols="15"
+                          rows="10"
+                          [(ngModel)]="message"></textarea>
+                <div class="error error-message" [ngClass]="{ hidden: isMessageValid }"><span>Please leave us a message!</span></div>
 
                 <input type="submit"
                        class="send-message-cta"
