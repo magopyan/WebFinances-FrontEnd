@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ContactService } from 'src/app/services/contact.service';
+import { ContactForm } from 'src/app/models/contact-form';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-contact',
@@ -16,16 +19,43 @@ export class ContactComponent implements OnInit {
   isEmailValid: boolean = true;
   isMessageValid: boolean = true;
 
-  constructor(public snackBar: MatSnackBar) { }
+  constructor(public snackBar: MatSnackBar, private contactService: ContactService) { }
 
   ngOnInit(): void {
   }
 
   onSubmitContactForm(): void {
-    this.resetFlags();
+    this.resetFlagsAndErrorMessages();
+    this.clientSideValidate();
 
+    // Back End Validation
+    if (this.isNameValid && this.isEmailValid && this.isMessageValid) {
+      const contactForm: ContactForm = {
+        name: this.name,
+        email: this.email,
+        message: this.message
+      }
+
+      this.contactService.postForm(contactForm).subscribe({
+        next: (response: Object) => {
+          const map = new Map(Object.entries(response));
+          this.snackBar.open(map.get("response"), '', {
+            duration: 4000,
+            panelClass: ['snackbar']
+          });
+          this.resetFlagsAndErrorMessages();
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          this.handleServerErrors(errorResponse);
+        }
+      })
+    }
+  }
+
+
+  clientSideValidate() {
     // Null check
-    if(this.name == null) {
+    if (this.name == null) {
       this.isNameValid = false;
     }
     if (this.email == null) {
@@ -36,29 +66,54 @@ export class ContactComponent implements OnInit {
     }
 
     // Validation
-    if(this.isNameValid) {
+    if (this.isNameValid) {
       const nameRegexExp = /^[a-zA-Z\- \’']+$/;
       this.isNameValid = nameRegexExp.test(this.name) && this.name.trim().length > 1;
+      if (this.isNameValid && this.name.length > 64) {
+        this.isNameValid = false;
+        document.getElementById("error-name")!.textContent = "Your name should be 64 or less characters long!";
+      }
     }
-    if(this.isEmailValid) {
+    if (this.isEmailValid) {
       const emailRegexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
       this.isEmailValid = emailRegexExp.test(this.email);
     }
-    if(this.isMessageValid) {
+    if (this.isMessageValid) {
       this.isMessageValid = this.message.trim().length > 1;
-    }
-
-    if(this.isNameValid && this.isEmailValid && this.isMessageValid) { 
-      this.snackBar.open('Message successfully submitted.', '', {
-        duration: 4000,
-        panelClass: ['snackbar']
-      });
+      if (this.isMessageValid && this.message.length > 1024) {
+        this.isMessageValid = false;
+        document.getElementById("error-message")!.textContent = "The message is too long!";
+      }
     }
   }
 
-  resetFlags(): void {
+  handleServerErrors(errorResponse: HttpErrorResponse) {
+    if(errorResponse.status == 400) {
+      const errorsMap = new Map<string, string>(Object.entries(errorResponse.error));
+      if(errorsMap.has("name")) {
+        this.isNameValid = false;
+        document.getElementById("error-name")!.textContent = errorsMap.get("name")!;
+      }
+      if (errorsMap.has("email")) {
+        this.isEmailValid = false;
+        document.getElementById("error-email")!.textContent = errorsMap.get("email")!;
+      }
+      if (errorsMap.has("message")) {
+        this.isMessageValid = false;
+        document.getElementById("error-message")!.textContent = errorsMap.get("message")!;
+      }
+    }
+    else {
+      this.snackBar.open("Unexpected error. ❌", "Dismiss");
+    }
+  }
+
+  resetFlagsAndErrorMessages(): void {
     this.isNameValid = true;
     this.isEmailValid = true;
     this.isMessageValid = true;
+
+    document.getElementById("error-name")!.textContent = "Please enter your name!";
+    document.getElementById("error-message")!.textContent = "Please leave us a message!";
   }
 }

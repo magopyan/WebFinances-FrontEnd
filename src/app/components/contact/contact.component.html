@@ -9,22 +9,22 @@
                        id="name"
                        name="name"
                        [(ngModel)]="name">
-                <div class="error error-name" [ngClass]="{ hidden: isNameValid }"><span>Please enter your name!</span></div>
+                <div class="error error-name" [ngClass]="{ hidden: isNameValid }"><span id="error-name">Please enter your name!</span></div>
 
                 <label for="email">Email</label>
                 <input type="email"
                        id="email"
                        name="email"
                        [(ngModel)]="email">
-                <div class="error error-email" [ngClass]="{ hidden: isEmailValid }"><span>Please enter a valid email!</span></div>
+                <div class="error error-email" [ngClass]="{ hidden: isEmailValid }"><span id="error-email">Please enter a valid email!</span></div>
 
                 <label for="message">Message</label>
                 <textarea name="message"
                           id="message"
                           cols="15"
-                          rows="10"
+                          rows="8"
                           [(ngModel)]="message"></textarea>
-                <div class="error error-message" [ngClass]="{ hidden: isMessageValid }"><span>Please leave us a message!</span></div>
+                <div class="error error-message" [ngClass]="{ hidden: isMessageValid }"><span id="error-message">Please leave us a message!</span></div>
 
                 <input type="submit"
                        class="send-message-cta"

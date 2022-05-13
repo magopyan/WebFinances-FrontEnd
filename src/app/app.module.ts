@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { FeaturesSectionComponent } from './components/features-section/features-section.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ContactService } from './services/contact.service';
 
 
 
@@ -40,9 +42,10 @@ const appRoutes: Routes = [
     NoopAnimationsModule,
     RouterModule.forRoot(appRoutes, { enableTracing: true }),
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ContactService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

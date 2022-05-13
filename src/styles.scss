@@ -34,9 +34,21 @@ a {
     text-decoration: none;
 }
 
+// SnackBar with just a message
 .snackbar .mat-simple-snackbar {
+    font-family: "Poppins";
     justify-content: center;
     color: var(--primary-light);
+}
+// SnackBar with message+button
+.ng-star-inserted {
+    font-family: "Poppins";
+    color: var(--primary-light);
+}
+.mat-button {
+    color: red !important;
+    font-family: "Poppins";
+    font-weight: bold;
 }
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
