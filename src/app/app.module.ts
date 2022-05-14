@@ -16,13 +16,15 @@ import { HomeComponent } from './components/home/home.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { FeaturesSectionComponent } from './components/features-section/features-section.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { ContactService } from './services/contact.service';
+import { ValidationService } from './services/validation.service';
+import { RegisterComponent } from './components/register/register.component';
 
 
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'contact', component: ContactComponent }
+  { path: 'contact', component: ContactComponent },
+  { path: 'register', component: RegisterComponent }
 ]
 
 @NgModule({
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     HomeComponent,
     HeroComponent,
     FeaturesSectionComponent,
-    ContactComponent
+    ContactComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     HttpClientModule
   ],
-  providers: [ContactService],
+  providers: [ValidationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

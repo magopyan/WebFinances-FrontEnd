@@ -1,0 +1,44 @@
+<section class="register-section">
+    <div class="container">
+        <div class="register-left">
+            <h2>Create An Account</h2>
+
+            <form (ngSubmit)="onSubmitRegisterForm()">
+                <label for="email">Email</label>
+                <input type="text"
+                       id="email"
+                       name="email"
+                       [(ngModel)]="email">
+                <div class="error error-email"
+                     [ngClass]="{ hidden: isEmailValid }"><span id="error-email">Please enter a valid email!</span>
+                </div>
+
+                <label for="password">Password</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       [(ngModel)]="password">
+                <div class="error error-password"
+                     [ngClass]="{ hidden: isPasswordValid }"><span id="error-password">Your password has to be at least 8 characters long!</span>
+                </div>
+
+                <label for="repeat-password">Repeat Password</label>
+                <input type="password"
+                       id="repeat-password"
+                       name="repeat-password"
+                       [(ngModel)]="repeatPassword">
+                <div class="error error-repeat-password"
+                     [ngClass]="{ hidden: isRepeatPasswordValid }"><span id="error-repeat-password">Your passwords are not matching!</span>
+                </div>
+
+                <input type="submit"
+                       class="register-cta"
+                       value="Register">
+            </form>
+        </div>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/3456/3456388.png"
+             class="register-img"
+             alt="Illustration">
+    </div>
+</section>

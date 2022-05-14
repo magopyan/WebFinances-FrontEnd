@@ -115,13 +115,17 @@ input[type="submit"] {
 
 
 @media only screen and (min-width: 768px) {
+    .contact-left {
+        padding: 0 5rem;
+    }
+
     .contact-right {
-       width: 50%;
-       margin: auto;
+        width: 50%;
+        margin: auto;
     }
 }
 
-@media only screen and (min-width: 1080px) { 
+@media only screen and (min-width: 1080px) {
 
     .container {
         width: 1080px;
@@ -140,10 +144,14 @@ input[type="submit"] {
         }
     }
 
+    .contact-left {
+        padding: 0 0;
+    }
+
     .contact-right {
         width: 30%;
         margin: auto auto auto 10rem;
-        
+
         address {
             vertical-align: middle;
         }

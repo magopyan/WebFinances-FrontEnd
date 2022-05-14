@@ -1,7 +1,7 @@
 <div class="navbar navbar-anon">
     <div class="container">
         <a class="logo"
-           routerLink="/">Web<span>Finances</span></a>
+           routerLink="/home">Web<span>Finances</span></a>
 
         <mat-icon (click)="onToggleHamburger()"
                   id="mobile-menu-open"
@@ -13,17 +13,29 @@
                       class="mobile-menu mobile-menu-exit">close</mat-icon>
 
             <ul class="left-nav">
-                <div class="item-container"><li><a routerLink="/home" routerLinkActive="active-link">Home</a></li></div>
-                <div class="item-container"><li><a routerLink="/">Features</a></li></div>
-                <div class="item-container"><li><a routerLink="/contact" routerLinkActive="active-link">Contact</a></li></div>
+                <div class="item-container">
+                    <li><a routerLink="/home"
+                           routerLinkActive="active-link">Home</a></li>
+                </div>
+                <div class="item-container">
+                    <li><a routerLink="/">Features</a></li>
+                </div>
+                <div class="item-container">
+                    <li><a routerLink="/contact"
+                           routerLinkActive="active-link">Contact</a></li>
+                </div>
             </ul>
 
             <ul class="right-nav">
-                <div class="item-container login-container"><li class="login"><a routerLink="/">Login</a></li></div>
-                <div class="item-container register-container"><li class="register"><a routerLink="/">Register</a></li></div>
+                <div class="item-container login-container">
+                    <li class="login"><a routerLink="/">Login</a></li>
+                </div>
+                <div class="item-container register-container">
+                    <li class="register">
+                        <a routerLink="/register">Register</a>
+                    </li>
+                </div>
             </ul>
         </nav>
     </div>
 </div>
-
-

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ContactService } from 'src/app/services/contact.service';
+import { ValidationService } from 'src/app/services/validation.service';
 import { ContactForm } from 'src/app/models/contact-form';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -19,7 +19,7 @@ export class ContactComponent implements OnInit {
   isEmailValid: boolean = true;
   isMessageValid: boolean = true;
 
-  constructor(public snackBar: MatSnackBar, private contactService: ContactService) { }
+  constructor(public snackBar: MatSnackBar, private contactService: ValidationService) { }
 
   ngOnInit(): void {
   }
@@ -36,7 +36,7 @@ export class ContactComponent implements OnInit {
         message: this.message
       }
 
-      this.contactService.postForm(contactForm).subscribe({
+      this.contactService.postContactForm(contactForm).subscribe({
         next: (response: Object) => {
           const map = new Map(Object.entries(response));
           this.snackBar.open(map.get("response"), '', {
@@ -88,9 +88,9 @@ export class ContactComponent implements OnInit {
   }
 
   handleServerErrors(errorResponse: HttpErrorResponse) {
-    if(errorResponse.status == 400) {
+    if (errorResponse.status == 400) {
       const errorsMap = new Map<string, string>(Object.entries(errorResponse.error));
-      if(errorsMap.has("name")) {
+      if (errorsMap.has("name")) {
         this.isNameValid = false;
         document.getElementById("error-name")!.textContent = errorsMap.get("name")!;
       }
