@@ -6,8 +6,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { HttpClientModule, HttpHeaders } from '@angular/common/http';
-
+import { HttpClientModule } from '@angular/common/http';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -18,13 +19,31 @@ import { FeaturesSectionComponent } from './components/features-section/features
 import { ContactComponent } from './components/contact/contact.component';
 import { ValidationService } from './services/validation.service';
 import { RegisterComponent } from './components/register/register.component';
+import { NavbarLoggedComponent } from './components/navbar-logged/navbar-logged.component';
+import { LoginComponent } from './components/login/login.component';
+import { AccountsComponent } from './components/accounts/accounts.component';
+import { FirebaseAuthService } from './services/firebase-auth.service';
+import { AccountsService } from './services/accounts.service';
 
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCIlnsyDeZcG_eruXmOwUdCEfQwOLDhRAI",
+  authDomain: "web-finances.firebaseapp.com",
+  projectId: "web-finances",
+  storageBucket: "web-finances.appspot.com",
+  messagingSenderId: "737057594981",
+  appId: "1:737057594981:web:9596940201bea8a607308c"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'accounts', component: AccountsComponent }
 ]
 
 @NgModule({
@@ -36,7 +55,10 @@ const appRoutes: Routes = [
     HeroComponent,
     FeaturesSectionComponent,
     ContactComponent,
-    RegisterComponent
+    RegisterComponent,
+    NavbarLoggedComponent,
+    LoginComponent,
+    AccountsComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +68,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, { enableTracing: true }),
     FormsModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [ValidationService],
+  providers: [ValidationService, FirebaseAuthService, AccountsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

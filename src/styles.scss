@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
+
 :root {
     --primary-blue: #1E90FF;
     --text-green: #03C03C;
@@ -11,16 +12,39 @@
     --light-blue: #C4D9E8;
     --primary-dark: #202D2E;
     --primary-light: #F5F5F5;
+    --error: #D70040;
 }
+
+:host {
+    // height: 100%
+
+}
+
 
 body {
     margin: 0;
-    font-size: 1em;
+    font-size: 1rem;
     font-family: "Poppins";
+    min-height: 100vh;
+}
+
+html,
+body,
+app-root,
+app-component {
+    margin: 0;
+    min-height: 100vh;
+    // display: flex;
+    // flex-direction: column;
 }
 
 section {
     padding: 5rem 2rem;
+}
+
+p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 
 ul {
@@ -40,15 +64,22 @@ a {
     justify-content: center;
     color: var(--primary-light);
 }
+
 // SnackBar with message+button
 .ng-star-inserted {
     font-family: "Poppins";
     color: var(--primary-light);
 }
+
 .mat-button {
     color: red !important;
     font-family: "Poppins";
     font-weight: bold;
 }
+
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+section {
+    color: black;
+}

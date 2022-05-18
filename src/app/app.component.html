@@ -1,3 +1,16 @@
-<app-navbar-anon></app-navbar-anon>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div class="parent-container">
+    <div class="navbar-container">
+        <app-navbar-logged *ngIf="currentUser != null"
+                           class="nav"></app-navbar-logged>
+        <app-navbar-anon *ngIf="currentUser == null"
+                         class="nav"></app-navbar-anon>
+    </div>
+    <div class="router-container">
+        <router-outlet class="router"></router-outlet>
+    </div>
+
+    <div class="footer-container">
+        <app-footer></app-footer>
+    </div>
+
+</div>

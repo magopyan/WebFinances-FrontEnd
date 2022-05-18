@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ValidationService } from 'src/app/services/validation.service';
 import { ContactForm } from 'src/app/models/contact-form';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 
 @Component({
   selector: 'app-contact',
@@ -19,9 +20,13 @@ export class ContactComponent implements OnInit {
   isEmailValid: boolean = true;
   isMessageValid: boolean = true;
 
-  constructor(public snackBar: MatSnackBar, private contactService: ValidationService) { }
+  currentUser: any;
+
+  constructor(public snackBar: MatSnackBar, private contactService: ValidationService, private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
+    this.firebaseAuthService.getUser().subscribe(
+      (user) => this.email = user.email);   
   }
 
   onSubmitContactForm(): void {
@@ -104,7 +109,7 @@ export class ContactComponent implements OnInit {
       }
     }
     else {
-      this.snackBar.open("Unexpected error. ❌", "Dismiss");
+      this.snackBar.open("Server error. ❌", "Dismiss");
     }
   }
 

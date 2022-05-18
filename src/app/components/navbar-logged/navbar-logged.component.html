@@ -1,4 +1,4 @@
-<div class="navbar navbar-anon">
+<div class="navbar navbar-logged">
     <div class="container">
         <a class="logo"
            routerLink="/home">Web<span>Finances</span></a>
@@ -14,28 +14,28 @@
 
             <ul class="left-nav">
                 <div class="item-container">
-                    <li><a (click)="onToggleHamburger()" routerLink="/home"
-                           routerLinkActive="active-link">Home</a></li>
+                    <li><a (click)="onToggleHamburger()" routerLink="/dashboard"
+                           routerLinkActive="active-link">Dashboard</a></li>
                 </div>
                 <div class="item-container">
-                    <li><a (click)="onToggleHamburger()" routerLink="/">Features</a></li>
+                    <li><a (click)="onToggleHamburger()" routerLink="/accounts"
+                           routerLinkActive="active-link">Accounts</a></li>
                 </div>
+                <div class="item-container">
+                    <li><a (click)="onToggleHamburger()" routerLink="/reports"
+                           routerLinkActive="active-link">Reports</a></li>
+                </div>
+            </ul>
+
+
+            <ul class="right-nav">
                 <div class="item-container">
                     <li><a (click)="onToggleHamburger()" routerLink="/contact"
                            routerLinkActive="active-link">Contact</a></li>
                 </div>
-            </ul>
-
-            <ul class="right-nav">
-                <div class="item-container login-container">
-                    <li class="login">
-                        <a (click)="onToggleHamburger()" routerLink="/login">Login</a>
-                    </li>
-                </div>
-                <div class="item-container register-container">
-                    <li class="register">
-                        <a (click)="onToggleHamburger()" routerLink="/register">Register</a>
-                    </li>
+                <div class="item-container sign-out">
+                    <li><a (click)="signOut()"
+                           routerLink="/home">Sign Out</a></li>
                 </div>
             </ul>
         </nav>

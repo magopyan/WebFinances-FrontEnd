@@ -1,8 +1,8 @@
-.register-section {
+.login-section {
     background-color: var(--primary-green);
 }
 
-img { 
+img {
     display: none;
 }
 
@@ -40,8 +40,14 @@ input {
     color: var(--error)
 }
 
-.error-repeat-password {
-    margin-bottom: 1.5rem;
+.error-logged-in {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 5rem;
+}
+
+.error-password {
+    margin-bottom: 1.7rem;
 }
 
 .hidden {
@@ -68,8 +74,9 @@ input[type="submit"] {
 
 @media only screen and (min-width: 768px) {
 
-    .register-left {
+    .login-left {
         padding: 0 5rem;
+        margin-bottom: 5.4rem;
     }
 }
 
@@ -84,9 +91,8 @@ input[type="submit"] {
         padding: 4rem 4rem 0 6rem;
     }
 
-    .register-left {
+    .login-left {
         padding: 2rem 2rem;
-        margin-bottom: 5rem;
         width: 45%;
         //border-radius: 2rem;
         //border: 4px solid var(--primary-light);
@@ -96,7 +102,7 @@ input[type="submit"] {
         width: 100%;
     }
 
-    .register-section {
+    .login-section {
         position: relative;
 
         .container {
@@ -105,10 +111,10 @@ input[type="submit"] {
     }
 
     img {
-        left: 65%;
+        left: 60%;
         width: 25%;
         display: block;
         position: absolute;
-        bottom: -2%;
-     }
+        bottom: 5rem;
+    }
 }

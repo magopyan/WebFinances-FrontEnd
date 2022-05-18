@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { UserRegisterForm } from 'src/app/models/user-register-form';
 import { ValidationService } from 'src/app/services/validation.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
+
 
 @Component({
   selector: 'app-register',
@@ -20,16 +23,24 @@ export class RegisterComponent implements OnInit {
   isPasswordValid: boolean = true;
   isRepeatPasswordValid: boolean = true;
 
-  constructor(private router: Router, private validationService: ValidationService, public snackBar: MatSnackBar) { }
+  currentUser: any;
+
+  constructor(private router: Router, private validationService: ValidationService, 
+    private firebaseAuthService: FirebaseAuthService, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.firebaseAuthService.getUser().subscribe(
+      (user) => this.currentUser = user);
+  }
+
+  signOut(): void {
+    getAuth().signOut();
   }
 
   onSubmitRegisterForm(): void {
     this.resetFlagsAndErrorMessages();
-   // this.clientSideValidate();
+    this.clientSideValidate();
 
-    // Back End Validation
     if (this.isEmailValid && this.isPasswordValid && this.isRepeatPasswordValid) {
       const userForm: UserRegisterForm = {
         email: this.email,
@@ -39,11 +50,30 @@ export class RegisterComponent implements OnInit {
 
       this.validationService.postRegisterForm(userForm).subscribe({
         next: (response: Object) => {
-          const map = new Map(Object.entries(response));
-          this.snackBar.open(map.get("response"), '', {
-            duration: 4000,
-            panelClass: ['snackbar']
-          });
+          const auth = getAuth();
+          createUserWithEmailAndPassword(auth, this.email, this.password)
+            .then((userCredential) => {
+              sendEmailVerification(this.currentUser);
+              this.signOut();
+              console.log(userCredential.user.emailVerified);
+              this.email = "";
+              this.password = "";
+              this.repeatPassword = "";
+              const map = new Map(Object.entries(response));
+              this.snackBar.open(map.get("response"), '', {
+                duration: 4000,
+                panelClass: ['snackbar']
+              });
+            })
+            .catch((error) => {
+              if (error.code == "auth/email-already-in-use") {
+                this.isEmailValid = false;
+                document.getElementById("error-email")!.textContent = "This email is already taken!";
+              }
+              else {
+                this.snackBar.open("Unexpected Firebase error! ❌", "Dismiss");
+              }
+            });
           this.resetFlagsAndErrorMessages();
         },
         error: (errorResponse: HttpErrorResponse) => {
@@ -64,7 +94,6 @@ export class RegisterComponent implements OnInit {
     if (this.repeatPassword == null) {
       this.isRepeatPasswordValid = false;
     }
-
     if (this.isEmailValid) {
       const emailRegexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
       this.isEmailValid = emailRegexExp.test(this.email);
@@ -98,7 +127,8 @@ export class RegisterComponent implements OnInit {
       }
     }
     else {
-      this.snackBar.open("Unexpected error. ❌", "Dismiss");
+      console.log(errorResponse.error);
+      this.snackBar.open("Server error. ❌", "Dismiss");
     }
   }
 
@@ -106,7 +136,6 @@ export class RegisterComponent implements OnInit {
     this.isEmailValid = true;
     this.isPasswordValid = true;
     this.isRepeatPasswordValid = true;
-
     document.getElementById("error-password")!.textContent = "Your password has to be at least 8 characters long!";
   }
 }

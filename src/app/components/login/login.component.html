@@ -1,0 +1,40 @@
+<section class="login-section">
+    <div class="container">
+        <div class="login-left">
+            <h2>Sign In</h2>
+
+            <form (ngSubmit)="onSubmitLoginForm()">
+                <label for="email">Email</label>
+                <input type="text"
+                       id="email"
+                       name="email"
+                       [(ngModel)]="email">
+                <div class="error error-email"
+                     [ngClass]="{ hidden: isEmailValid }"><span id="error-email">Please enter a valid email!</span>
+                </div>
+
+                <label for="password">Password</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       [(ngModel)]="password">
+                <div class="error error-password"
+                     [ngClass]="{ hidden: isPasswordValid }"><span id="error-password">Your password is at least 8
+                        characters
+                        long!</span>
+                </div>
+
+                <input type="submit"
+                       class="login-cta"
+                       value="Login">
+            </form>
+        </div>
+        <!-- <div class="error-logged-in">
+            You are already logged in. Please log out first.
+        </div> -->
+
+        <img src="https://klinika.ph/klinika/images/login.svg"
+             class="login-img"
+             alt="Illustration">
+    </div>
+</section>
