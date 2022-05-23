@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountsComponent implements OnInit {
 
+  totalBalance: number = 0;
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

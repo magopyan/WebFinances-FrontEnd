@@ -1,0 +1,54 @@
+.top {
+    display: flex;
+    place-content: space-between;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+.total {
+    font-size: 1.2rem;
+
+    span {
+        font-weight: bold;
+    }
+}
+
+input[type="button"] {
+    margin-top: 1rem;
+    background-color: var(--primary-blue);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+    margin-bottom: 5rem;
+    border-radius: 5rem;
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    width: unset;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #1977d1;
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+
+    .container {
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    section {
+        padding: 5rem 4rem 4rem 4rem;
+    }
+
+    .top-left-col {
+        margin-right: 0;
+    }
+}

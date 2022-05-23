@@ -6,6 +6,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatRadioModule } from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
@@ -24,6 +26,9 @@ import { LoginComponent } from './components/login/login.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { FirebaseAuthService } from './services/firebase-auth.service';
 import { AccountsService } from './services/accounts.service';
+import { AddAccountComponent } from './components/add-account/add-account.component';
+import { StaticDataService } from './services/static-data.service';
+import { AccountTypeViewComponent } from './components/account-type-view/account-type-view.component';
 
 
 const firebaseConfig = {
@@ -43,7 +48,8 @@ const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'accounts', component: AccountsComponent }
+  { path: 'accounts', component: AccountsComponent },
+  { path: 'add-account', component: AddAccountComponent }
 ]
 
 @NgModule({
@@ -58,7 +64,9 @@ const appRoutes: Routes = [
     RegisterComponent,
     NavbarLoggedComponent,
     LoginComponent,
-    AccountsComponent
+    AccountsComponent,
+    AddAccountComponent,
+    AccountTypeViewComponent
   ],
   imports: [
     BrowserModule,
@@ -68,9 +76,11 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, { enableTracing: true }),
     FormsModule,
     MatSnackBarModule,
-    HttpClientModule,
+    MatStepperModule,
+    MatRadioModule,
+    HttpClientModule
   ],
-  providers: [ValidationService, FirebaseAuthService, AccountsService],
+  providers: [ValidationService, FirebaseAuthService, AccountsService, StaticDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,49 @@
+<section class="add-account-section">
+    <div class="container">
+        <div class="top">
+            <div class="top-left-col">
+            </div>
+
+            <div class="top-right-col">
+                <mat-horizontal-stepper linear #stepper>
+                    <!-- labelPosition="bottom" -->
+                    <mat-step label="Account Type"  #step>
+
+                        <div class="form1">
+                            <h3>Choose an account type:</h3>
+                            <div class="types-container">
+                                <div class="option"
+                                     *ngFor="let accountType of accountTypes">
+                                    <app-account-type-view [accountType]=accountType></app-account-type-view>
+                                </div>
+                                <!-- <div class="error"
+                                     [ngClass]="{ 'hidden': chosenAccountType != null }">Please select an account type!</div> -->
+                            </div>
+                            <div class="buttons-container">
+                                <input (click)="onCloseStepper()"
+                                       type="button"
+                                       class="btn cancel"
+                                       value="Cancel">
+                                <input (click)="onSubmitFirstStep(stepper)"
+                                       type="button"
+                                       class="btn next"
+                                       value="Next">
+                            </div>
+                        </div>
+
+                    </mat-step>
+                    <mat-step label="Details">
+                        <div class="form2">
+                            <h3>Enter some details:</h3>
+                        </div>
+                    </mat-step>
+                    <mat-step label="Finish">
+                        <div class="form3">
+                            <h3>Confirm your new account:</h3>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
 
 :root {
     --primary-blue: #1E90FF;
@@ -13,6 +16,7 @@
     --primary-dark: #202D2E;
     --primary-light: #F5F5F5;
     --error: #D70040;
+    --caffbf: #caffbf;
 }
 
 :host {
@@ -67,8 +71,9 @@ a {
 
 // SnackBar with message+button
 .ng-star-inserted {
-    font-family: "Poppins";
-    color: var(--primary-light);
+    //font-family: "Poppins";
+    //color: var(--primary-light);
+    color: black;
 }
 
 .mat-button {
@@ -81,5 +86,15 @@ a {
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 section {
+    color: black;
+}
+
+.basic-container .mat-step-header .mat-step-icon-selected {
+    background-color: #6cb73a;
+    color: black;
+}
+
+.mat-step-header .mat-step-icon {
+    background-color: var(--primary-blue);
     color: black;
 }

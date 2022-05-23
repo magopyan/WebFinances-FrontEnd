@@ -1,0 +1,30 @@
+.container {
+    padding: 1rem 2rem 0.3rem 2rem;
+    position: relative;
+    border-bottom: 2px solid rgba(211, 211, 211, 0.563);
+    height: 50px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.container:hover {
+        background: var(--primary-white-blue2);
+}
+
+img {
+    margin-left: 5rem;
+    width: 40px;
+    margin-right: 0.7rem;
+    padding: 0;
+}
+
+span {
+    position: absolute;
+    top: 25px;
+    font-size: 1.2rem;
+
+}
+
+.selected {
+    background: #92bfdf;
+}
