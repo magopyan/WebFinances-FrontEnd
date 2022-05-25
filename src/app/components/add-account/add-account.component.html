@@ -1,13 +1,13 @@
 <section class="add-account-section">
     <div class="container">
         <div class="top">
-            <div class="top-left-col">
-            </div>
-
             <div class="top-right-col">
-                <mat-horizontal-stepper linear #stepper>
+                
+                <mat-horizontal-stepper linear
+                                        #stepper>
                     <!-- labelPosition="bottom" -->
-                    <mat-step label="Account Type"  #step>
+                    <mat-step label="Account Type"
+                              #step>
 
                         <div class="form1">
                             <h3>Choose an account type:</h3>
@@ -19,7 +19,7 @@
                                 <!-- <div class="error"
                                      [ngClass]="{ 'hidden': chosenAccountType != null }">Please select an account type!</div> -->
                             </div>
-                            <div class="buttons-container">
+                            <div class="buttons-container b1">
                                 <input (click)="onCloseStepper()"
                                        type="button"
                                        class="btn cancel"
@@ -35,11 +35,58 @@
                     <mat-step label="Details">
                         <div class="form2">
                             <h3>Enter some details:</h3>
+
+                            <form (ngSubmit)="onSubmitSecondStep(stepper)">
+                                <label for="name">Account Name</label>
+                                <input type="text"
+                                       id="name"
+                                       name="name"
+                                       [(ngModel)]="name">
+                                <div class="error error-name"
+                                     [ngClass]="{ hidden: isNameValid }"><span id="error-name">Please enter a name for
+                                        your account!</span></div>
+
+                                <label for="email">Starting Balance</label>
+                                <input type="balance"
+                                       id="balance"
+                                       name="balance"
+                                       [(ngModel)]="balance">
+                                <div class="error error-balance"
+                                     [ngClass]="{ hidden: isBalanceValid }"><span id="error-balance">Please enter a
+                                        valid
+                                        starting balance! <i>(Example: 123.45)</i>
+                                    </span></div>
+
+                                <div class="buttons-container b2">
+                                    <input (click)="onStepBack(stepper)"
+                                           type="button"
+                                           class="btn cancel"
+                                           value="Back">
+                                    <input (click)="onSubmitFirstStep(stepper)"
+                                           type="submit"
+                                           class="btn next"
+                                           value="Next">
+                                </div>
+                            </form>
                         </div>
                     </mat-step>
+
                     <mat-step label="Finish">
                         <div class="form3">
                             <h3>Confirm your new account:</h3>
+                            <div class="account-view">
+                                <app-account-view [account]="newAccount"></app-account-view>
+                            </div>
+                            <div class="buttons-container b2">
+                                <input (click)="onStepBack(stepper)"
+                                       type="button"
+                                       class="btn cancel"
+                                       value="Back">
+                                <input (click)="onCreateAccount(stepper)"
+                                       type="submit"
+                                       class="btn next"
+                                       value="Next">
+                            </div>
                         </div>
                     </mat-step>
                 </mat-horizontal-stepper>

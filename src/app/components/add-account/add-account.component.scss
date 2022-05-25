@@ -1,5 +1,5 @@
 section {
-    padding-bottom: 2rem;
+    padding: 2rem 2rem;
 }
 
 .exit {
@@ -14,11 +14,10 @@ img {
     width: 64px;
 }
 
-.container {
-    margin: auto;
-    width: 50%;
-   // border: 5px solid #FFFF00;
-    padding: 0 3rem 1rem 3rem;
+
+
+.form1 {
+    width: 100%;
 }
 
 mat-horizontal-stepper {
@@ -40,13 +39,13 @@ h3 {
     background: var(--primary-white-blue);
     border: 3px solid var(--primary-blue);
     border-radius: 20px;
-    width: 400px;
+    width: 80%;
     margin: 0 auto;
 }
 
 .buttons-container {
-    width: 400px;
-    margin: 3rem auto 1rem auto;
+    width: 80%;
+    margin: 3rem auto 0 auto;
     display: flex;
     justify-content: center;
 
@@ -63,7 +62,7 @@ h3 {
         background-color: var(--primary-blue);
         color: white;
         border: none;
-        margin-left: 2rem;
+        margin-left: 1rem;
         padding: 0.6rem 2.3rem;
 
         &:hover {
@@ -84,8 +83,90 @@ h3 {
         font-size: 0.9rem;
         color: #D70040;
     }
+}
 
-    .hidden {
-        display: none;
+
+.hidden {
+    visibility: hidden;
+}
+
+label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.4rem;
+    margin-bottom: 0.3rem;
+    border-radius: 0.3rem;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    resize: none;
+}
+
+.error {
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #D70040;
+}
+
+.error-balance {
+    display: inline-block;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+form {
+    width: 85%;
+    margin: 0 auto;
+}
+
+@media only screen and (min-width: 768px) {
+    .types-container {
+        width: 400px;
+    }
+
+    form {
+        width: 50%
+    }
+
+    .b1 {
+        margin-top: 4rem;
+    }
+
+    .b2 {
+      
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+    .types-container {
+        background: var(--primary-white-blue);
+        border: 3px solid var(--primary-blue);
+        border-radius: 20px;
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    section {
+        padding: 4rem 2rem 1rem 2rem;
+    }
+
+    form {
+        width: 75%
+    }
+
+    .container {
+        margin: auto;
+        width: 50%;
+        // border: 5px solid #FFFF00;
+        padding: 0 3rem 1rem 3rem;
+    }
+
+    .content {
+        margin: 0 auto;
     }
 }

@@ -1,7 +1,8 @@
 <div class="navbar navbar-logged">
     <div class="container">
         <a class="logo"
-           routerLink="/home">Web<span>Finances</span></a>
+           routerLink="/home">Web<span>Finances {{ uid }}</span></a>
+           
 
         <mat-icon (click)="onToggleHamburger()"
                   id="mobile-menu-open"

@@ -8,22 +8,32 @@ import { Observable, Subject } from 'rxjs';
 export class FirebaseAuthService {
 
   private user!: any;
-  private subject = new Subject<any>();
+  private userSubject = new Subject<any>();
+  private email!: any;
+  private emailSubject = new Subject<any>();
 
-  constructor() { 
+  constructor() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        this.user = user
-        this.subject.next(this.user);
+        this.user = user;
+        this.userSubject.next(user);
+        this.email = user.email;
+        this.emailSubject.next(user.email);
       } else {
         this.user = null;
-        this.subject.next(this.user);
+        this.userSubject.next(user);
+        this.email = null;
+        this.emailSubject.next(user);
       }
     })
   }
 
   getUser(): Observable<any> {
-    return this.subject.asObservable();
+    return this.userSubject.asObservable();
+  }
+
+  getEmail(): Observable<any> {
+    return this.emailSubject.asObservable();
   }
 }

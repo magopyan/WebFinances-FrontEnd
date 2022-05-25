@@ -1,4 +1,8 @@
-<div class="container" (click)="onSelectAccountType()" [ngClass]="{ 'selected': chosenAccountType?.id == accountType.id }">    
-    <img src="{{ accountType?.imageUrl }}">
-    <span>{{ accountType?.name }}</span>
+<div class="container"
+     (click)="onSelectAccountType()"
+     [ngClass]="{ 'selected': chosenAccountType?.id == accountType.id }">
+    <div class="content">
+        <img src="{{ accountType?.imageUrl }}">
+        <span>{{ accountType?.name }}</span>
+    </div>
 </div>

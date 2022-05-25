@@ -28,3 +28,9 @@ span {
 .selected {
     background: #92bfdf;
 }
+
+@media only screen and (max-width: 768px) {
+    img {
+        margin-left: 2rem;
+    }
+ }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getAuth, signOut } from "firebase/auth";
+import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 
 
 @Component({
@@ -9,11 +10,15 @@ import { getAuth, signOut } from "firebase/auth";
 })
 export class NavbarLoggedComponent implements OnInit {
 
+  uid!: any;
+
   showMobileMenu: boolean = false;
 
-  constructor() { }
+  constructor(private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
+    this.firebaseAuthService.getUser().subscribe(
+      (user) => this.uid = user.uid);   
   }
 
   onToggleHamburger() {

@@ -98,3 +98,33 @@ section {
     background-color: var(--primary-blue);
     color: black;
 }
+
+
+@media only screen and (max-width: 1080px) {
+
+    .mat-horizontal-stepper-header-container {
+        margin-bottom: 20px;
+    }
+
+    .mat-horizontal-stepper-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: -15px;
+    }
+
+    .mat-step-label {
+        position: relative;
+        top: 10px;
+    }
+
+    .mat-stepper-horizontal-line {
+        margin: 0 -30px !important;
+    }
+
+    .mat-horizontal-stepper-header .mat-step-icon,
+    .mat-horizontal-stepper-header .mat-step-icon-not-touched {
+        margin-right: 0 !important;
+    }
+}

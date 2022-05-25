@@ -29,6 +29,7 @@ import { AccountsService } from './services/accounts.service';
 import { AddAccountComponent } from './components/add-account/add-account.component';
 import { StaticDataService } from './services/static-data.service';
 import { AccountTypeViewComponent } from './components/account-type-view/account-type-view.component';
+import { AccountViewComponent } from './components/account-view/account-view.component';
 
 
 const firebaseConfig = {
@@ -66,7 +67,8 @@ const appRoutes: Routes = [
     LoginComponent,
     AccountsComponent,
     AddAccountComponent,
-    AccountTypeViewComponent
+    AccountTypeViewComponent,
+    AccountViewComponent
   ],
   imports: [
     BrowserModule,

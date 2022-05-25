@@ -1,6 +1,5 @@
 <section class="accounts-section">
     <div class="container">
-
         <div class="top">
             <div class="top-left-col">
                 <h2>Your Accounts</h2>
@@ -12,11 +11,13 @@
                        class="add-cta"
                        value="+ NEW">
             </div>
-            
+
         </div>
 
         <div class="main">
-
+            <p *ngFor="let account of accounts">
+                {{account.name}}
+            </p>
         </div>
     </div>
 </section>

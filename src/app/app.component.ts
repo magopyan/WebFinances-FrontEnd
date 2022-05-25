@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.firebaseAuthService.getUser().subscribe(
-      (user) => this.currentUser = user);
+      (user) => this.currentUser = user
+    );
   }
 }

@@ -4,6 +4,7 @@ import { ValidationService } from 'src/app/services/validation.service';
 import { ContactForm } from 'src/app/models/contact-form';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
@@ -13,27 +14,29 @@ import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 export class ContactComponent implements OnInit {
 
   name!: string;
-  email!: string;
+  email!: any;
   message!: string;
 
   isNameValid: boolean = true;
   isEmailValid: boolean = true;
   isMessageValid: boolean = true;
 
-  currentUser: any;
+  emailFromUser: any;
 
-  constructor(public snackBar: MatSnackBar, private contactService: ValidationService, private firebaseAuthService: FirebaseAuthService) { }
+  constructor(public snackBar: MatSnackBar, private validationService: ValidationService, private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
-    this.firebaseAuthService.getUser().subscribe(
-      (user) => this.email = user.email);   
+    this.firebaseAuthService.getEmail().subscribe(
+      (email) => {
+        document.getElementById("email")!.textContent = email;
+      }
+    );
   }
 
   onSubmitContactForm(): void {
     this.resetFlagsAndErrorMessages();
     this.clientSideValidate();
 
-    // Back End Validation
     if (this.isNameValid && this.isEmailValid && this.isMessageValid) {
       const contactForm: ContactForm = {
         name: this.name,
@@ -41,7 +44,7 @@ export class ContactComponent implements OnInit {
         message: this.message
       }
 
-      this.contactService.postContactForm(contactForm).subscribe({
+      this.validationService.postContactForm(contactForm).subscribe({
         next: (response: Object) => {
           const map = new Map(Object.entries(response));
           this.snackBar.open(map.get("response"), '', {
