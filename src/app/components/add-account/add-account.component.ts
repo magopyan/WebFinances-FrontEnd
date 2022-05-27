@@ -1,4 +1,3 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,7 +7,7 @@ import { map, Observable } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { AccountForm } from 'src/app/models/account-form';
 import { AccountType } from 'src/app/models/account-type';
-import { AccountsService } from 'src/app/services/accounts.service';
+import { AccountService } from 'src/app/services/account.service';
 import { SelectAccountTypeService } from 'src/app/services/select-account-type.service';
 import { StaticDataService } from 'src/app/services/static-data.service';
 import { ValidationService } from 'src/app/services/validation.service';
@@ -38,7 +37,7 @@ export class AddAccountComponent implements OnInit {
   currentUser: any;
 
   constructor(private router: Router, private staticDataService: StaticDataService, private validationService: ValidationService,
-    public snackBar: MatSnackBar, private selectAccountTypeService: SelectAccountTypeService, private accountsService: AccountsService) {
+    public snackBar: MatSnackBar, private selectAccountTypeService: SelectAccountTypeService, private accountService: AccountService) {
   }
 
   ngOnInit(): void {
@@ -105,7 +104,7 @@ export class AddAccountComponent implements OnInit {
   }
 
   onCreateAccount(stepper: MatStepper) {
-    this.accountsService.addAccount(this.newAccount).subscribe({
+    this.accountService.addAccount(this.newAccount).subscribe({
       next: (response: Account) => {
         this.snackBar.open("Account saved successfully! ✔️", '', {
           duration: 4000,

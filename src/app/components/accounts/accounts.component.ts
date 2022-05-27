@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Account } from 'src/app/models/account';
-import { AccountsService } from 'src/app/services/accounts.service';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-accounts',
@@ -16,14 +16,14 @@ export class AccountsComponent implements OnInit {
 
   currentUser: any;
 
-  constructor(private accountsService: AccountsService, public snackBar: MatSnackBar) { }
+  constructor(private accountService: AccountService, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAccounts();
   }
 
   getAccounts(): void {
-    this.accountsService.getAccounts().subscribe({
+    this.accountService.getAccounts().subscribe({
       next: (response: Account[]) => {
         this.accounts = response;
         for (let i = 0; i < this.accounts.length; i++) {
@@ -31,7 +31,7 @@ export class AccountsComponent implements OnInit {
         }
       },
       error: (error: HttpErrorResponse) => {
-        this.snackBar.open(`Error when retrieving accounts. Code ${error.status} ❌`, "Dismiss");
+        this.snackBar.open(`Error when retrieving accounts. Code ${error.message} ❌`, "Dismiss");
       }
     })
   }

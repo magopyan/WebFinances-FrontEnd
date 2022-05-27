@@ -13,20 +13,30 @@ export class FirebaseAuthService {
   private emailSubject = new Subject<any>();
 
   constructor() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(getAuth(), (user) => {
       if (user) {
         this.user = user;
         this.userSubject.next(user);
         this.email = user.email;
         this.emailSubject.next(user.email);
-      } else {
+      }
+      else {
         this.user = null;
         this.userSubject.next(user);
         this.email = null;
-        this.emailSubject.next(user);
+        this.emailSubject.next(null);
       }
     })
+  }
+
+  getToken(): any {
+    if (getAuth != null && getAuth().currentUser != null) {
+      getAuth()?.currentUser?.getIdToken(true).then(function (idToken) {
+        return idToken;
+      }).catch(function (error) {
+        console.log("error fetching JTW");
+      });
+    }
   }
 
   getUser(): Observable<any> {

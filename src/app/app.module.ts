@@ -25,11 +25,11 @@ import { NavbarLoggedComponent } from './components/navbar-logged/navbar-logged.
 import { LoginComponent } from './components/login/login.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { FirebaseAuthService } from './services/firebase-auth.service';
-import { AccountsService } from './services/accounts.service';
 import { AddAccountComponent } from './components/add-account/add-account.component';
 import { StaticDataService } from './services/static-data.service';
 import { AccountTypeViewComponent } from './components/account-type-view/account-type-view.component';
 import { AccountViewComponent } from './components/account-view/account-view.component';
+import { AccountService } from './services/account.service';
 
 
 const firebaseConfig = {
@@ -82,7 +82,7 @@ const appRoutes: Routes = [
     MatRadioModule,
     HttpClientModule
   ],
-  providers: [ValidationService, FirebaseAuthService, AccountsService, StaticDataService],
+  providers: [ValidationService, FirebaseAuthService, AccountService, StaticDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
