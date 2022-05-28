@@ -113,7 +113,7 @@ export class AddAccountComponent implements OnInit {
         this.router.navigate(['accounts']);
       },
       error: (error: HttpErrorResponse) => {
-        this.snackBar.open("Server error, please try again. ❌", "Dismiss");
+        this.snackBar.open(error.message + " ❌", "Dismiss");
       }
     })
   }

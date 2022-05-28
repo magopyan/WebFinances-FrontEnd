@@ -21,16 +21,16 @@ export class ContactComponent implements OnInit {
   isEmailValid: boolean = true;
   isMessageValid: boolean = true;
 
-  emailFromUser: any;
+  subscription!: Subscription;
 
   constructor(public snackBar: MatSnackBar, private validationService: ValidationService, private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
-    this.firebaseAuthService.getEmail().subscribe(
-      (email) => {
-        document.getElementById("email")!.textContent = email;
-      }
-    );
+    this.email = this.firebaseAuthService.getCurrentUser()?.email;
+    this.firebaseAuthService.getUser().subscribe(user => {
+      console.log(user);
+      this.email = user.email;
+    })
   }
 
   onSubmitContactForm(): void {
@@ -62,7 +62,6 @@ export class ContactComponent implements OnInit {
 
 
   clientSideValidate() {
-    // Null check
     if (this.name == null) {
       this.isNameValid = false;
     }
@@ -73,7 +72,6 @@ export class ContactComponent implements OnInit {
       this.isMessageValid = false;
     }
 
-    // Validation
     if (this.isNameValid) {
       const nameRegexExp = /^[a-zA-Z\- \’']+$/;
       this.isNameValid = nameRegexExp.test(this.name) && this.name.trim().length > 1;

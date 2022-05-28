@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { FirebaseAuthService } from './services/firebase-auth.service';
 
 @Component({
@@ -9,12 +10,15 @@ import { FirebaseAuthService } from './services/firebase-auth.service';
 export class AppComponent implements OnInit {
 
   currentUser: any;
+  subscription!: Subscription;
 
   constructor(private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
-    this.firebaseAuthService.getUser().subscribe(
-      (user) => this.currentUser = user
-    );
+    this.currentUser = this.firebaseAuthService.getCurrentUser();
+    this.firebaseAuthService.getUser().subscribe(user => {
+      console.log(user);
+      this.currentUser = user;
+    })
   }
 }

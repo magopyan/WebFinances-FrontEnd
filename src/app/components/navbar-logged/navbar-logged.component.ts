@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { getAuth, signOut } from "firebase/auth";
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +16,7 @@ export class NavbarLoggedComponent implements OnInit {
 
   showMobileMenu: boolean = false;
 
-  constructor(private firebaseAuthService: FirebaseAuthService) { }
+  constructor(private firebaseAuthService: FirebaseAuthService, public afAuth: AngularFireAuth, private router: Router) { }
 
   ngOnInit(): void {
     this.firebaseAuthService.getUser().subscribe(
@@ -26,7 +28,9 @@ export class NavbarLoggedComponent implements OnInit {
   }
 
   signOut() {
-    signOut(getAuth());
-    this.onToggleHamburger();
+    return this.afAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['home']);
+    });
   }
 }

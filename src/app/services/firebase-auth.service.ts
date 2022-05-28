@@ -1,49 +1,36 @@
 import { Injectable } from '@angular/core';
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { Observable, Subject } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseAuthService {
 
-  private user!: any;
-  private userSubject = new Subject<any>();
-  private email!: any;
-  private emailSubject = new Subject<any>();
+  currentUser!: any;
+  private currentUserSubject = new Subject<any>();
 
-  constructor() {
-    onAuthStateChanged(getAuth(), (user) => {
+  constructor(public afAuth: AngularFireAuth) {
+    this.afAuth.authState.subscribe((user: any) => {
       if (user) {
-        this.user = user;
-        this.userSubject.next(user);
-        this.email = user.email;
-        this.emailSubject.next(user.email);
+        this.currentUser = user;
+        this.currentUserSubject.next(user);
+      } else {
+        this.currentUser = null;
+        this.currentUserSubject.next(user);
       }
-      else {
-        this.user = null;
-        this.userSubject.next(user);
-        this.email = null;
-        this.emailSubject.next(null);
-      }
-    })
-  }
-
-  getToken(): any {
-    if (getAuth != null && getAuth().currentUser != null) {
-      getAuth()?.currentUser?.getIdToken(true).then(function (idToken) {
-        return idToken;
-      }).catch(function (error) {
-        console.log("error fetching JTW");
-      });
-    }
+    });
   }
 
   getUser(): Observable<any> {
-    return this.userSubject.asObservable();
+    return this.currentUserSubject.asObservable();
   }
 
-  getEmail(): Observable<any> {
-    return this.emailSubject.asObservable();
+  getCurrentUser(): any {
+    return this.currentUser;
+  }
+
+  signOut() {
+    this.afAuth.signOut();
   }
 }

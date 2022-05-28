@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 
 @Component({
   selector: 'app-login',
@@ -19,11 +20,12 @@ export class LoginComponent implements OnInit {
   isEmailValid: boolean = true;
   isPasswordValid: boolean = true;
 
-  constructor(private router: Router, private firebaseAuthService: FirebaseAuthService, public snackBar: MatSnackBar) { }
+  constructor(private router: Router, private firebaseAuthService: FirebaseAuthService,
+    public snackBar: MatSnackBar, public afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
-    this.firebaseAuthService.getUser().subscribe(
-      (user) => this.currentUser = user);
+    this.currentUser = this.firebaseAuthService.getCurrentUser();
+    this.firebaseAuthService.getUser().subscribe(user => this.currentUser = user);
   }
 
   onSubmitLoginForm(): void {
@@ -31,28 +33,32 @@ export class LoginComponent implements OnInit {
     this.clientSideValidate();
 
     if (this.isEmailValid && this.isPasswordValid) {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          if(userCredential.user.emailVerified == true) {
+      this.afAuth
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then((result) => {
+          if (result?.user?.emailVerified == true) {
             this.email = "";
             this.password = "";
+            this.router.navigate(['accounts']);
           }
           else {
             this.isEmailValid = false;
             document.getElementById("error-email")!.textContent = "You need to verify your email before you can log in!";
-            signOut(auth);
+            this.firebaseAuthService.signOut();
           }
         })
         .catch((error) => {
-          if (error.code == "auth/user-not-found") { 
+          if (error.code == "auth/invalid-email") {
+            this.isEmailValid = false;
+          }
+          else if (error.code == "auth/user-not-found") {
             this.isEmailValid = false;
             document.getElementById("error-email")!.textContent = "There is no such account registered with this email!";
           }
           else if (error.code == "auth/wrong-password") {
             this.isPasswordValid = false;
             document.getElementById("error-password")!.textContent = "Incorrect password!";
-          }
+          }                
           else {
             this.snackBar.open("Unexpected Firebase error! ❌", "Dismiss");
             console.log(error.code);
@@ -70,7 +76,7 @@ export class LoginComponent implements OnInit {
       this.isPasswordValid = false;
     }
     if (this.isEmailValid) {
-      const emailRegexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+      const emailRegexExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       this.isEmailValid = emailRegexExp.test(this.email);
     }
     if (this.isPasswordValid) {

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Account } from 'src/app/models/account';
 import { AccountService } from 'src/app/services/account.service';
+import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 
 @Component({
   selector: 'app-accounts',
@@ -16,7 +17,7 @@ export class AccountsComponent implements OnInit {
 
   currentUser: any;
 
-  constructor(private accountService: AccountService, public snackBar: MatSnackBar) { }
+  constructor(private accountService: AccountService, public snackBar: MatSnackBar, private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
     this.getAccounts();
@@ -31,7 +32,7 @@ export class AccountsComponent implements OnInit {
         }
       },
       error: (error: HttpErrorResponse) => {
-        this.snackBar.open(`Error when retrieving accounts. Code ${error.message} ❌`, "Dismiss");
+        this.snackBar.open("Server error when retrieving accounts. Please try to sign in again. ❌", "Dismiss");
       }
     })
   }

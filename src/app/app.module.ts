@@ -9,8 +9,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+//import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+//import { provideAuth, getAuth } from '@angular/fire/auth';
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -32,16 +35,16 @@ import { AccountViewComponent } from './components/account-view/account-view.com
 import { AccountService } from './services/account.service';
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCIlnsyDeZcG_eruXmOwUdCEfQwOLDhRAI",
-  authDomain: "web-finances.firebaseapp.com",
-  projectId: "web-finances",
-  storageBucket: "web-finances.appspot.com",
-  messagingSenderId: "737057594981",
-  appId: "1:737057594981:web:9596940201bea8a607308c"
-};
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCIlnsyDeZcG_eruXmOwUdCEfQwOLDhRAI",
+//   authDomain: "web-finances.firebaseapp.com",
+//   projectId: "web-finances",
+//   storageBucket: "web-finances.appspot.com",
+//   messagingSenderId: "737057594981",
+//   appId: "1:737057594981:web:9596940201bea8a607308c"
+// };
+// const app = initializeApp(firebaseConfig);
+// const auth = getAuth(app);
 
 
 const appRoutes: Routes = [
@@ -80,7 +83,11 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatStepperModule,
     MatRadioModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideAuth(() => getAuth())
   ],
   providers: [ValidationService, FirebaseAuthService, AccountService, StaticDataService],
   bootstrap: [AppComponent]
