@@ -75,7 +75,7 @@
                         <div class="form3">
                             <h3>Confirm your new account:</h3>
                             <div class="account-view">
-                                <app-account-view [account]="newAccount"></app-account-view>
+                                <app-account-view [account]="newAccount" [areIconsVisible]="false"></app-account-view>
                             </div>
                             <div class="buttons-container b2">
                                 <input (click)="onStepBack(stepper)"
@@ -85,7 +85,7 @@
                                 <input (click)="onCreateAccount(stepper)"
                                        type="submit"
                                        class="btn next"
-                                       value="Next">
+                                       value="Create">
                             </div>
                         </div>
                     </mat-step>

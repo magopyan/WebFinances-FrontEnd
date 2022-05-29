@@ -1,0 +1,58 @@
+.invisible {
+    display: none;
+}
+
+.container {
+    border-radius: 25px;
+    width: 300px;
+    min-height: 152.8px;
+    background: var(--primary-white-blue);
+    display: flex;
+
+    .left-col {
+        flex: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 50px;
+            margin: 0 auto;
+        }
+    }
+
+    .right-col {
+        flex: 70%;
+        padding-left: 0.5rem;
+
+        .text {
+            margin-bottom: 0.5rem;
+            min-height: 48px;
+        }
+        .icons {
+            margin-bottom: 0.75rem;
+
+            .delete-icon {
+                margin-left: 0.25rem;
+            }
+
+            mat-icon {
+                cursor: pointer;
+            }
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            margin-block-start: 1.25rem;
+            margin-block-end: 0.5rem;
+        }
+
+        p {
+            font-weight: 300;
+
+            span {
+                font-weight: 400;
+            }
+        }
+    }
+}

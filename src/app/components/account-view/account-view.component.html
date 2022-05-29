@@ -1,1 +1,18 @@
-<p>{{ account?.name }}</p>
+<div class="container">
+    <div class="left-col"><img src="{{ account?.accountType?.imageUrl }}"></div>
+    <div class="right-col">
+        <h4>{{ account?.name }}</h4>
+        <div class="text">
+            <p>Type: <span class="type">{{ account?.accountType?.name }}</span></p>
+            <p>Balance: <span class="balance">{{ account?.balance }}</span></p>
+        </div>
+        <div class="icons-container">
+            <div class="icons"
+                 [ngClass]="{'invisible': !areIconsVisible }">
+                <mat-icon (click)="onEdit(account)">edit</mat-icon>
+                <mat-icon class="delete-icon"
+                          (click)="onDelete(account)">delete</mat-icon>
+            </div>
+        </div>
+    </div>
+</div>

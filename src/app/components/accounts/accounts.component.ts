@@ -17,7 +17,19 @@ export class AccountsComponent implements OnInit {
 
   currentUser: any;
 
-  constructor(private accountService: AccountService, public snackBar: MatSnackBar, private firebaseAuthService: FirebaseAuthService) { }
+  acc: Account;
+
+  constructor(private firebaseAuthService: FirebaseAuthService, private accountService: AccountService, public snackBar: MatSnackBar) { 
+    this.acc = {
+      name: "Nameeee",
+      balance: parseFloat("12.34"),
+      accountType: {
+        id: 1,
+        name: "tyyype",
+        imageUrl: "https://i.postimg.cc/vZXSZRMZ/credit-card.png"
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.getAccounts();

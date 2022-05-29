@@ -54,11 +54,12 @@ export class RegisterComponent implements OnInit {
           this.afAuth
             .createUserWithEmailAndPassword(this.email, this.password)
             .then((result) => {
-              this.afAuth.currentUser
-                .then((u: any) => u.sendEmailVerification())
-                .then(() => {
-                  this.firebaseAuthService.signOut();
-                });
+              result?.user?.sendEmailVerification();
+              console.log("then (u:any)");
+            })
+            .then(() => {
+              console.log("then ()");
+              this.firebaseAuthService.signOut();
               this.resetFlagsAndErrorMessages();
               const map = new Map(Object.entries(response));
               this.snackBar.open(map.get("response"), '', {
@@ -67,6 +68,7 @@ export class RegisterComponent implements OnInit {
               });
             })
             .catch((error) => {
+              console.log("errrror");
               if (error.code == "auth/email-already-in-use") {
                 this.isEmailValid = false;
                 document.getElementById("error-email")!.textContent = "This email is already taken!";
@@ -74,69 +76,65 @@ export class RegisterComponent implements OnInit {
               else {
                 this.snackBar.open("Unexpected Firebase error! ❌", "Dismiss");
               }
-              this.resetFlagsAndErrorMessages();
             });
-      },
-        error: (errorResponse: HttpErrorResponse) => {
-          this.handleServerErrors(errorResponse);
+        },
+        error: (errorResponse: HttpErrorResponse) => this.handleServerErrors(errorResponse)})
+      }
+    }
+
+
+    clientSideValidate() {
+      if (this.email == null) {
+        this.isEmailValid = false;
+      }
+      if (this.password == null) {
+        this.isPasswordValid = false;
+      }
+      if (this.repeatPassword == null) {
+        this.isRepeatPasswordValid = false;
+      }
+      if (this.isEmailValid) {
+        const emailRegexExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        this.isEmailValid = emailRegexExp.test(this.email);
+      }
+      if (this.isPasswordValid) {
+        this.isPasswordValid = this.password.trim().length > 7;
+        if (this.isPasswordValid && this.password.length > 32) {
+          this.isPasswordValid = false;
+          document.getElementById("error-password")!.textContent = "Your password should not exceed 32 characters!";
         }
-      })
-  }
-}
+      }
+      if (this.isRepeatPasswordValid) {
+        this.isRepeatPasswordValid = this.password === this.repeatPassword;
+      }
+    }
 
+    handleServerErrors(errorResponse: HttpErrorResponse) {
+      if (errorResponse.status == 400) {
+        const errorsMap = new Map<string, string>(Object.entries(errorResponse.error));
+        if (errorsMap.has("email")) {
+          this.isEmailValid = false;
+          document.getElementById("error-email")!.textContent = errorsMap.get("email")!;
+        }
+        if (errorsMap.has("password")) {
+          this.isPasswordValid = false;
+          document.getElementById("error-password")!.textContent = errorsMap.get("password")!;
+        }
+        if (errorsMap.has("repeatPassword")) {
+          this.isRepeatPasswordValid = false;
+          document.getElementById("error-repeat-password")!.textContent = errorsMap.get("repeatPassword")!;
+        }
+      }
+      else {
+        console.log(errorResponse.error);
+        this.snackBar.open("Server error. ❌", "Dismiss");
+      }
+    }
 
-clientSideValidate() {
-  if (this.email == null) {
-    this.isEmailValid = false;
-  }
-  if (this.password == null) {
-    this.isPasswordValid = false;
-  }
-  if (this.repeatPassword == null) {
-    this.isRepeatPasswordValid = false;
-  }
-  if (this.isEmailValid) {
-    const emailRegexExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    this.isEmailValid = emailRegexExp.test(this.email);
-  }
-  if (this.isPasswordValid) {
-    this.isPasswordValid = this.password.trim().length > 7;
-    if (this.isPasswordValid && this.password.length > 32) {
-      this.isPasswordValid = false;
-      document.getElementById("error-password")!.textContent = "Your password should not exceed 32 characters!";
+    resetFlagsAndErrorMessages(): void {
+      this.isEmailValid = true;
+      this.isPasswordValid = true;
+      this.isRepeatPasswordValid = true;
+      document.getElementById("error-password")!.textContent = "Your password has to be at least 8 characters long!";
     }
   }
-  if (this.isRepeatPasswordValid) {
-    this.isRepeatPasswordValid = this.password === this.repeatPassword;
-  }
-}
-
-handleServerErrors(errorResponse: HttpErrorResponse) {
-  if (errorResponse.status == 400) {
-    const errorsMap = new Map<string, string>(Object.entries(errorResponse.error));
-    if (errorsMap.has("email")) {
-      this.isEmailValid = false;
-      document.getElementById("error-email")!.textContent = errorsMap.get("email")!;
-    }
-    if (errorsMap.has("password")) {
-      this.isPasswordValid = false;
-      document.getElementById("error-password")!.textContent = errorsMap.get("password")!;
-    }
-    if (errorsMap.has("repeatPassword")) {
-      this.isRepeatPasswordValid = false;
-      document.getElementById("error-repeat-password")!.textContent = errorsMap.get("repeatPassword")!;
-    }
-  }
-  else {
-    console.log(errorResponse.error);
-    this.snackBar.open("Server error. ❌", "Dismiss");
-  }
-}
-
-resetFlagsAndErrorMessages(): void {
-  this.isEmailValid = true;
-  this.isPasswordValid = true;
-  this.isRepeatPasswordValid = true;
-  document.getElementById("error-password")!.textContent = "Your password has to be at least 8 characters long!";
-}
-}

@@ -32,12 +32,19 @@ export class AccountService {
   }
 
   public getAccounts(): Observable<Account[]> {
-    return this.http.get<Account[]>(`${ this.apiUrl }/all`, httpOptions);
+    return this.http.get<Account[]>(`${this.apiUrl}/all`, httpOptions);
   }
 
-  public addAccount(account: Account): Observable < Account > {
+  public addAccount(account: Account): Observable<Account> {
     console.log(httpOptions.headers.get('Authorization'));
-  return this.http.post<Account>(`${this.apiUrl}/add`, account, httpOptions);
+    return this.http.post<Account>(`${this.apiUrl}/add`, account, httpOptions);
+  }
 
-}
+  public editAccount(account: Account): Observable<Account> {
+    return this.http.put<Account>(`${this.apiUrl}/update`, account, httpOptions);
+  }
+
+  public deleteAccount(account: Account): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/delete/${account.id}`, httpOptions);
+  }
 }

@@ -43,6 +43,11 @@ h3 {
     margin: 0 auto;
 }
 
+.account-view {
+    display: flex;
+    justify-content: center;
+}
+
 .buttons-container {
     width: 80%;
     margin: 3rem auto 0 auto;
@@ -137,9 +142,7 @@ form {
         margin-top: 4rem;
     }
 
-    .b2 {
-      
-    }
+    .b2 {}
 }
 
 @media only screen and (min-width: 1080px) {

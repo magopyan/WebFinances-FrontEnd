@@ -12,15 +12,11 @@ import { Router } from '@angular/router';
 })
 export class NavbarLoggedComponent implements OnInit {
 
-  uid!: any;
-
   showMobileMenu: boolean = false;
 
   constructor(private firebaseAuthService: FirebaseAuthService, public afAuth: AngularFireAuth, private router: Router) { }
 
   ngOnInit(): void {
-    this.firebaseAuthService.getUser().subscribe(
-      (user) => this.uid = user.uid);   
   }
 
   onToggleHamburger() {

@@ -11,13 +11,13 @@
                        class="add-cta"
                        value="+ NEW">
             </div>
-
         </div>
 
         <div class="main">
-            <p *ngFor="let account of accounts">
-                {{account.name}}
-            </p>
+            <div class="account-container" *ngFor="let account of accounts">
+                <app-account-view [account]="account"
+                                  [areIconsVisible]="true"></app-account-view>
+            </div>                       
         </div>
     </div>
 </section>

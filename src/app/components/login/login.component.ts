@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
           if (result?.user?.emailVerified == true) {
             this.email = "";
             this.password = "";
-            this.router.navigate(['accounts']);
+            //this.router.navigate(['accounts']);
           }
           else {
             this.isEmailValid = false;
