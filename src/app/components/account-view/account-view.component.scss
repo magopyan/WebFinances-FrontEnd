@@ -29,6 +29,7 @@
             margin-bottom: 0.5rem;
             min-height: 48px;
         }
+
         .icons {
             margin-bottom: 0.75rem;
 
@@ -38,6 +39,11 @@
 
             mat-icon {
                 cursor: pointer;
+                border-radius: 5px;
+
+                &:hover {
+                    background-color: var(--light-blue);
+                }
             }
         }
 

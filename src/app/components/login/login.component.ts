@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-
+import { first } from 'rxjs/operators';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -24,8 +25,19 @@ export class LoginComponent implements OnInit {
     public snackBar: MatSnackBar, public afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
-    this.currentUser = this.firebaseAuthService.getCurrentUser();
-    this.firebaseAuthService.getUser().subscribe(user => this.currentUser = user);
+  }
+
+  isLoggedIn() {
+    return firstValueFrom(this.afAuth.authState.pipe());
+  }
+
+  async navigateToDashboard() {
+    const user = await this.isLoggedIn();
+    if (user) {
+      this.router.navigate(['accounts']);
+    } else {
+      console.log("NavigateToDashboard null");
+    }
   }
 
   onSubmitLoginForm(): void {
@@ -39,7 +51,7 @@ export class LoginComponent implements OnInit {
           if (result?.user?.emailVerified == true) {
             this.email = "";
             this.password = "";
-            //this.router.navigate(['accounts']);
+            this.navigateToDashboard();
           }
           else {
             this.isEmailValid = false;

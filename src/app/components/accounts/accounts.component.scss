@@ -1,6 +1,15 @@
 .top {
     display: flex;
     place-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.list-container {
+    display: grid;
+    column-count: 3;
+    column-gap: 50px;
+    row-gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 h2 {

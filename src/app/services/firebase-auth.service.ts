@@ -13,9 +13,11 @@ export class FirebaseAuthService {
   constructor(public afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe((user: any) => {
       if (user) {
+        console.log("User loaded in FB-AuthService");
         this.currentUser = user;
         this.currentUserSubject.next(user);
       } else {
+        console.log("User NULL in FB-AuthService");
         this.currentUser = null;
         this.currentUserSubject.next(user);
       }

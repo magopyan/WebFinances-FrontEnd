@@ -48,7 +48,7 @@ import { AccountService } from './services/account.service';
 
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '#', component: HomeComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },

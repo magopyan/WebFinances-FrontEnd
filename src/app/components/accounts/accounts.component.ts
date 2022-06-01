@@ -32,12 +32,14 @@ export class AccountsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("AccountsComponent onInit()");
     this.getAccounts();
   }
 
   getAccounts(): void {
     this.accountService.getAccounts().subscribe({
       next: (response: Account[]) => {
+        this.totalBalance = 0;
         this.accounts = response;
         for (let i = 0; i < this.accounts.length; i++) {
           this.totalBalance += this.accounts[i].balance;
@@ -45,6 +47,21 @@ export class AccountsComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         this.snackBar.open("Server error when retrieving accounts. Please try to sign in again. ❌", "Dismiss");
+      }
+    })
+  }
+
+  deleteAccount(account: Account) {
+    this.accountService.deleteAccount(account).subscribe({
+      next: (response: void) => {
+        this.snackBar.open('Account deleted successfully.', '', {
+          duration: 4000,
+          panelClass: ['snackbar']
+        });
+        this.getAccounts();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.snackBar.open("Error when deleting account. ❌", "Dismiss");
       }
     })
   }

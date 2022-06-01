@@ -13,11 +13,13 @@
             </div>
         </div>
 
-        <div class="main">
-            <div class="account-container" *ngFor="let account of accounts">
+        <div class="list-container">
+            <div class="account-container"
+                 *ngFor="let account of accounts">
                 <app-account-view [account]="account"
-                                  [areIconsVisible]="true"></app-account-view>
-            </div>                       
+                                  [areIconsVisible]="true"
+                                  (onDelete)="deleteAccount(account)"></app-account-view>
+            </div>
         </div>
     </div>
 </section>

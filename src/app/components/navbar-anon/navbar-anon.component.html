@@ -1,7 +1,7 @@
 <div class="navbar navbar-anon">
     <div class="container">
         <a class="logo"
-           routerLink="/home">Web<span>Finances</span></a>
+           routerLink="/#">Web<span>Finances</span></a>
 
         <mat-icon (click)="onToggleHamburger()"
                   id="mobile-menu-open"
@@ -14,12 +14,12 @@
 
             <ul class="left-nav">
                 <div class="item-container">
-                    <li><a (click)="onToggleHamburger()" routerLink="/home"
+                    <li><a (click)="onToggleHamburger()" routerLink="/#"
                            routerLinkActive="active-link">Home</a></li>
                 </div>
-                <div class="item-container">
+                <!-- <div class="item-container">
                     <li><a (click)="onToggleHamburger()" routerLink="/">Features</a></li>
-                </div>
+                </div> -->
                 <div class="item-container">
                     <li><a (click)="onToggleHamburger()" routerLink="/contact"
                            routerLinkActive="active-link">Contact</a></li>

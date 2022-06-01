@@ -29,7 +29,7 @@ export class ContactComponent implements OnInit {
     this.email = this.firebaseAuthService.getCurrentUser()?.email;
     this.firebaseAuthService.getUser().subscribe(user => {
       console.log(user);
-      this.email = user.email;
+      this.email = user?.email;
     })
   }
 

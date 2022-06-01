@@ -20,12 +20,14 @@ export class AccountService {
 
   constructor(private http: HttpClient, private firebaseAuthService: FirebaseAuthService) {
     this.currentUser = this.firebaseAuthService.getCurrentUser();
-    this.currentUser.getIdToken().then((token: string | string[]) => {
+    this.currentUser?.getIdToken().then((token: string | string[]) => {
+      console.log("Token 1");
       httpOptions.headers = httpOptions.headers.set('Authorization', token);
     })
     this.firebaseAuthService.getUser().subscribe(user => {
+      console.log("Token 2");
       this.currentUser = user;
-      this.currentUser.getIdToken().then((token: string | string[]) => {
+      this.currentUser?.getIdToken().then((token: string | string[]) => {
         httpOptions.headers = httpOptions.headers.set('Authorization', token);
       })
     })
@@ -45,6 +47,7 @@ export class AccountService {
   }
 
   public deleteAccount(account: Account): Observable<void> {
+    console.log(account.id)
     return this.http.delete<void>(`${this.apiUrl}/delete/${account.id}`, httpOptions);
   }
 }

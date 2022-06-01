@@ -11,19 +11,19 @@ export class AccountViewComponent implements OnInit {
 
   @Input() account!: Account;
   @Input() areIconsVisible!: boolean;
-  @Output() onEditAccount: EventEmitter<Account> = new EventEmitter();
-  @Output() onDeleteAccount: EventEmitter<Account> = new EventEmitter();
+  @Output() onEdit: EventEmitter<Account> = new EventEmitter();
+  @Output() onDelete: EventEmitter<Account> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onEdit(account: Account) {
-    this.onEditAccount.emit(account);
+  onEditAccount(account: Account): void {
+    this.onEdit.emit(account);
   }
 
-  onDelete(account: Account) {
-    this.onDeleteAccount.emit(account);
+  onDeleteAccount(account: Account): void {
+    this.onDelete.emit(account);
   }
 }

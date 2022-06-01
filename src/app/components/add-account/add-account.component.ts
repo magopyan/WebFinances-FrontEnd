@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatStepper, StepperOrientation } from '@angular/material/stepper';
+import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { AccountForm } from 'src/app/models/account-form';
 import { AccountType } from 'src/app/models/account-type';
