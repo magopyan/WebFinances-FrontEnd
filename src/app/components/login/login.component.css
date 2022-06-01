@@ -1,0 +1,113 @@
+.login-section {
+  background-color: var(--primary-green);
+}
+
+img {
+  display: none;
+}
+
+.container {
+  padding: 0 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 3rem;
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.4rem;
+  margin-bottom: 0.3rem;
+  border-radius: 0.3rem;
+  border: 1px solid gray;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: none;
+}
+
+.error {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--error);
+}
+
+.error-logged-in {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 5rem;
+}
+
+.error-password {
+  margin-bottom: 1.7rem;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+input[type="submit"] {
+  background-color: var(--primary-blue);
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5rem;
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  width: unset;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #1977d1;
+}
+
+@media only screen and (min-width: 768px) {
+  .login-left {
+    padding: 0 5rem;
+    margin-bottom: 5.4rem;
+  }
+}
+
+@media only screen and (min-width: 1080px) {
+  .container {
+    width: 1080px;
+    margin: 0 auto;
+  }
+  section {
+    padding: 4rem 4rem 0 6rem;
+  }
+  .login-left {
+    padding: 2rem 2rem;
+    width: 45%;
+  }
+  input {
+    width: 100%;
+  }
+  .login-section {
+    position: relative;
+  }
+  .login-section .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  img {
+    left: 60%;
+    width: 25%;
+    display: block;
+    position: absolute;
+    bottom: 5rem;
+  }
+}
+/*# sourceMappingURL=login.component.css.map */

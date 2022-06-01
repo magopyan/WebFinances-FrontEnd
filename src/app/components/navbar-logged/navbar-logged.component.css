@@ -8,7 +8,7 @@
 }
 
 .navbar .logo {
-  padding-top: 16px;
+  padding: 1rem 0;
   font-weight: 900;
   color: var(--primary-blue);
   font-size: 1.2rem;
@@ -124,32 +124,17 @@ nav li a:hover {
   .navbar nav ul.left-nav {
     margin: 0;
   }
-  .navbar nav .register-container:hover {
-    -webkit-box-shadow: inset 0 -3px 0 var(--text-green);
-            box-shadow: inset 0 -3px 0 var(--text-green);
+  .sign-out {
+    margin-left: 0.8rem;
   }
-  .navbar nav .login-container {
-    margin-right: 1rem;
-  }
-  .navbar nav li.login a {
-    font-weight: 500;
-    color: var(--primary-blue);
-    border: 2px solid var(--primary-blue);
+  .sign-out li a {
+    border: 1px solid var(--error);
     border-radius: 30px;
+    color: var(--error);
   }
-  .navbar nav li.login a:hover {
-    background: var(--primary-white-blue2);
-  }
-  .navbar nav li.register a {
-    font-weight: 600;
-    color: var(--text-green);
-    border: 4px solid var(--text-green);
-    border-radius: 30px;
-    margin-top: -0.2rem;
-  }
-  .navbar nav li.register a:hover {
+  .sign-out li a:hover {
     color: var(--primary-light);
-    background: var(--text-green);
+    background: var(--error);
   }
 }
 
@@ -159,4 +144,4 @@ nav li a:hover {
     margin: 0 auto;
   }
 }
-/*# sourceMappingURL=navbar-anon.component.css.map */
+/*# sourceMappingURL=navbar-logged.component.css.map */

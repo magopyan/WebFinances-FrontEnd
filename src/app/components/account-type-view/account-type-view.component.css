@@ -1,0 +1,36 @@
+.container {
+  padding: 1rem 2rem 0.3rem 2rem;
+  position: relative;
+  border-bottom: 2px solid rgba(211, 211, 211, 0.563);
+  height: 40px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.container:hover {
+  background: var(--primary-white-blue2);
+}
+
+img {
+  margin-left: 5rem;
+  width: 30px;
+  margin-right: 0.7rem;
+  padding: 0;
+}
+
+span {
+  position: absolute;
+  top: 20px;
+  font-size: 1.2rem;
+}
+
+.selected {
+  background: #92bfdf;
+}
+
+@media only screen and (max-width: 768px) {
+  img {
+    margin-left: 2rem;
+  }
+}
+/*# sourceMappingURL=account-type-view.component.css.map */

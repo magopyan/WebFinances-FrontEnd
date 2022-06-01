@@ -1,18 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+::ng-deep .mat-horizontal-stepper-header {
+  pointer-events: none !important;
+}
+
 :root {
   --primary-blue: #1E90FF;
   --text-green: #03C03C;
+  --text-dark: #1C1C1C;
   --primary-green: #AAF0D1;
   --primary-white-blue: #EDF3FB;
+  --primary-white-blue2: #dceafc;
+  --light-blue: #C4D9E8;
   --primary-dark: #202D2E;
   --primary-light: #F5F5F5;
+  --error: #D70040;
+  --caffbf: #caffbf;
 }
 
 body {
   margin: 0;
-  font-size: 1em;
+  font-size: 1rem;
   font-family: "Poppins";
+  min-height: 100vh;
+}
+
+html,
+body,
+app-root,
+app-component {
+  margin: 0;
+  min-height: 100vh;
+}
+
+section {
+  padding: 5rem 2rem;
+}
+
+p {
+  -webkit-margin-before: 0em;
+          margin-block-start: 0em;
+  -webkit-margin-after: 0em;
+          margin-block-end: 0em;
 }
 
 ul {
@@ -26,12 +55,66 @@ a {
   text-decoration: none;
 }
 
-html, body {
-  height: 100%;
+.snackbar .mat-simple-snackbar {
+  font-family: "Poppins";
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: var(--primary-light);
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+.ng-star-inserted {
+  color: black;
+}
+
+.mat-button {
+  color: red !important;
+  font-family: "Poppins";
+  font-weight: bold;
+}
+
+section {
+  color: black;
+}
+
+.basic-container .mat-step-header .mat-step-icon-selected {
+  background-color: #6cb73a;
+  color: black;
+}
+
+.mat-step-header .mat-step-icon {
+  background-color: var(--primary-blue);
+  color: black;
+}
+
+@media only screen and (max-width: 1080px) {
+  .mat-horizontal-stepper-header-container {
+    margin-bottom: 20px;
+  }
+  .mat-horizontal-stepper-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    text-align: center;
+    margin-bottom: -15px;
+  }
+  .mat-step-label {
+    position: relative;
+    top: 10px;
+  }
+  .mat-stepper-horizontal-line {
+    margin: 0 -30px !important;
+  }
+  .mat-horizontal-stepper-header .mat-step-icon,
+  .mat-horizontal-stepper-header .mat-step-icon-not-touched {
+    margin-right: 0 !important;
+  }
 }
 /*# sourceMappingURL=styles.css.map */

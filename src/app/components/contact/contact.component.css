@@ -1,0 +1,160 @@
+.contact-section {
+  background-color: var(--primary-green);
+}
+
+.container {
+  padding: 0 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 3rem;
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.4rem;
+  margin-bottom: 0.3rem;
+  border-radius: 0.3rem;
+  border: 1px solid gray;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: none;
+}
+
+textarea {
+  margin-bottom: -0.3rem;
+}
+
+.error {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #D70040;
+}
+
+.error-message {
+  display: inline-block;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+input[type="submit"] {
+  background-color: var(--primary-blue);
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: none;
+  margin-bottom: 5rem;
+  border-radius: 5rem;
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  width: unset;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #1977d1;
+}
+
+.contact-right {
+  border-top: 5px solid var(--primary-blue);
+  border-bottom: 5px solid var(--primary-blue);
+  border-radius: 0.2rem;
+  text-align: center;
+  padding: 1rem 3rem;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.contact-right address {
+  font-style: normal;
+  font-size: 1.1rem;
+  color: #1977d1;
+  margin: 1rem 0;
+  text-align: justify;
+  display: inline-block;
+  text-align: left;
+}
+
+.contact-right address span {
+  color: black;
+}
+
+.contact-right p {
+  -webkit-margin-before: 0em;
+          margin-block-start: 0em;
+  -webkit-margin-after: 0em;
+          margin-block-end: 0em;
+  margin-bottom: 0.8rem;
+}
+
+.contact-right .icon {
+  margin-right: 0.4rem;
+  vertical-align: text-top;
+  font-size: 1.3rem;
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.contact-right .location {
+  margin-bottom: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .contact-left {
+    padding: 0 5rem;
+  }
+  .contact-right {
+    width: 50%;
+    margin: auto;
+  }
+}
+
+@media only screen and (min-width: 1080px) {
+  .container {
+    width: 1080px;
+    margin: 0 auto;
+  }
+  section {
+    padding: 4rem 4rem 0 6rem;
+  }
+  .contact-section {
+    position: relative;
+  }
+  .contact-section .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .contact-left {
+    padding: 0 0;
+  }
+  .contact-right {
+    width: 30%;
+    margin: auto auto auto 10rem;
+  }
+  .contact-right address {
+    vertical-align: middle;
+  }
+  .contact-right .icon {
+    font-size: 1.4rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-right: 0.5rem;
+  }
+}
+/*# sourceMappingURL=contact.component.css.map */

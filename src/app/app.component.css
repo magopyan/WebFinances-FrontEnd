@@ -1,1 +1,16 @@
-/* No CSS *//*# sourceMappingURL=app.component.css.map */
+.router-container {
+  background: var(--primary-green);
+  min-height: calc(100vh - 195px);
+}
+
+.footer-container {
+  height: 80px;
+}
+
+@media only screen and (min-width: 768px) {
+  .router-container {
+    background: var(--primary-green);
+    min-height: calc(100vh - 145px);
+  }
+}
+/*# sourceMappingURL=app.component.css.map */
