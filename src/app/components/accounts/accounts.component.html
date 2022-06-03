@@ -21,6 +21,15 @@
                                   (onDelete)="deleteAccount(account)"
                                   (onEdit)="onOpenEditDialog(account)"></app-account-view>
             </div>
+            <div class="empty">
+                <div class="pagination"
+                     *ngFor="let account of allAccounts | paginate: { itemsPerPage: 9, currentPage: currentPageNumber }">
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination-container">
+            <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
         </div>
     </div>
 </section>

@@ -6,6 +6,7 @@
 
 .list-container {
     display: grid;
+    margin-bottom: 3rem;
     column-count: 3;
     column-gap: 50px;
     row-gap: 40px;
@@ -50,6 +51,20 @@ input[type="button"] {
 // Edit Dialog
 .hidden {
     visibility: hidden;
+}
+
+.empty {
+    display: block;
+    visibility: hidden;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+
+    // .ngx-pagination {
+    //     margin: 0 auto !important;
+    // }
 }
 
 ::ng-deep .custom-modalbox {

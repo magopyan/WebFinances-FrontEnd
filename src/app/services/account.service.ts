@@ -21,20 +21,24 @@ export class AccountService {
   constructor(private http: HttpClient, private firebaseAuthService: FirebaseAuthService) {
     this.currentUser = this.firebaseAuthService.getCurrentUser();
     this.currentUser?.getIdToken().then((token: string | string[]) => {
-      console.log("Token 1");
+      console.log("Token 1: ", token);
       httpOptions.headers = httpOptions.headers.set('Authorization', token);
     })
     this.firebaseAuthService.getUser().subscribe(user => {
-      console.log("Token 2");
       this.currentUser = user;
       this.currentUser?.getIdToken().then((token: string | string[]) => {
+        console.log("Token 2", token);
         httpOptions.headers = httpOptions.headers.set('Authorization', token);
       })
     })
   }
 
-  public getAccounts(): Observable<Account[]> {
+  public getAllAccounts(): Observable<Account[]> {
     return this.http.get<Account[]>(`${this.apiUrl}/all`, httpOptions);
+  }
+
+  public getAccounts(pageNumber: number): Observable<Account[]> {
+    return this.http.get<Account[]>(`${this.apiUrl}/all?page=${pageNumber}`, httpOptions);
   }
 
   public addAccount(account: Account): Observable<Account> {

@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Account } from 'src/app/models/account';
 import { AccountType } from 'src/app/models/account-type';
@@ -18,7 +17,9 @@ import { AccountForm } from 'src/app/models/account-form';
 })
 export class AccountsComponent implements OnInit {
 
+  currentPageNumber = 1;
   totalBalance: number = 0;
+  allAccounts!: Account[];
   accounts!: Account[];
 
   editAccount!: Account;
@@ -33,18 +34,38 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("AccountsComponent onInit()");
-    this.getAccounts();
+    this.getAccounts(0);
     this.getAccountTypes();
   }
 
-  getAccounts(): void {
-    this.accountService.getAccounts().subscribe({
+  getAccounts(pageNumber: number): void {
+    this.accountService.getAccounts(pageNumber).subscribe({
+      next: (response: Account[]) => {
+        this.accounts = response;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.snackBar.open("Server error when retrieving accounts. Please try to sign in again. ❌", "Dismiss");
+      }
+    })
+    this.accountService.getAllAccounts().subscribe({
       next: (response: Account[]) => {
         this.totalBalance = 0;
-        this.accounts = response;
-        for (let i = 0; i < this.accounts.length; i++) {
-          this.totalBalance += this.accounts[i].balance;
+        this.allAccounts = response;
+        for (let i = 0; i < this.allAccounts.length; i++) {
+          this.totalBalance += this.allAccounts[i].balance;
         }
+      },
+      error: (error: HttpErrorResponse) => {
+        this.snackBar.open("Server error when retrieving accounts. Please try to sign in again. ❌", "Dismiss");
+      }
+    })
+  }
+
+  pageChanged(newPage: number): void {
+    this.accountService.getAccounts(newPage-1).subscribe({
+      next: (response: Account[]) => {
+        this.accounts = response;
+        this.currentPageNumber = newPage;
       },
       error: (error: HttpErrorResponse) => {
         this.snackBar.open("Server error when retrieving accounts. Please try to sign in again. ❌", "Dismiss");
@@ -70,7 +91,7 @@ export class AccountsComponent implements OnInit {
           duration: 4000,
           panelClass: ['snackbar']
         });
-        this.getAccounts();
+        this.getAccounts(this.currentPageNumber - 1);
       },
       error: (error: HttpErrorResponse) => {
         this.snackBar.open("Error when deleting account. ❌", "Dismiss");
@@ -104,7 +125,7 @@ export class AccountsComponent implements OnInit {
           this.accountService.editAccount(this.editAccount).subscribe({
             next: (response: Account) => {
               this.dialog.closeAll();
-              this.getAccounts();
+              this.getAccounts(this.currentPageNumber-1);
             },
             error: (error: HttpErrorResponse) => {
               this.snackBar.open(error.message + " ❌", "Dismiss");

@@ -62,6 +62,42 @@ a {
     text-decoration: none;
 }
 
+.ngx-pagination {
+
+    .ng-star-inserted {
+        &:hover {
+            background-color: #81d4fa !important;
+        }
+    }
+
+    .disabled {
+        color: grey !important;
+
+        &:hover {
+            background-color: transparent !important;
+        }
+
+        span {
+            color: inherit;
+        }
+
+        .ng-star-inserted {
+            &:hover {
+                background-color: transparent !important;
+            }
+        }
+    }
+
+    .current {
+        background: var(--primary-blue) !important;
+    }
+
+    .ngx-pagination a:hover,
+    .ngx-pagination button:hover {
+        background: var(--light-blue) !important;
+    }
+}
+
 // SnackBar with just a message
 .snackbar .mat-simple-snackbar {
     font-family: "Poppins";

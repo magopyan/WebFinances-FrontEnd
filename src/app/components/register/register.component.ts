@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { UserRegisterForm } from 'src/app/models/user-register-form';
 import { ValidationService } from 'src/app/services/validation.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
