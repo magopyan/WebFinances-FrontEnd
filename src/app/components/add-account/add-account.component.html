@@ -2,7 +2,7 @@
     <div class="container">
         <div class="top">
             <div class="top-right-col">
-                
+
                 <mat-horizontal-stepper linear
                                         #stepper>
                     <!-- labelPosition="bottom" -->
@@ -53,8 +53,7 @@
                                        [(ngModel)]="balance">
                                 <div class="error error-balance"
                                      [ngClass]="{ hidden: isBalanceValid }"><span id="error-balance">Please enter a
-                                        valid
-                                        starting balance! <i>(Example: 123.45)</i>
+                                        valid starting balance! <i>(Example: 123.45)</i>
                                     </span></div>
 
                                 <div class="buttons-container b2">
@@ -75,7 +74,8 @@
                         <div class="form3">
                             <h3>Confirm your new account:</h3>
                             <div class="account-view">
-                                <app-account-view [account]="newAccount" [areIconsVisible]="false"></app-account-view>
+                                <app-account-view [account]="newAccount"
+                                                  [areIconsVisible]="false"></app-account-view>
                             </div>
                             <div class="buttons-container b2">
                                 <input (click)="onStepBack(stepper)"

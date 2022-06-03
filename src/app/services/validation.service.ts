@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Account } from '../models/account';
 import { AccountForm } from '../models/account-form';
 import { ContactForm } from '../models/contact-form';
 import { UserRegisterForm } from '../models/user-register-form';
@@ -29,6 +30,10 @@ export class ValidationService {
   }
 
   public postAccountForm(accountForm: AccountForm): Observable<Map<string, string>> {
-    return this.http.post<Map<string, string>>(`${this.apiUrl}/accounts/validate`, accountForm, httpOptions);
+    return this.http.post<Map<string, string>>(`${this.apiUrl}/accounts/validate-new`, accountForm, httpOptions);
+  }
+
+  public postAccountEditForm(account: Account): Observable<Map<string, string>> {
+    return this.http.post<Map<string, string>>(`${this.apiUrl}/accounts/validate-edit`, account, httpOptions);
   }
 }

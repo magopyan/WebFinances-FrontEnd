@@ -8,6 +8,7 @@
     min-height: 152.8px;
     background: var(--primary-white-blue);
     display: flex;
+    box-shadow: 2px 3px rgba(black, 0.25);
 
     .left-col {
         flex: 30%;
@@ -35,6 +36,11 @@
 
             .delete-icon {
                 margin-left: 0.25rem;
+                color: var(--error);
+            }
+
+            .edit-icon {
+                color: #1977d1;
             }
 
             mat-icon {

@@ -11,7 +11,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { environment } from '../environments/environment';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { AppComponent } from './app.component';
@@ -32,7 +32,7 @@ import { StaticDataService } from './services/static-data.service';
 import { AccountTypeViewComponent } from './components/account-type-view/account-type-view.component';
 import { AccountViewComponent } from './components/account-view/account-view.component';
 import { AccountService } from './services/account.service';
-
+import { environment } from 'src/environments/environment';
 
 const appRoutes: Routes = [
   { path: '#', component: HomeComponent },
@@ -72,7 +72,8 @@ const appRoutes: Routes = [
     MatRadioModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MatDialogModule
   ],
   providers: [ValidationService, FirebaseAuthService, AccountService, StaticDataService],
   bootstrap: [AppComponent]

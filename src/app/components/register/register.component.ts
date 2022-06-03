@@ -66,6 +66,7 @@ export class RegisterComponent implements OnInit {
                 duration: 4000,
                 panelClass: ['snackbar']
               });
+              this.router.navigate(['login']);
             })
             .catch((error) => {
               console.log("errrror");

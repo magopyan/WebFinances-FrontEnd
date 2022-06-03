@@ -9,7 +9,7 @@
         <div class="icons-container">
             <div class="icons"
                  [ngClass]="{'invisible': !areIconsVisible }">
-                <mat-icon (click)="onEditAccount(account)">edit</mat-icon>
+                <mat-icon class="edit-icon" (click)="onEditAccount(account)">edit</mat-icon>
                 <mat-icon class="delete-icon"
                           (click)="onDeleteAccount(account)">delete</mat-icon>
             </div>
