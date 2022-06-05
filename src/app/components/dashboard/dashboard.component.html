@@ -1,12 +1,11 @@
-<section class="accounts-section">
+<section class="transactions-section">
     <div class="container">
         <div class="top">
             <div class="top-left-col">
-                <h2>Your Accounts</h2>
-                <p class="total">Total Balance: <span>{{ totalBalance }}</span></p>
+                <h2>Transactions</h2>
             </div>
             <div class="top-right-col">
-                <input routerLink="/add-account"
+                <input routerLink="/add-transaction"
                        type="button"
                        class="add-cta"
                        value="+ NEW">
@@ -14,21 +13,23 @@
         </div>
 
         <div class="list-container">
-            <div class="account-container"
-                 *ngFor="let account of accounts">
-                <app-account-view [account]="account"
+            <div class="transaction-container"
+                 *ngFor="let transaction of transactions">
+                 transaction<br>
+                <!-- <app-transaction-view [transaction]="transaction"
                                   [areIconsVisible]="true"
-                                  (onDelete)="deleteAccount(account)"
-                                  (onEdit)="onOpenEditDialog(account)"></app-account-view>
+                                  (onDelete)="deleteAccount(transaction)"
+                                  (onEdit)="onOpenEditDialog(transaction)"></app-transaction-view> -->
             </div>
             <div class="empty">
                 <div class="pagination"
-                     *ngFor="let account of allAccounts | paginate: { itemsPerPage: 9, currentPage: currentPageNumber }">
+                     *ngFor="let transaction of allTransactions | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPageNumber }">
                 </div>
             </div>
         </div>
 
-        <div *ngIf="allAccounts.length" class="pagination-container">
+        <div *ngIf="allTransactions?.length"
+             class="pagination-container">
             <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
         </div>
     </div>
@@ -36,9 +37,9 @@
 
 
 <!-- Edit Account Dialog -->
-<ng-template #dialogRef
+<!-- <ng-template #dialogRef
              let-mydata>
-    <h5>Edit account {{mydata}}</h5>
+    <h5>Edit transaction {{mydata}}</h5>
     <form #editForm="ngForm">
         <input type="hidden"
                [(ngModel)]="editAccount.id"
@@ -54,7 +55,7 @@
                    id="name">
             <div class="error error-name"
                  [ngClass]="{ hidden: isNameValid }"><span id="error-name">Please enter a name for
-                    your account!</span></div>
+                    your transaction!</span></div>
         </div>
         <div class="form-group">
             <label for="balance">Balance</label>
@@ -69,7 +70,7 @@
                 </span></div>
         </div>
         <div class="form-group form-group-bottom">
-            <label for="account-type">Account Type</label>
+            <label for="transaction-type">Account Type</label>
             <div class="img-select">
                 <img src="{{editAccount.accountType.imageUrl}}">
                 <select class="form-group"
@@ -78,15 +79,15 @@
                         [(ngModel)]="editAccount.accountType"
                         [compareWith]="compareById"
                         name="accountType"
-                        id="account-type">
+                        id="transaction-type">
                     <option *ngFor="let accountType of accountTypes"
                             [ngValue]="accountType">
                         <span>{{ accountType?.name }}</span>
                     </option>
                 </select>
             </div>
-            <div class="error error-account-type"
-                 [ngClass]="{ hidden: isAccountTypeValid }"><span id="error-account-type">Please select an account
+            <div class="error error-transaction-type"
+                 [ngClass]="{ hidden: isAccountTypeValid }"><span id="error-transaction-type">Please select an transaction
                     type!
                 </span></div>
         </div>
@@ -99,4 +100,4 @@
                     (click)="onSubmitEditForm()">Save</button>
         </div>
     </form>
-</ng-template>
+</ng-template> -->

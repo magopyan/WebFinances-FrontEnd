@@ -7,6 +7,7 @@
 
 :root {
     --primary-blue: #1E90FF;
+    --primary-dark-blue: #1977d1;
     --text-green: #03C03C;
     --text-dark: #1C1C1C;
     --primary-green: #AAF0D1;
@@ -107,9 +108,7 @@ a {
 
 // SnackBar with message+button
 .ng-star-inserted {
-    //font-family: "Poppins";
     //color: var(--primary-light);
-    color: black;
 }
 
 .mat-button {

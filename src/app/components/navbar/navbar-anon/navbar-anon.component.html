@@ -13,28 +13,32 @@
                       class="mobile-menu mobile-menu-exit">close</mat-icon>
 
             <ul class="left-nav">
-                <div class="item-container">
-                    <li><a (click)="onToggleHamburger()" routerLink="/#"
-                           routerLinkActive="active-link">Home</a></li>
+                <div class="item-container"
+                     routerLink="/#"
+                     routerLinkActive="active-link">
+                    <li><a (click)="onToggleHamburger()">Home</a></li>
                 </div>
                 <!-- <div class="item-container">
                     <li><a (click)="onToggleHamburger()" routerLink="/">Features</a></li>
                 </div> -->
-                <div class="item-container">
-                    <li><a (click)="onToggleHamburger()" routerLink="/contact"
-                           routerLinkActive="active-link">Contact</a></li>
+                <div class="item-container"
+                     routerLink="/contact"
+                     routerLinkActive="active-link">
+                    <li><a (click)="onToggleHamburger()">Contact</a></li>
                 </div>
             </ul>
 
             <ul class="right-nav">
                 <div class="item-container login-container">
                     <li class="login">
-                        <a (click)="onToggleHamburger()" routerLink="/login">Login</a>
+                        <a (click)="onToggleHamburger()"
+                           routerLink="/login">Login</a>
                     </li>
                 </div>
                 <div class="item-container register-container">
                     <li class="register">
-                        <a (click)="onToggleHamburger()" routerLink="/register">Register</a>
+                        <a (click)="onToggleHamburger()"
+                           routerLink="/register">Register</a>
                     </li>
                 </div>
             </ul>

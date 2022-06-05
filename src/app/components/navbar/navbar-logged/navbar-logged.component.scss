@@ -7,7 +7,7 @@
     height: 65px;
 
     .logo {
-        padding-top: 16px;
+        padding: 1rem 0;
         font-weight: 900;
         color: var(--primary-blue);
         font-size: 1.2rem;
@@ -92,6 +92,12 @@ nav {
 
         &:hover {
             box-shadow: inset 0 -3px 0 var(--primary-blue);
+            cursor: pointer;
+
+            a {
+                color: var(--primary-dark-blue) !important;
+                font-weight: bold;
+            }
         }
     }
 
@@ -127,39 +133,31 @@ nav {
         ul.left-nav {
             margin: 0;
         }
+    }
 
-        .register-container {
-            &:hover {
-                box-shadow: inset 0 -3px 0 var(--text-green);
+    .sign-out {
+        margin-left: 0.8rem;
+
+        &:hover {
+            box-shadow: none;
+            cursor: default;
+
+            a {
+                color: var(--error) !important;
+                font-weight: normal;
             }
         }
 
-        .login-container {
-            margin-right: 1rem;
-        }
+        li {
+            a {
+                border: 1px solid var(--error);
+                border-radius: 30px;
+                color: var(--error);
 
-        li.login a {
-            font-weight: 500;
-            color: var(--primary-blue);
-            border: 2px solid var(--primary-blue);
-            border-radius: 30px;
-
-            &:hover {
-                //color: var(--primary-light);
-                background: var(--primary-white-blue2);
-            }
-        }
-
-        li.register a {
-            font-weight: 600;
-            color: var(--text-green);
-            border: 4px solid var(--text-green);
-            border-radius: 30px;
-            margin-top: -0.2rem;
-
-            &:hover {
-                color: var(--primary-light);
-                background: var(--text-green);
+                &:hover {
+                    color: var(--primary-light) !important;
+                    background: var(--error);
+                }
             }
         }
     }

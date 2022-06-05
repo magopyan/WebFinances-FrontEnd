@@ -85,13 +85,19 @@ export class AccountsComponent implements OnInit {
   }
 
   deleteAccount(account: Account) {
+    let pageEmpty: boolean = this.accounts.length <= 1 && this.currentPageNumber > 0;
     this.accountService.deleteAccount(account).subscribe({
       next: (response: void) => {
         this.snackBar.open('Account deleted successfully.', '', {
           duration: 4000,
           panelClass: ['snackbar']
         });
-        this.getAccounts(this.currentPageNumber - 1);
+        if(pageEmpty) {
+          this.getAccounts(this.currentPageNumber - 2);
+        }
+        else {
+          this.getAccounts(this.currentPageNumber - 1);
+        }
       },
       error: (error: HttpErrorResponse) => {
         this.snackBar.open("Error when deleting account. ❌", "Dismiss");
@@ -99,6 +105,9 @@ export class AccountsComponent implements OnInit {
     })
   }
 
+
+  // EDIT ACCOUNT
+  ////////////////////////////////////////////////////////////////////////
   onOpenEditDialog(account: Account): void {
     this.editAccount = Object.assign({}, account); // clone account so that it doesn't change in the account view as I edit
     this.dialog.open(this.dialogRef, { data: account.name, width: '500px' , panelClass: 'custom-modalbox'});

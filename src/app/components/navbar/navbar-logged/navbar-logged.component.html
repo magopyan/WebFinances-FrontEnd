@@ -2,7 +2,7 @@
     <div class="container">
         <a class="logo"
            routerLink="/#">Web<span>Finances</span></a>
-           
+
 
         <mat-icon (click)="onToggleHamburger()"
                   id="mobile-menu-open"
@@ -14,25 +14,28 @@
                       class="mobile-menu mobile-menu-exit">close</mat-icon>
 
             <ul class="left-nav">
-                <div class="item-container">
-                    <li><a (click)="onToggleHamburger()" routerLink="/dashboard"
-                           routerLinkActive="active-link">Dashboard</a></li>
+                <div class="item-container"
+                     routerLink="/dashboard"
+                     routerLinkActive="active-link">
+                    <li><a (click)="onToggleHamburger()">Dashboard</a></li>
                 </div>
-                <div class="item-container">
-                    <li><a (click)="onToggleHamburger()" routerLink="/accounts"
-                           routerLinkActive="active-link">Accounts</a></li>
+                <div class="item-container"
+                     routerLink="/accounts"
+                     routerLinkActive="active-link">
+                    <li><a (click)="onToggleHamburger()">Accounts</a></li>
                 </div>
-                <div class="item-container">
-                    <li><a (click)="onToggleHamburger()" routerLink="/"
-                           routerLinkActive="active-link">Reports</a></li>
+                <div class="item-container"
+                     routerLink="/"
+                     routerLinkActive="active-link">
+                    <li><a (click)="onToggleHamburger()">Reports</a></li>
                 </div>
             </ul>
 
-
             <ul class="right-nav">
-                <div class="item-container">
-                    <li><a (click)="onToggleHamburger()" routerLink="/contact"
-                           routerLinkActive="active-link">Contact</a></li>
+                <div class="item-container"
+                     routerLink="/contact"
+                     routerLinkActive="active-link">
+                    <li><a (click)="onToggleHamburger()">Contact</a></li>
                 </div>
                 <div class="item-container sign-out">
                     <li><a (click)="signOut()"

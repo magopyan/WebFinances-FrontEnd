@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   async navigateToDashboard() {
     const user = await this.isLoggedIn();
     if (user) {
-      this.router.navigate(['accounts']);
+      this.router.navigate(['dashboard']);
     } else {
       console.log("NavigateToDashboard null");
     }

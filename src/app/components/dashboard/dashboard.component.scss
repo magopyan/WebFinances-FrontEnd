@@ -1,0 +1,191 @@
+.top {
+    display: flex;
+    place-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.list-container {
+    display: grid;
+    margin-bottom: 3rem;
+    column-count: 3;
+    column-gap: 50px;
+    row-gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+.total {
+    font-size: 1.2rem;
+
+    span {
+        font-weight: bold;
+    }
+}
+
+input[type="button"] {
+    margin-top: 1rem;
+    background-color: var(--primary-blue);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+    margin-bottom: 5rem;
+    border-radius: 5rem;
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    width: unset;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #1977d1;
+    }
+}
+
+
+// Edit Dialog ID input field
+.hidden {
+    visibility: hidden;
+}
+
+.empty {
+    display: block;
+    visibility: hidden;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+}
+
+::ng-deep .custom-modalbox {
+    mat-dialog-container {
+        background-color: var(--primary-light);
+
+        h5 {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-block-end: 2.5rem;
+            margin-block-start: 1rem;
+        }
+
+        .form-group {
+            display: block;
+            margin-bottom: 1rem;
+
+            label {
+                display: block;
+                font-size: 1rem;
+                margin-bottom: 0.2rem;
+            }
+
+            .error {
+                font-size: 0.8rem;
+                color: var(--error)
+            }
+
+            input {
+                width: 80%;
+                padding: 0.4rem;
+                margin-bottom: 0.2rem;
+                border-radius: 0.3rem;
+                border: 1px solid gray;
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
+                resize: none;
+            }
+        }
+
+        .form-group-bottom {
+            margin-bottom: 2.5rem;
+
+            .img-select {
+                display: flex;
+
+                img {
+                    width: 30px;
+                    height: auto;
+                    align-self: center;
+                    margin-right: 0.5rem;
+                }
+
+                select {
+                    padding: 0.4rem;
+                    margin-bottom: 0.3rem;
+                    margin-top: 0.25rem;
+                    border-radius: 0.3rem;
+                    border: 1px solid gray;
+                    box-sizing: border-box;
+                    font-family: Arial, Helvetica, sans-serif;
+                    resize: none;
+                }
+            }
+        }
+
+        .buttons-container {
+            width: 80%;
+            margin: 0 auto;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+
+            .btn {
+                cursor: pointer;
+                border-radius: 5rem;
+                display: inline-block;
+                width: unset;
+                font-size: 1rem;
+                font-weight: bold;
+            }
+
+            .next {
+                background-color: var(--primary-blue);
+                color: white;
+                border: none;
+                margin-left: 0.7rem;
+                padding: 0.5rem 1.5rem;
+
+                &:hover {
+                    background-color: #1977d1;
+                }
+            }
+
+            .cancel {
+                color: var(--primary-blue);
+                margin-right: 0.7rem;
+                border-radius: 30px;
+                background-color: var(--primary-light);
+                border: 2px solid var(--primary-blue);
+                padding: 0.4rem 1.2rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    .transaction-container {
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+
+    .container {
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    section {
+        padding: 5rem 4rem 4rem 4rem;
+    }
+
+    .top-left-col {
+        margin-right: 0;
+    }
+}

@@ -15,25 +15,28 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 
+import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { NavbarAnonComponent } from './components/navbar-anon/navbar-anon.component';
-import { HomeComponent } from './components/home/home.component';
-import { HeroComponent } from './components/hero/hero.component';
-import { FeaturesSectionComponent } from './components/features-section/features-section.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { FooterComponent } from './components/navbar/footer/footer.component';
+import { NavbarAnonComponent } from './components/navbar/navbar-anon/navbar-anon.component';
+import { HomeComponent } from './components/static-pages/home/home.component';
+import { HeroComponent } from './components/static-pages/hero/hero.component';
+import { FeaturesSectionComponent } from './components/static-pages/features-section/features-section.component';
+import { ContactComponent } from './components/static-pages/contact/contact.component';
 import { ValidationService } from './services/validation.service';
-import { RegisterComponent } from './components/register/register.component';
-import { NavbarLoggedComponent } from './components/navbar-logged/navbar-logged.component';
-import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/static-pages/register/register.component';
+import { NavbarLoggedComponent } from './components/navbar/navbar-logged/navbar-logged.component';
+import { LoginComponent } from './components/static-pages/login/login.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { FirebaseAuthService } from './services/firebase-auth.service';
-import { AddAccountComponent } from './components/add-account/add-account.component';
+import { AddAccountComponent } from './components/accounts/add-account/add-account.component';
 import { StaticDataService } from './services/static-data.service';
-import { AccountTypeViewComponent } from './components/account-type-view/account-type-view.component';
-import { AccountViewComponent } from './components/account-view/account-view.component';
+import { AccountTypeViewComponent } from './components/accounts/account-type-view/account-type-view.component';
+import { AccountViewComponent } from './components/accounts/account-view/account-view.component';
 import { AccountService } from './services/account.service';
-import { environment } from 'src/environments/environment';
+
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TransactionViewComponent } from './components/dashboard/transaction-view/transaction-view.component';
 
 const appRoutes: Routes = [
   { path: '#', component: HomeComponent },
@@ -41,7 +44,8 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'accounts', component: AccountsComponent },
-  { path: 'add-account', component: AddAccountComponent }
+  { path: 'add-account', component: AddAccountComponent },
+  { path: 'dashboard', component: DashboardComponent }
 ]
 
 @NgModule({
@@ -59,7 +63,9 @@ const appRoutes: Routes = [
     AccountsComponent,
     AddAccountComponent,
     AccountTypeViewComponent,
-    AccountViewComponent
+    AccountViewComponent,
+    DashboardComponent,
+    TransactionViewComponent
   ],
   imports: [
     BrowserModule,

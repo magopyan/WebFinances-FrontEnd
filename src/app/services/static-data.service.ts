@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AccountType } from '../models/account-type';
+import { Category, Subcategory } from '../models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,13 @@ export class StaticDataService {
 
   public getAccountTypes(): Observable<AccountType[]> {
     return this.http.get<AccountType[]>(`${this.apiUrl}/account-types/all`);
+  }
+
+  public getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.apiUrl}/categories/all`);
+  }
+
+  public getSubcategories(): Observable<Subcategory[]> {
+    return this.http.get<Subcategory[]>(`${this.apiUrl}/subcategories/all`);
   }
 }
