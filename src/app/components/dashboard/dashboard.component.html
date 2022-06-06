@@ -5,17 +5,20 @@
                 <h2>Transactions</h2>
             </div>
             <div class="top-right-col">
-                <input routerLink="/add-transaction"
-                       type="button"
-                       class="add-cta"
-                       value="+ NEW">
+                <button type="button"
+                        class="add-cta"
+                        [matMenuTriggerFor]="menu">+ NEW</button>
+                <mat-menu #menu="matMenu">
+                    <button routerLink="/add-income" mat-menu-item>Income</button>
+                    <button routerLink="/add-expense" mat-menu-item>Expense</button>
+                </mat-menu>
             </div>
         </div>
 
         <div class="list-container">
             <div class="transaction-container"
                  *ngFor="let transaction of transactions">
-                 transaction<br>
+                {{transaction.amount}}<br>
                 <!-- <app-transaction-view [transaction]="transaction"
                                   [areIconsVisible]="true"
                                   (onDelete)="deleteAccount(transaction)"

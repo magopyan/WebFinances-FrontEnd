@@ -22,7 +22,11 @@ export class StaticDataService {
     return this.http.get<Category[]>(`${this.apiUrl}/categories/all`);
   }
 
-  public getSubcategories(): Observable<Subcategory[]> {
-    return this.http.get<Subcategory[]>(`${this.apiUrl}/subcategories/all`);
+  public getIncomeSubcategories(): Observable<Subcategory[]> {
+    return this.http.get<Subcategory[]>(`${this.apiUrl}/subcategories/all/income`);
+  }
+
+  public getExpenseSubcategories(): Observable<Subcategory[]> {
+    return this.http.get<Subcategory[]>(`${this.apiUrl}/subcategories/all/expense`);
   }
 }

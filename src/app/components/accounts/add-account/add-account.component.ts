@@ -7,7 +7,7 @@ import { Account } from 'src/app/models/account';
 import { AccountForm } from 'src/app/models/account-form';
 import { AccountType } from 'src/app/models/account-type';
 import { AccountService } from 'src/app/services/account.service';
-import { SelectAccountTypeService } from 'src/app/services/select-account-type.service';
+import { SelectedService } from 'src/app/services/selected.service';
 import { StaticDataService } from 'src/app/services/static-data.service';
 import { ValidationService } from 'src/app/services/validation.service';
 
@@ -33,10 +33,8 @@ export class AddAccountComponent implements OnInit {
   firstStepCompleted: boolean = false;
   secondStepCompleted: boolean = false;
 
-  currentUser: any;
-
   constructor(private router: Router, private staticDataService: StaticDataService, private validationService: ValidationService,
-    public snackBar: MatSnackBar, private selectAccountTypeService: SelectAccountTypeService, private accountService: AccountService) {
+    public snackBar: MatSnackBar, private selectAccountTypeService: SelectedService, private accountService: AccountService) {
   }
 
   ngOnInit(): void {

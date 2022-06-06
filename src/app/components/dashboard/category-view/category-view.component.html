@@ -1,0 +1,8 @@
+<div class="container"
+     (click)="onSelectCategory()"
+     [ngClass]="{ 'selected': chosenCategory?.id == category.id }">
+    <div class="content">
+        <img src="{{ category?.imageUrl }}">
+        <span>{{ category?.name }}</span>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AccountType } from 'src/app/models/account-type';
-import { SelectAccountTypeService } from 'src/app/services/select-account-type.service';
+import { SelectedService } from 'src/app/services/selected.service';
 
 @Component({
   selector: 'app-account-type-view',
@@ -12,14 +12,14 @@ export class AccountTypeViewComponent implements OnInit {
   @Input() accountType!: AccountType;
   chosenAccountType: any;
 
-  constructor(private selectAccountTypeService: SelectAccountTypeService) { }
+  constructor(private selectedService: SelectedService) { }
 
   ngOnInit(): void {
-    this.selectAccountTypeService.getAccountType().subscribe(
-      (accountType) => this.chosenAccountType = accountType); 
+    this.selectedService.getAccountType().subscribe(
+      (accountType) => this.chosenAccountType = accountType);
   }
 
   onSelectAccountType() {
-    this.selectAccountTypeService.setAccountType(this.accountType);
+    this.selectedService.setAccountType(this.accountType);
   }
 }

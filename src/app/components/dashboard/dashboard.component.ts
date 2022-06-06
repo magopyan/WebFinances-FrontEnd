@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ValidationService } from 'src/app/services/validation.service';
 import { Category, Subcategory } from 'src/app/models/category';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { AccountService } from 'src/app/services/account.service';
+import { Account } from 'src/app/models/account';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,19 +26,22 @@ export class DashboardComponent implements OnInit {
   editTransaction!: Transaction;
   categories!: Category[];
   subcategories!: Subcategory[];
+  allAccounts!: Account[];
   @ViewChild('dialogRef') dialogRef!: TemplateRef<any>;
   // isNameValid: boolean = true;
   // isBalanceValid: boolean = true;
   // isTransactionTypeValid: boolean = true;
 
-  constructor(private firebaseAuthService: FirebaseAuthService, private transactionService: TransactionService, public dialog: MatDialog,
-    public snackBar: MatSnackBar, private staticDataService: StaticDataService, private validationService: ValidationService) { }
+  constructor(private firebaseAuthService: FirebaseAuthService, private transactionService: TransactionService, 
+    public dialog: MatDialog, public snackBar: MatSnackBar, private staticDataService: StaticDataService, 
+    private validationService: ValidationService, private accountService: AccountService) { }
 
   ngOnInit(): void {
     console.log("DashboardComponent onInit()");
     this.getTransactions(0);
     this.getCategories();
     this.getSubcategories();
+    this.getAccounts();
   }
 
   getTransactions(pageNumber: number): void {
@@ -57,6 +62,19 @@ export class DashboardComponent implements OnInit {
       error: (error: HttpErrorResponse) => {
         if (!this.snackBar._openedSnackBarRef) {
           this.snackBar.open("Server error when retrieving transactions. Please try to sign in again. ❌", "Dismiss");
+        }
+      }
+    })
+  }
+
+  getAccounts() {
+    this.accountService.getAllAccounts().subscribe({
+      next: (response: Account[]) => {
+        this.allAccounts = response;
+      },
+      error: (error: HttpErrorResponse) => {
+        if (!this.snackBar._openedSnackBarRef) {
+          this.snackBar.open("Server error when retrieving accounts. Please try to sign in again. ❌", "Dismiss");
         }
       }
     })
@@ -86,7 +104,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getSubcategories(): void {
-    this.staticDataService.getSubcategories().subscribe({
+    this.staticDataService.getIncomeSubcategories().subscribe({
       next: (response: Subcategory[]) => {
         this.subcategories = response;
       },

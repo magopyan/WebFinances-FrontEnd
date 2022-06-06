@@ -5,15 +5,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatRadioModule } from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { MatDialogModule } from '@angular/material/dialog';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
@@ -37,6 +41,11 @@ import { AccountService } from './services/account.service';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TransactionViewComponent } from './components/dashboard/transaction-view/transaction-view.component';
+import { AddIncomeComponent } from './components/dashboard/add-income/add-income.component';
+import { AddExpenseComponent } from './components/dashboard/add-expense/add-expense.component';
+import { CategoryViewComponent } from './components/dashboard/category-view/category-view.component';
+import { SubcategoryViewComponent } from './components/dashboard/subcategory-view/subcategory-view.component';
+import { AccountListViewComponent } from './components/accounts/account-list-view/account-list-view.component';
 
 const appRoutes: Routes = [
   { path: '#', component: HomeComponent },
@@ -45,7 +54,9 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'accounts', component: AccountsComponent },
   { path: 'add-account', component: AddAccountComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'add-income', component: AddIncomeComponent },
+  { path: 'add-expense', component: AddExpenseComponent }
 ]
 
 @NgModule({
@@ -65,7 +76,12 @@ const appRoutes: Routes = [
     AccountTypeViewComponent,
     AccountViewComponent,
     DashboardComponent,
-    TransactionViewComponent
+    TransactionViewComponent,
+    AddIncomeComponent,
+    AddExpenseComponent,
+    CategoryViewComponent,
+    SubcategoryViewComponent,
+    AccountListViewComponent
   ],
   imports: [
     BrowserModule,
@@ -74,14 +90,19 @@ const appRoutes: Routes = [
     NoopAnimationsModule,
     RouterModule.forRoot(appRoutes, { enableTracing: true }),
     FormsModule,
-    MatSnackBarModule,
-    MatStepperModule,
-    MatRadioModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    NgxPaginationModule,
+    MatSnackBarModule,
+    MatStepperModule,
+    MatRadioModule,
     MatDialogModule,
-    NgxPaginationModule
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [ValidationService, FirebaseAuthService, AccountService, StaticDataService],
   bootstrap: [AppComponent]

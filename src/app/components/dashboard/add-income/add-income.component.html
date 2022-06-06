@@ -1,0 +1,113 @@
+<section class="add-transaction-section">
+    <div class="container">
+        <div class="top">
+            <div class="top-right-col">
+
+                <mat-horizontal-stepper linear
+                                        #stepper>
+                    <mat-step label="Category"
+                              #step>
+                        <div class="form1">
+                            <h3>Choose a category:</h3>
+                            <div class="subcategories-container">
+                                <div class="option"
+                                     *ngFor="let subcategory of subcategories">
+                                    <app-subcategory-view [subcategory]=subcategory></app-subcategory-view>
+                                </div>
+                            </div>
+                            <div class="buttons-container b1">
+                                <input (click)="onCloseStepper()"
+                                       type="button"
+                                       class="btn cancel"
+                                       value="Cancel">
+                                <input (click)="onSubmitFirstStep(stepper)"
+                                       type="button"
+                                       class="btn next"
+                                       value="Next">
+                            </div>
+                        </div>
+                    </mat-step>
+
+                    <mat-step label="Account"
+                              #step>
+                        <div class="form2">
+                            <h3>Choose an account:</h3>
+                            <div class="accounts-container">
+                                <div class="option"
+                                     *ngFor="let account of allAccounts">
+                                    <app-account-list-view [account]=account></app-account-list-view>
+                                </div>
+                            </div>
+                            <div class="buttons-container b2">
+                                <input (click)="onStepBack(stepper)"
+                                       type="button"
+                                       class="btn cancel"
+                                       value="Back">
+                                <input (click)="onSubmitSecondStep(stepper)"
+                                       type="button"
+                                       class="btn next"
+                                       value="Next">
+                            </div>
+                        </div>
+                    </mat-step>
+
+                    <mat-step label="Details">
+                        <div class="form3">
+                            <h3>Enter some details:</h3>
+                            <form (ngSubmit)="onCreateTransaction(stepper)">
+                                <div class="normal-field">
+                                    <label for="amount">Amount</label>
+                                    <input type="text"
+                                           id="amount"
+                                           name="amount"
+                                           [(ngModel)]="amount">
+
+                                    <div class="error error-amount"
+                                         [ngClass]="{ hidden: isAmountValid }"><span id="error-amount">Please enter a
+                                            valid amount! <i>(Example: 123.45)</i></span></div>
+
+                                    <label for="date">Date</label>
+                                </div>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Choose a date</mat-label>
+                                    <input matInput
+                                           name="date"
+                                           [matDatepicker]="picker">
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matSuffix
+                                                           [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                <div class="error error-date"
+                                     [ngClass]="{ hidden: isDateValid }"><span id="error-date">Please select a date!
+                                    </span></div>
+
+                                <div class="normal-field">
+                                    <label for="note">Note</label>
+                                    <textarea name="note"
+                                              id="note"
+                                              cols="10"
+                                              rows="5"
+                                              [(ngModel)]="note"></textarea>
+                                </div>
+                                <div class="error error-message"
+                                     [ngClass]="{ hidden: isNoteValid }"><span id="error-message">Please leave us a
+                                        message!</span></div>
+
+                                <div class="buttons-container b3">
+                                    <input (click)="onStepBack(stepper)"
+                                           type="button"
+                                           class="btn cancel"
+                                           value="Back">
+                                    <input type="submit"
+                                           class="btn next"
+                                           value="Create">
+                                </div>
+                            </form>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+    </div>
+</section>

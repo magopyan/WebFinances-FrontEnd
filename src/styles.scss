@@ -20,12 +20,6 @@
     --caffbf: #caffbf;
 }
 
-:host {
-    // height: 100%
-
-}
-
-
 body {
     margin: 0;
     font-size: 1rem;
@@ -39,8 +33,6 @@ app-root,
 app-component {
     margin: 0;
     min-height: 100vh;
-    // display: flex;
-    // flex-direction: column;
 }
 
 section {
@@ -61,6 +53,20 @@ ul {
 a {
     color: #000000;
     text-decoration: none;
+}
+
+.mat-form-field {
+    background: white !important;
+    border-radius: 0.3rem !important;
+
+    .mat-form-field-wrapper {
+        border: 1px solid gray;
+        border-radius: 0.3rem !important;
+    }
+
+    // .mat-form-field-subscript-wrapper {
+    //     background-color: var(--primary-green);
+    // }
 }
 
 .ngx-pagination {
