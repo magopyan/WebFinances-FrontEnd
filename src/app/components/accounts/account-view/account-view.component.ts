@@ -19,6 +19,14 @@ export class AccountViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isBalancePositive(): boolean {
+    return this.account?.balance > 0;
+  }
+
+  getBalance() {
+    return Number(this.account?.balance).toFixed(2)
+  }
+
   onEditAccount(account: Account): void {
     this.onEdit.emit(account);
   }

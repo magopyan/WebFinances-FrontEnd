@@ -1,10 +1,28 @@
 .container {
-    padding: 1rem 2rem 0.3rem 2rem;
-    position: relative;
     border-bottom: 2px solid rgba(211, 211, 211, 0.563);
     height: 40px;
+    line-height: 40px;
     cursor: pointer;
     border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem 1rem 2rem;
+}
+
+.left-col {
+    align-items: center;
+}
+
+.name {
+    vertical-align: middle;
+}
+
+.positive-balance {
+    color: rgba(0, 128, 0);
+}
+
+.negative-balance {
+    color: var(--error);
 }
 
 .container:hover {
@@ -12,15 +30,13 @@
 }
 
 img {
-    margin-left: 5rem;
     width: 30px;
-    margin-right: 0.7rem;
     padding: 0;
+    margin-right: 0.5rem;
+    vertical-align: middle;
 }
 
 span {
-    position: absolute;
-    top: 20px;
     font-size: 1.2rem;
 }
 
@@ -29,7 +45,20 @@ span {
 }
 
 @media only screen and (max-width: 768px) {
-    img {
-        margin-left: 2rem;
+    .container {
+        display: block;
+        font-size: 1.1rem;
+        height: auto;
+        text-align: center;
+        padding: 0.5rem 2rem 0rem 2rem;
+
+        .left-col {
+            margin: 0 auto;
+        }
+
+        .balance {
+            margin: 0 auto;
+            margin-top: -0.2rem;
+        }
     }
 }

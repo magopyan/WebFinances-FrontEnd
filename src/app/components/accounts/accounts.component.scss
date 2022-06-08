@@ -4,6 +4,15 @@
     margin-bottom: 1rem;
 }
 
+.negative-balance {
+    color: var(--error);
+}
+
+.positive-balance {
+    color: rgba(0, 128, 0);
+    ;
+}
+
 .list-container {
     display: grid;
     margin-bottom: 3rem;

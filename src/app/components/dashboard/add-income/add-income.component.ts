@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Account } from 'src/app/models/account';
 import { Subcategory } from 'src/app/models/category';
 import { Transaction } from 'src/app/models/transaction';
+import { TransactionForm } from 'src/app/models/transaction-form';
 import { AccountService } from 'src/app/services/account.service';
 import { SelectedService } from 'src/app/services/selected.service';
 import { StaticDataService } from 'src/app/services/static-data.service';
@@ -20,7 +21,7 @@ import { ValidationService } from 'src/app/services/validation.service';
 export class AddIncomeComponent implements OnInit {
 
   amount!: any;
-  date!: string;
+  date: Date = new Date();
   note!: string;
 
   allAccounts!: Account[];
@@ -33,7 +34,6 @@ export class AddIncomeComponent implements OnInit {
   isNoteValid: boolean = true;
 
   newTransaction!: Transaction;
-
   firstStepCompleted: boolean = false;
   secondStepCompleted: boolean = false;
 
@@ -88,7 +88,8 @@ export class AddIncomeComponent implements OnInit {
     }
     else {
       this.firstStepCompleted = true;
-      stepper.selectedIndex = 1;
+      stepper!.selected!.completed = true;
+      stepper!.next();
     }
   }
 
@@ -98,10 +99,112 @@ export class AddIncomeComponent implements OnInit {
     }
     else {
       this.secondStepCompleted = true;
-      stepper.selectedIndex = 2;
+      stepper!.selected!.completed = true;
+      stepper!.next();
     }
   }
 
   onCreateTransaction(stepper: MatStepper) {
+    this.resetFlagsAndErrorMessages();
+    this.clientSideValidate();
+
+    let dateFormatted = this.date.toLocaleDateString("sv-SE", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    console.log("dateFormatted: " + dateFormatted);
+
+    if (this.isAmountValid && this.isDateValid && this.isNoteValid) {
+      const transactionForm: TransactionForm = {
+        amount: this.amount,
+        date: dateFormatted,
+        note: this.note
+      }
+      console.log(transactionForm.date);
+      this.validationService.postTransactionForm(transactionForm).subscribe({
+        next: (response: Object) => {
+          this.newTransaction = {
+            amount: this.amount,
+            date: dateFormatted,
+            note: this.note,
+            subcategory: this.chosenSubcategory,
+            account: this.chosenAccount
+          }
+          this.transactionService.addTransaction(this.newTransaction).subscribe({
+            next: (response: Transaction) => {
+              this.snackBar.open("Transaction saved successfully! ✔️", '', {
+                duration: 4000,
+                panelClass: ['snackbar']
+              });
+              this.router.navigate(['dashboard']);
+            },
+            error: (error: HttpErrorResponse) => {
+              this.snackBar.open(error.message + " ❌", "Dismiss");
+            }
+          })
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          this.handleServerErrors(errorResponse);
+        }
+      })
+    }
+  }
+
+  handleServerErrors(errorResponse: HttpErrorResponse) {
+    if (errorResponse.status == 406) {
+      const errorsMap = new Map<string, string>(Object.entries(errorResponse.error));
+      if (errorsMap.has("amount")) {
+        this.isAmountValid = false;
+        document.getElementById("error-amount")!.textContent = errorsMap.get("amount")!;
+      }
+      if (errorsMap.has("date")) {
+        this.isDateValid = false;
+        document.getElementById("error-date")!.textContent = errorsMap.get("date")!;
+      }
+      if (errorsMap.has("note")) {
+        this.isNoteValid = false;
+        document.getElementById("error-note")!.textContent = errorsMap.get("note")!;
+      }
+    }
+    else {
+      this.snackBar.open("Server error. ❌", "Dismiss");
+    }
+  }
+
+  clientSideValidate() {
+    if (this.amount == null) {
+      this.isAmountValid = false;
+    }
+    if (this.date == null) {
+      this.isDateValid = false;
+    }
+
+    if (this.isAmountValid) {
+      this.amount = this.amount.replace(/\s+/g, '');
+      const balanceRegexExp = /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/;
+      if (!balanceRegexExp.test(this.amount)) {
+        this.isAmountValid = false;
+      }
+      else {
+        this.amount = Number(this.amount).toFixed(2);
+      }
+    }
+    if (this.isDateValid) {
+      if (this.date.getTime() == NaN) {
+        this.isDateValid = false;
+      }
+    }
+    if (this.isNoteValid) {
+      if (this.note?.length > 64) {
+        this.isNoteValid = false;
+      }
+    }
+  }
+
+  resetFlagsAndErrorMessages(): void {
+    this.isAmountValid = true;
+    this.isDateValid = true;
+    this.isNoteValid = true;
   }
 }

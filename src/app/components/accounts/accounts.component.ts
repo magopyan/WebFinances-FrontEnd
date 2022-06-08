@@ -9,6 +9,7 @@ import { StaticDataService } from 'src/app/services/static-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ValidationService } from 'src/app/services/validation.service';
 import { AccountForm } from 'src/app/models/account-form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounts',
@@ -29,8 +30,11 @@ export class AccountsComponent implements OnInit {
   isBalanceValid: boolean = true;
   isAccountTypeValid: boolean = true;
 
-  constructor(private firebaseAuthService: FirebaseAuthService, private accountService: AccountService, public snackBar: MatSnackBar,
-    private staticDataService: StaticDataService, public dialog: MatDialog, private validationService: ValidationService) { }
+  constructor(private firebaseAuthService: FirebaseAuthService, private accountService: AccountService,
+    public snackBar: MatSnackBar, private staticDataService: StaticDataService, public dialog: MatDialog,
+    private validationService: ValidationService, private router: Router) {
+    this.currentPageNumber = this.router.getCurrentNavigation()?.extras?.state?.['pageNumber'];
+  }
 
   ngOnInit(): void {
     console.log("AccountsComponent onInit()");
@@ -61,8 +65,16 @@ export class AccountsComponent implements OnInit {
     })
   }
 
+  getTotalBalance() {
+    return Number(this.totalBalance).toFixed(2);
+  }
+
+  isTotalBalancePositive(): boolean {
+    return this.totalBalance > 0;
+  }
+
   pageChanged(newPage: number): void {
-    this.accountService.getAccounts(newPage-1).subscribe({
+    this.accountService.getAccounts(newPage - 1).subscribe({
       next: (response: Account[]) => {
         this.accounts = response;
         this.currentPageNumber = newPage;
@@ -92,7 +104,7 @@ export class AccountsComponent implements OnInit {
           duration: 4000,
           panelClass: ['snackbar']
         });
-        if(pageEmpty) {
+        if (pageEmpty) {
           this.getAccounts(this.currentPageNumber - 2);
         }
         else {
@@ -110,7 +122,7 @@ export class AccountsComponent implements OnInit {
   ////////////////////////////////////////////////////////////////////////
   onOpenEditDialog(account: Account): void {
     this.editAccount = Object.assign({}, account); // clone account so that it doesn't change in the account view as I edit
-    this.dialog.open(this.dialogRef, { data: account.name, width: '500px' , panelClass: 'custom-modalbox'});
+    this.dialog.open(this.dialogRef, { data: account.name, width: '500px', panelClass: 'custom-modalbox' });
   }
 
   // Used to automatically select the option from Select matching the editAccount.accountType
@@ -134,7 +146,7 @@ export class AccountsComponent implements OnInit {
           this.accountService.editAccount(this.editAccount).subscribe({
             next: (response: Account) => {
               this.dialog.closeAll();
-              this.getAccounts(this.currentPageNumber-1);
+              this.getAccounts(this.currentPageNumber - 1);
             },
             error: (error: HttpErrorResponse) => {
               this.snackBar.open(error.message + " ❌", "Dismiss");

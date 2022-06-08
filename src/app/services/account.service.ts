@@ -17,6 +17,7 @@ const httpOptions = {
 export class AccountService {
   private apiUrl: string = `${environment.apiBaseUrl}/accounts`;
   currentUser: any;
+  currentPageNumber!: number;
 
   constructor(private http: HttpClient, private firebaseAuthService: FirebaseAuthService) {
     this.currentUser = this.firebaseAuthService.getCurrentUser();
@@ -31,6 +32,14 @@ export class AccountService {
         httpOptions.headers = httpOptions.headers.set('Authorization', token);
       })
     })
+  }
+
+  getCurrentPageNumber() {
+    return this.currentPageNumber;
+  }
+
+  setCurrentPageNumber(currentPageNumber: number) {
+    this.currentPageNumber = currentPageNumber;
   }
 
   public getAllAccounts(): Observable<Account[]> {

@@ -30,6 +30,7 @@ export class AddAccountComponent implements OnInit {
 
   newAccount!: Account;
 
+  pageNumber!: number;
   firstStepCompleted: boolean = false;
   secondStepCompleted: boolean = false;
 
@@ -68,7 +69,8 @@ export class AddAccountComponent implements OnInit {
     }
     else {
       this.firstStepCompleted = true;
-      stepper.selectedIndex = 1;
+      stepper!.selected!.completed = true;
+      stepper!.next();
     }
   }
 
@@ -91,7 +93,8 @@ export class AddAccountComponent implements OnInit {
             accountType: this.chosenAccountType
           }
           this.secondStepCompleted = true;
-          stepper.selectedIndex = 2;
+          stepper!.selected!.completed = true;
+          stepper!.next();
         },
         error: (errorResponse: HttpErrorResponse) => {
           this.handleServerErrors(errorResponse);

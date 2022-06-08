@@ -3,7 +3,9 @@
         <div class="top">
             <div class="top-left-col">
                 <h2>Your Accounts</h2>
-                <p class="total">Total Balance: <span>{{ totalBalance }}</span></p>
+                <p class="total">Total Balance: <span
+                          [ngClass]="{'positive-balance': isTotalBalancePositive(), 'negative-balance': !isTotalBalancePositive()}">
+                        {{ getTotalBalance() }}</span></p>
             </div>
             <div class="top-right-col">
                 <input routerLink="/add-account"
@@ -28,7 +30,8 @@
             </div>
         </div>
 
-        <div *ngIf="allAccounts.length" class="pagination-container">
+        <div *ngIf="allAccounts?.length"
+             class="pagination-container">
             <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
         </div>
     </div>
@@ -93,7 +96,7 @@
         <div class="buttons-container">
             <button type="button"
                     class="btn cancel"
-                    mat-dialog-close="{{null}}">Close</button>
+                    mat-dialog-close="{{null}}">Cancel</button>
             <button type="submit"
                     class="btn next"
                     (click)="onSubmitEditForm()">Save</button>

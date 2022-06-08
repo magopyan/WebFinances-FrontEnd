@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Account } from '../models/account';
 import { AccountForm } from '../models/account-form';
 import { ContactForm } from '../models/contact-form';
+import { TransactionForm } from '../models/transaction-form';
 import { UserRegisterForm } from '../models/user-register-form';
 
 const httpOptions = {
@@ -35,5 +36,9 @@ export class ValidationService {
 
   public postAccountEditForm(account: Account): Observable<Map<string, string>> {
     return this.http.post<Map<string, string>>(`${this.apiUrl}/accounts/validate-edit`, account, httpOptions);
+  }
+
+  public postTransactionForm(transactionForm: TransactionForm): Observable<Map<string, string>> {
+    return this.http.post<Map<string, string>>(`${this.apiUrl}/transactions/validate-new`, transactionForm, httpOptions);
   }
 }

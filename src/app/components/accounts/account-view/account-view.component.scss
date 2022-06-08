@@ -2,6 +2,14 @@
     display: none;
 }
 
+.positive-balance {
+    color: rgba(0, 128, 0);
+}
+
+.negative-balance {
+    color: var(--error);
+}
+
 .container {
     border-radius: 25px;
     width: 300px;

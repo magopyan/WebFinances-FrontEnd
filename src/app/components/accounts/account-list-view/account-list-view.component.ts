@@ -19,6 +19,14 @@ export class AccountListViewComponent implements OnInit {
       (account) => this.chosenAccount = account);
   }
 
+  getBalance() {
+    return Number(this.account?.balance).toFixed(2)
+  }
+
+  isBalancePositive(): boolean {
+    return this.account?.balance > 0;
+  }
+
   onSelectAccount() {
     this.selectedService.setAccount(this.account);
   }

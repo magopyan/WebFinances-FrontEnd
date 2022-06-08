@@ -1,8 +1,11 @@
 <div class="container"
      (click)="onSelectAccount()"
      [ngClass]="{ 'selected': chosenAccount?.id == account.id }">
-    <div class="content">
+    <div class="left-col">
         <img src="{{ account?.accountType?.imageUrl }}">
-        <span>{{ account?.name }}</span>
+        <span class="name">{{ account?.name }}</span>
     </div>
+    <span class="balance"
+          [ngClass]="{'positive-balance': isBalancePositive(), 'negative-balance': !isBalancePositive()}">
+        {{ getBalance() }}</span>
 </div>

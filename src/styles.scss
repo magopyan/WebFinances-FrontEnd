@@ -168,4 +168,8 @@ section {
     .mat-horizontal-stepper-header .mat-step-icon-not-touched {
         margin-right: 0 !important;
     }
+
+    .mat-horizontal-stepper-header {
+        pointer-events: none !important;
+    }
 }

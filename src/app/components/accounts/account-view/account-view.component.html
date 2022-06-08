@@ -4,12 +4,15 @@
         <h4>{{ account?.name }}</h4>
         <div class="text">
             <p>Type: <span class="type">{{ account?.accountType?.name }}</span></p>
-            <p>Balance: <span class="balance">{{ account?.balance }}</span></p>
+            <p>Balance: <span class="balance"
+                      [ngClass]="{'positive-balance': isBalancePositive(), 'negative-balance': !isBalancePositive()}">
+                    {{ getBalance() }}</span></p>
         </div>
         <div class="icons-container">
             <div class="icons"
                  [ngClass]="{'invisible': !areIconsVisible }">
-                <mat-icon class="edit-icon" (click)="onEditAccount(account)">edit</mat-icon>
+                <mat-icon class="edit-icon"
+                          (click)="onEditAccount(account)">edit</mat-icon>
                 <mat-icon class="delete-icon"
                           (click)="onDeleteAccount(account)">delete</mat-icon>
             </div>
