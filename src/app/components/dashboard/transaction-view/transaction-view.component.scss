@@ -1,0 +1,102 @@
+.invisible {
+    display: none;
+}
+
+.positive-amount {
+    color: rgba(0, 128, 0);
+}
+
+.negative-amount {
+    color: var(--error);
+}
+
+.container {
+    border-radius: 25px;
+    width: 85%;
+    background: var(--primary-white-blue);
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 2px 3px rgba(black, 0.25);
+    padding: 0.5rem 3rem;
+    margin: 0 auto;
+
+    .left-col {
+        display: flex;
+
+        .inner-left-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+
+            img {
+                width: 80px;
+                margin: 0 auto;
+            }
+        }
+
+        .inner-right-col {
+            h4 {
+                font-size: 1.1rem;
+                margin-block-start: 0.5rem;
+                margin-block-end: 0;
+            }
+
+            p {
+                margin-bottom: 0.2rem;
+            }
+
+            .icons {
+                .view-icon {
+                    color: rgb(60, 60, 60);
+                    margin-right: 0.25rem;
+                }
+
+                .edit-icon {
+                    color: #1977d1;
+                    margin-right: 0.25rem;
+                }
+
+                .delete-icon {
+                    color: var(--error);
+                }
+
+                mat-icon {
+                    cursor: pointer;
+                    border-radius: 5px;
+
+                    &:hover {
+                        background-color: var(--light-blue);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.right-col {
+    margin-left: 1rem;
+    vertical-align: middle;
+    display: flex;
+    flex-flow: wrap;
+
+    hr {
+        width: 100%;
+        display: none;
+    }
+
+    .amount {
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+        margin-top: 1.5rem;
+    }
+
+    .date {
+        width: 100%;
+        font-size: 0.9rem;
+        text-align: center;
+        margin-bottom: 0.8rem;
+    }
+}

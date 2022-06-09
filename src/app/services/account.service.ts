@@ -42,11 +42,17 @@ export class AccountService {
     this.currentPageNumber = currentPageNumber;
   }
 
+  refreshHttpHeaders() {
+    const token: any = localStorage.getItem('token');
+    httpOptions.headers = httpOptions.headers.set('Authorization', token);
+  }
+
   public getAllAccounts(): Observable<Account[]> {
     return this.http.get<Account[]>(`${this.apiUrl}/all`, httpOptions);
   }
 
   public getAccounts(pageNumber: number): Observable<Account[]> {
+    //this.refreshHttpHeaders();
     return this.http.get<Account[]>(`${this.apiUrl}/all?page=${pageNumber}`, httpOptions);
   }
 

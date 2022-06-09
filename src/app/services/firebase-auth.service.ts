@@ -16,10 +16,16 @@ export class FirebaseAuthService {
         console.log("User loaded in FB-AuthService");
         this.currentUser = user;
         this.currentUserSubject.next(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        this.currentUser?.getIdToken().then((token: string | string[]) => {
+          localStorage.setItem('token', JSON.stringify(token));
+        })
       } else {
         console.log("User NULL in FB-AuthService");
         this.currentUser = null;
         this.currentUserSubject.next(user);
+        localStorage.setItem('user', JSON.stringify(null));
+        localStorage.setItem('token', JSON.stringify(null));
       }
     });
   }

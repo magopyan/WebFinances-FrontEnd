@@ -9,8 +9,10 @@
                         class="add-cta"
                         [matMenuTriggerFor]="menu">+ NEW</button>
                 <mat-menu #menu="matMenu">
-                    <button routerLink="/add-income" mat-menu-item>Income</button>
-                    <button routerLink="/add-expense" mat-menu-item>Expense</button>
+                    <button routerLink="/add-income"
+                            mat-menu-item>Income</button>
+                    <button routerLink="/add-expense"
+                            mat-menu-item>Expense</button>
                 </mat-menu>
             </div>
         </div>
@@ -18,11 +20,10 @@
         <div class="list-container">
             <div class="transaction-container"
                  *ngFor="let transaction of transactions">
-                {{transaction.amount}}<br>
-                <!-- <app-transaction-view [transaction]="transaction"
-                                  [areIconsVisible]="true"
-                                  (onDelete)="deleteAccount(transaction)"
-                                  (onEdit)="onOpenEditDialog(transaction)"></app-transaction-view> -->
+                <app-transaction-view [transaction]="transaction"
+                                      (onView)="viewTransaction(transaction)"
+                                      (onDelete)="deleteTransaction(transaction)"
+                                      (onEdit)="onOpenEditDialog(transaction)"></app-transaction-view>
             </div>
             <div class="empty">
                 <div class="pagination"

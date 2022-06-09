@@ -1,16 +1,12 @@
 .top {
     display: flex;
     place-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
 }
 
 .list-container {
-    display: grid;
+    display: block;
     margin-bottom: 3rem;
-    column-count: 3;
-    column-gap: 50px;
-    row-gap: 40px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 h2 {
@@ -35,7 +31,6 @@ h2 {
     font-weight: bold;
     font-size: 1.2rem;
     border: none;
-    margin-bottom: 5rem;
     border-radius: 5rem;
     display: inline-block;
     padding: 0.8rem 1.5rem;

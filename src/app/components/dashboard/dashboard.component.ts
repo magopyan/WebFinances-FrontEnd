@@ -32,8 +32,8 @@ export class DashboardComponent implements OnInit {
   // isBalanceValid: boolean = true;
   // isTransactionTypeValid: boolean = true;
 
-  constructor(private firebaseAuthService: FirebaseAuthService, private transactionService: TransactionService, 
-    public dialog: MatDialog, public snackBar: MatSnackBar, private staticDataService: StaticDataService, 
+  constructor(private firebaseAuthService: FirebaseAuthService, private transactionService: TransactionService,
+    public dialog: MatDialog, public snackBar: MatSnackBar, private staticDataService: StaticDataService,
     private validationService: ValidationService, private accountService: AccountService) { }
 
   ngOnInit(): void {
@@ -114,6 +114,10 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  viewTransaction(transaction: Transaction) {
+
+  }
+
   deleteTransaction(transaction: Transaction) {
     let pageEmpty: boolean = this.transactions.length <= 1 && this.currentPageNumber > 0;
     this.transactionService.deleteTransaction(transaction).subscribe({
@@ -135,6 +139,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  onOpenEditDialog(transaction: Transaction): void { }
   // onOpenEditDialog(transaction: Transaction): void {
   //   this.editTransaction = Object.assign({}, transaction); // clone transaction so that it doesn't change in the transaction view as I edit
   //   this.dialog.open(this.dialogRef, { data: transaction.name, width: '500px', panelClass: 'custom-modalbox' });

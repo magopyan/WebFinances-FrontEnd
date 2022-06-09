@@ -1,1 +1,36 @@
-<p>transaction-view works!</p>
+<div class="container">
+    <div class="left-col">
+        <div class="inner-left-col"><img src="{{ transaction?.subcategory?.imageUrl }}"></div>
+        <div class="inner-right-col">
+            <h4>{{ transaction?.subcategory?.name }}</h4>
+            <div class="text">
+                <p>Account: <span class="account">{{ transaction?.account?.name }}</span></p>
+                <div class="icons-container">
+                    <div class="icons">
+                        <mat-icon class="view-icon"
+                                  (click)="onViewTransaction(transaction)">visibility</mat-icon>
+                        <mat-icon class="edit-icon"
+                                  (click)="onEditTransaction(transaction)">edit</mat-icon>
+                        <mat-icon class="delete-icon"
+                                  (click)="onDeleteTransaction(transaction)">delete</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-col">
+        <div class="inner">
+            <div class="amount"
+                 [ngClass]="{'positive-amount': isAmountPositive(), 'negative-amount': !isAmountPositive()}">
+                {{ getAmount() }}</div>
+            <hr>
+            <div class="date">{{ transaction?.date }}</div>
+        </div>
+
+        <!-- <span class="amount"
+              [ngClass]="{'positive-amount': isAmountPositive(), 'negative-amount': !isAmountPositive()}">
+            {{ getAmount() }}</span>
+        <div class="break"></div><span class="date">{{ transaction?.date }}</span> -->
+    </div>
+</div>

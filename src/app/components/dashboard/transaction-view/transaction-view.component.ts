@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Transaction } from 'src/app/models/transaction';
 
 @Component({
   selector: 'app-transaction-view',
@@ -7,9 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransactionViewComponent implements OnInit {
 
+  @Input() transaction!: Transaction;
+  @Output() onEdit: EventEmitter<Transaction> = new EventEmitter();
+  @Output() onDelete: EventEmitter<Transaction> = new EventEmitter();
+  @Output() onView: EventEmitter<Transaction> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  isAmountPositive(): boolean {
+    return this.transaction?.amount > 0;
+  }
+
+  getAmount() {
+    return Number(this.transaction?.amount).toFixed(2)
+  }
+
+  onEditTransaction(transaction: Transaction): void {
+    this.onEdit.emit(transaction);
+  }
+
+  onDeleteTransaction(transaction: Transaction): void {
+    this.onDelete.emit(transaction);
+  }
+
+  onViewTransaction(transaction: Transaction): void {
+    this.onView.emit(transaction);
+  }
 }
