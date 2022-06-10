@@ -34,7 +34,11 @@ export class LoginComponent implements OnInit {
   async navigateToDashboard() {
     const user = await this.isLoggedIn();
     if (user) {
-      this.router.navigate(['dashboard']);
+      localStorage.setItem('user', JSON.stringify(user));
+      user?.getIdToken().then((token: string | string[]) => {
+        localStorage.setItem('token', JSON.stringify(token));
+        this.router.navigate(['dashboard']);
+      })
     } else {
       console.log("NavigateToDashboard null");
     }
@@ -70,7 +74,7 @@ export class LoginComponent implements OnInit {
           else if (error.code == "auth/wrong-password") {
             this.isPasswordValid = false;
             document.getElementById("error-password")!.textContent = "Incorrect password!";
-          }                
+          }
           else {
             this.snackBar.open("Unexpected Firebase error! ❌", "Dismiss");
             console.log(error.code);

@@ -20,18 +20,18 @@ export class AccountService {
   currentPageNumber!: number;
 
   constructor(private http: HttpClient, private firebaseAuthService: FirebaseAuthService) {
-    this.currentUser = this.firebaseAuthService.getCurrentUser();
-    this.currentUser?.getIdToken().then((token: string | string[]) => {
-      console.log("Token 1: ", token);
-      httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    })
-    this.firebaseAuthService.getUser().subscribe(user => {
-      this.currentUser = user;
-      this.currentUser?.getIdToken().then((token: string | string[]) => {
-        console.log("Token 2", token);
-        httpOptions.headers = httpOptions.headers.set('Authorization', token);
-      })
-    })
+    // this.currentUser = this.firebaseAuthService.getCurrentUser();
+    // this.currentUser?.getIdToken().then((token: string | string[]) => {
+    //   console.log("Token 1: ", token);
+    //   httpOptions.headers = httpOptions.headers.set('Authorization', token);
+    // })
+    // this.firebaseAuthService.getUser().subscribe(user => {
+    //   this.currentUser = user;
+    //   this.currentUser?.getIdToken().then((token: string | string[]) => {
+    //     console.log("Token 2", token);
+    //     httpOptions.headers = httpOptions.headers.set('Authorization', token);
+    //   })
+    // })
   }
 
   getCurrentPageNumber() {
@@ -42,31 +42,40 @@ export class AccountService {
     this.currentPageNumber = currentPageNumber;
   }
 
-  refreshHttpHeaders() {
-    const token: any = localStorage.getItem('token');
-    httpOptions.headers = httpOptions.headers.set('Authorization', token);
+  updateHttpHeaders() {
+    let token = localStorage.getItem('token');
+    if (token != null) {
+      console.log(JSON.parse(token));
+      httpOptions.headers = httpOptions.headers.set('Authorization', JSON.parse(token));
+    }
+    else {
+      httpOptions.headers = httpOptions.headers.set('Authorization', "");
+      console.log("Token NULL in AccountService");
+    }
   }
 
   public getAllAccounts(): Observable<Account[]> {
+    this.updateHttpHeaders();
     return this.http.get<Account[]>(`${this.apiUrl}/all`, httpOptions);
   }
 
   public getAccounts(pageNumber: number): Observable<Account[]> {
-    //this.refreshHttpHeaders();
+    this.updateHttpHeaders();
     return this.http.get<Account[]>(`${this.apiUrl}/all?page=${pageNumber}`, httpOptions);
   }
 
   public addAccount(account: Account): Observable<Account> {
-    console.log(httpOptions.headers.get('Authorization'));
+    this.updateHttpHeaders();
     return this.http.post<Account>(`${this.apiUrl}/add`, account, httpOptions);
   }
 
   public editAccount(account: Account): Observable<Account> {
+    this.updateHttpHeaders();
     return this.http.put<Account>(`${this.apiUrl}/update`, account, httpOptions);
   }
 
   public deleteAccount(account: Account): Observable<void> {
-    console.log(account.id)
+    this.updateHttpHeaders();
     return this.http.delete<void>(`${this.apiUrl}/delete/${account.id}`, httpOptions);
   }
 }

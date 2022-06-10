@@ -113,7 +113,6 @@ export class AddIncomeComponent implements OnInit {
       month: "2-digit",
       day: "2-digit",
     })
-    console.log("dateFormatted: " + dateFormatted);
 
     if (this.isAmountValid && this.isDateValid && this.isNoteValid) {
       const transactionForm: TransactionForm = {

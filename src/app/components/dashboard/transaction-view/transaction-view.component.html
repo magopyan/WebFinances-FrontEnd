@@ -7,11 +7,11 @@
                 <p>Account: <span class="account">{{ transaction?.account?.name }}</span></p>
                 <div class="icons-container">
                     <div class="icons">
-                        <mat-icon class="view-icon"
+                        <mat-icon class="icon view-icon"
                                   (click)="onViewTransaction(transaction)">visibility</mat-icon>
-                        <mat-icon class="edit-icon"
+                        <mat-icon class="icon edit-icon"
                                   (click)="onEditTransaction(transaction)">edit</mat-icon>
-                        <mat-icon class="delete-icon"
+                        <mat-icon class="icon delete-icon"
                                   (click)="onDeleteTransaction(transaction)">delete</mat-icon>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                  [ngClass]="{'positive-amount': isAmountPositive(), 'negative-amount': !isAmountPositive()}">
                 {{ getAmount() }}</div>
             <hr>
-            <div class="date">{{ transaction?.date }}</div>
+            <div class="date">{{ getDate() }}</div>
         </div>
 
         <!-- <span class="amount"

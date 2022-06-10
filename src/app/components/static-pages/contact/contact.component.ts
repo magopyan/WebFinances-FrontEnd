@@ -26,11 +26,14 @@ export class ContactComponent implements OnInit {
   constructor(public snackBar: MatSnackBar, private validationService: ValidationService, private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
-    this.email = this.firebaseAuthService.getCurrentUser()?.email;
-    this.firebaseAuthService.getUser().subscribe(user => {
-      console.log(user);
-      this.email = user?.email;
-    })
+    let user = localStorage.getItem('user');
+    if (user != null) {
+      this.email = JSON.parse(user).email;
+    }
+    // this.email = this.firebaseAuthService.getCurrentUser()?.email;
+    // this.firebaseAuthService.getUser().subscribe(user => {
+    //   this.email = user?.email;
+    // })
   }
 
   onSubmitContactForm(): void {

@@ -15,10 +15,16 @@ export class AppComponent implements OnInit {
   constructor(private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
-    this.currentUser = this.firebaseAuthService.getCurrentUser();
-    this.firebaseAuthService.getUser().subscribe(user => {
-      console.log(user);
-      this.currentUser = user;
-    })
+    let user = localStorage.getItem('user');
+    if (user != null) {
+      this.currentUser = JSON.parse(user);
+    }
+    else {
+      this.currentUser = null;
+    }
+    // this.currentUser = this.firebaseAuthService.getCurrentUser();
+    // this.firebaseAuthService.getUser().subscribe(user => {
+    //   this.currentUser = user;
+    // })
   }
 }

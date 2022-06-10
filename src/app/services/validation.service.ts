@@ -34,10 +34,6 @@ export class ValidationService {
     return this.http.post<Map<string, string>>(`${this.apiUrl}/accounts/validate-new`, accountForm, httpOptions);
   }
 
-  public postAccountEditForm(account: Account): Observable<Map<string, string>> {
-    return this.http.post<Map<string, string>>(`${this.apiUrl}/accounts/validate-edit`, account, httpOptions);
-  }
-
   public postTransactionForm(transactionForm: TransactionForm): Observable<Map<string, string>> {
     return this.http.post<Map<string, string>>(`${this.apiUrl}/transactions/validate-new`, transactionForm, httpOptions);
   }

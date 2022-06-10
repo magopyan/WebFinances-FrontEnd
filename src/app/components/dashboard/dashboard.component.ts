@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
 
   currentPageNumber = 1;
   itemsPerPage = 15;
+
   allTransactions!: Transaction[];
   transactions!: Transaction[];
 
@@ -38,14 +39,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("DashboardComponent onInit()");
-    this.getTransactions(0);
+    this.getTransactions(this.currentPageNumber);
     this.getCategories();
     this.getSubcategories();
-    this.getAccounts();
+    this.getAllAccounts();
   }
 
   getTransactions(pageNumber: number): void {
-    this.transactionService.getTransactions(pageNumber).subscribe({
+    this.transactionService.getTransactions(pageNumber - 1).subscribe({
       next: (response: Transaction[]) => {
         this.transactions = response;
       },
@@ -67,7 +68,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getAccounts() {
+  getAllAccounts() {
     this.accountService.getAllAccounts().subscribe({
       next: (response: Account[]) => {
         this.allAccounts = response;
@@ -119,7 +120,7 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteTransaction(transaction: Transaction) {
-    let pageEmpty: boolean = this.transactions.length <= 1 && this.currentPageNumber > 0;
+    let pageEmpty: boolean = this.transactions.length <= 1 && this.currentPageNumber > 1;
     this.transactionService.deleteTransaction(transaction).subscribe({
       next: (response: void) => {
         this.snackBar.open('Transaction deleted successfully.', '', {
@@ -127,10 +128,10 @@ export class DashboardComponent implements OnInit {
           panelClass: ['snackbar']
         });
         if (pageEmpty) {
-          this.getTransactions(this.currentPageNumber - 2);
+          this.getTransactions(this.currentPageNumber - 1);
         }
         else {
-          this.getTransactions(this.currentPageNumber - 1);
+          this.getTransactions(this.currentPageNumber);
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -166,7 +167,7 @@ export class DashboardComponent implements OnInit {
   //         this.transactionService.editTransaction(this.editTransaction).subscribe({
   //           next: (response: Transaction) => {
   //             this.dialog.closeAll();
-  //             this.getTransactions(this.currentPageNumber - 1);
+  //             this.getTransactions(this.currentPageNumber);
   //           },
   //           error: (error: HttpErrorResponse) => {
   //             this.snackBar.open(error.message + " ❌", "Dismiss");

@@ -25,7 +25,7 @@
             </div>
             <div class="empty">
                 <div class="pagination"
-                     *ngFor="let account of allAccounts | paginate: { itemsPerPage: 9, currentPage: currentPageNumber }">
+                     *ngFor="let account of allAccounts | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPageNumber }">
                 </div>
             </div>
         </div>

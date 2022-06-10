@@ -10,13 +10,18 @@
     color: var(--error);
 }
 
+img {
+    width: 80px;
+    margin: 0 auto;
+}
+
 .container {
     border-radius: 25px;
     width: 85%;
     background: var(--primary-white-blue);
     display: flex;
     justify-content: space-between;
-    box-shadow: 2px 3px rgba(black, 0.25);
+    box-shadow: 1px 2px rgba(black, 0.25);
     padding: 0.5rem 3rem;
     margin: 0 auto;
 
@@ -28,18 +33,21 @@
             align-items: center;
             justify-content: center;
             margin-right: 1rem;
-
-            img {
-                width: 80px;
-                margin: 0 auto;
-            }
         }
 
         .inner-right-col {
             h4 {
-                font-size: 1.1rem;
+                font-size: 1rem;
                 margin-block-start: 0.5rem;
                 margin-block-end: 0;
+            }
+
+            .text {
+                font-size: 0.9rem;
+
+                .account {
+                    font-size: 0.95rem;
+                }
             }
 
             p {
@@ -98,5 +106,29 @@
         font-size: 0.9rem;
         text-align: center;
         margin-bottom: 0.8rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    img {
+        width: 40px;
+    }
+
+    .icon {
+        transform: scale(0.9);
+    }
+
+    .container {
+        padding: 0.3rem 1rem;
+    }
+
+    .right-col {
+        .amount {
+            font-size: 1rem;
+        }
+
+        .date {
+            font-size: 0.8rem;
+        }
     }
 }

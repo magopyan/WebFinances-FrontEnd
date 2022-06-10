@@ -18,7 +18,9 @@ import { Router } from '@angular/router';
 })
 export class AccountsComponent implements OnInit {
 
-  currentPageNumber = 1;
+  currentPageNumber: number = 1;
+  itemsPerPage: number = 9;
+
   totalBalance: number = 0;
   allAccounts!: Account[];
   accounts!: Account[];
@@ -33,17 +35,17 @@ export class AccountsComponent implements OnInit {
   constructor(private firebaseAuthService: FirebaseAuthService, private accountService: AccountService,
     public snackBar: MatSnackBar, private staticDataService: StaticDataService, public dialog: MatDialog,
     private validationService: ValidationService, private router: Router) {
-    this.currentPageNumber = this.router.getCurrentNavigation()?.extras?.state?.['pageNumber'];
+    //this.currentPageNumber = this.router.getCurrentNavigation()?.extras?.state?.['pageNumber'];
   }
 
   ngOnInit(): void {
     console.log("AccountsComponent onInit()");
-    this.getAccounts(0);
+    this.getAccounts(this.currentPageNumber);
     this.getAccountTypes();
   }
 
   getAccounts(pageNumber: number): void {
-    this.accountService.getAccounts(pageNumber).subscribe({
+    this.accountService.getAccounts(pageNumber - 1).subscribe({
       next: (response: Account[]) => {
         this.accounts = response;
       },
@@ -97,7 +99,8 @@ export class AccountsComponent implements OnInit {
   }
 
   deleteAccount(account: Account) {
-    let pageEmpty: boolean = this.accounts.length <= 1 && this.currentPageNumber > 0;
+    console.log("Delete account. Current page:", this.currentPageNumber);
+    let pageEmpty: boolean = this.accounts.length <= 1 && this.currentPageNumber > 1;
     this.accountService.deleteAccount(account).subscribe({
       next: (response: void) => {
         this.snackBar.open('Account deleted successfully.', '', {
@@ -105,10 +108,12 @@ export class AccountsComponent implements OnInit {
           panelClass: ['snackbar']
         });
         if (pageEmpty) {
-          this.getAccounts(this.currentPageNumber - 2);
+          console.log("Page empty, go 1 back");
+          this.getAccounts(this.currentPageNumber - 1);
         }
         else {
-          this.getAccounts(this.currentPageNumber - 1);
+          console.log("Page not empty, stay");
+          this.getAccounts(this.currentPageNumber);
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -142,11 +147,12 @@ export class AccountsComponent implements OnInit {
       }
       this.validationService.postAccountForm(accountForm).subscribe({
         next: (response: Object) => {
+          console.log("Post account edit form success");
           this.resetFlagsAndErrorMessages();
           this.accountService.editAccount(this.editAccount).subscribe({
             next: (response: Account) => {
               this.dialog.closeAll();
-              this.getAccounts(this.currentPageNumber - 1);
+              this.getAccounts(this.currentPageNumber);
             },
             error: (error: HttpErrorResponse) => {
               this.snackBar.open(error.message + " ❌", "Dismiss");
@@ -154,6 +160,7 @@ export class AccountsComponent implements OnInit {
           })
         },
         error: (errorResponse: HttpErrorResponse) => {
+          console.log("Post account edit form fail");
           this.handleServerErrors(errorResponse);
         }
       })
@@ -191,7 +198,7 @@ export class AccountsComponent implements OnInit {
   }
 
   handleServerErrors(errorResponse: HttpErrorResponse) {
-    if (errorResponse.status == 400) {
+    if (errorResponse.status == 406) {
       const errorsMap = new Map<string, string>(Object.entries(errorResponse.error));
       if (errorsMap.has("name")) {
         this.isNameValid = false;

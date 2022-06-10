@@ -26,6 +26,14 @@ export class TransactionViewComponent implements OnInit {
     return Number(this.transaction?.amount).toFixed(2)
   }
 
+  getDate() {
+    return new Date(this.transaction.date).toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  }
+
   onEditTransaction(transaction: Transaction): void {
     this.onEdit.emit(transaction);
   }
