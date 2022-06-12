@@ -65,18 +65,17 @@ h2 {
         h5 {
             text-align: center;
             font-size: 1.1rem;
-            margin-block-end: 2.5rem;
-            margin-block-start: 1rem;
+            margin-block-end: 1.5rem;
+            margin-block-start: 0rem;
         }
 
         .form-group {
             display: block;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
 
             label {
                 display: block;
-                font-size: 1rem;
-                margin-bottom: 0.2rem;
+                font-size: 0.9rem;
             }
 
             .error {
@@ -84,7 +83,11 @@ h2 {
                 color: var(--error)
             }
 
-            input {
+            .error-amount {
+                margin-bottom: 1rem;
+            }
+
+            input, textarea {
                 width: 80%;
                 padding: 0.4rem;
                 margin-bottom: 0.2rem;
@@ -94,10 +97,6 @@ h2 {
                 font-family: Arial, Helvetica, sans-serif;
                 resize: none;
             }
-        }
-
-        .form-group-bottom {
-            margin-bottom: 2.5rem;
 
             .img-select {
                 display: flex;
@@ -122,10 +121,17 @@ h2 {
             }
         }
 
+        .form-group-amount {
+            margin-bottom: 0;
+        }
+
+        .form-group-bottom {
+            margin-bottom: 1.5rem;
+        }
+
         .buttons-container {
             width: 80%;
             margin: 0 auto;
-            margin-bottom: 1rem;
             display: flex;
             justify-content: center;
 
@@ -142,8 +148,8 @@ h2 {
                 background-color: var(--primary-blue);
                 color: white;
                 border: none;
-                margin-left: 0.7rem;
-                padding: 0.5rem 1.5rem;
+                margin-left: 0.3rem;
+                padding: 0.5rem 1.2rem;
 
                 &:hover {
                     background-color: #1977d1;
@@ -152,14 +158,20 @@ h2 {
 
             .cancel {
                 color: var(--primary-blue);
-                margin-right: 0.7rem;
+                margin-right: 0.3rem;
                 border-radius: 30px;
                 background-color: var(--primary-light);
                 border: 2px solid var(--primary-blue);
-                padding: 0.4rem 1.2rem;
+                padding: 0.4rem 0.9rem;
             }
         }
     }
+}
+
+input {
+    margin-bottom: 2.5rem;
+    transform: scale(1.3);
+    margin-right: 0.5rem;
 }
 
 @media only screen and (max-width: 768px) {

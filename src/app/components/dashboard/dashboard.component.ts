@@ -10,6 +10,7 @@ import { Category, Subcategory } from 'src/app/models/category';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { AccountService } from 'src/app/services/account.service';
 import { Account } from 'src/app/models/account';
+import { TransactionForm } from 'src/app/models/transaction-form';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,18 +21,27 @@ export class DashboardComponent implements OnInit {
 
   currentPageNumber = 1;
   itemsPerPage = 15;
-
   allTransactions!: Transaction[];
   transactions!: Transaction[];
 
   editTransaction!: Transaction;
   categories!: Category[];
-  subcategories!: Subcategory[];
+  incomeSubcategories!: Subcategory[];
   allAccounts!: Account[];
-  @ViewChild('dialogRef') dialogRef!: TemplateRef<any>;
-  // isNameValid: boolean = true;
-  // isBalanceValid: boolean = true;
-  // isTransactionTypeValid: boolean = true;
+
+  adjustAccountBalance: boolean = false;
+  transactionDelete!: Transaction;
+
+  oldTransactionAmount!: number;
+  oldTransactionAccount!: Account;
+  @ViewChild('dialogRefDelete') dialogRefDelete!: TemplateRef<any>;
+  @ViewChild('dialogRefIncome') dialogRefIncome!: TemplateRef<any>;
+  //@ViewChild('dialogRefExpense') dialogRefExpense!: TemplateRef<any>;
+  isNoteValid: boolean = true;
+  isAmountValid: boolean = true;
+  isDateValid: boolean = true;
+  isSubcategoryValid: boolean = true;
+  isAccountValid: boolean = true;
 
   constructor(private firebaseAuthService: FirebaseAuthService, private transactionService: TransactionService,
     public dialog: MatDialog, public snackBar: MatSnackBar, private staticDataService: StaticDataService,
@@ -107,7 +117,7 @@ export class DashboardComponent implements OnInit {
   getSubcategories(): void {
     this.staticDataService.getIncomeSubcategories().subscribe({
       next: (response: Subcategory[]) => {
-        this.subcategories = response;
+        this.incomeSubcategories = response;
       },
       error: (error: HttpErrorResponse) => {
         this.snackBar.open(`Server error. Code ${error.status} ❌`, "Dismiss");
@@ -120,13 +130,27 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteTransaction(transaction: Transaction) {
+    this.transactionDelete = transaction;
+    this.dialog.open(this.dialogRefDelete, { width: '400px', panelClass: 'custom-modalbox' });
+  }
+
+  onChange() {
+    this.adjustAccountBalance = !this.adjustAccountBalance;
+  }
+
+  onDeleteTransaction() {
+    console.log(this.adjustAccountBalance);
     let pageEmpty: boolean = this.transactions.length <= 1 && this.currentPageNumber > 1;
-    this.transactionService.deleteTransaction(transaction).subscribe({
+    this.transactionService.deleteTransaction(this.transactionDelete).subscribe({
       next: (response: void) => {
+        if (this.adjustAccountBalance) {
+          this.updateAccount();
+        }
         this.snackBar.open('Transaction deleted successfully.', '', {
           duration: 4000,
           panelClass: ['snackbar']
         });
+        this.dialog.closeAll();
         if (pageEmpty) {
           this.getTransactions(this.currentPageNumber - 1);
         }
@@ -140,100 +164,184 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  onOpenEditDialog(transaction: Transaction): void { }
-  // onOpenEditDialog(transaction: Transaction): void {
-  //   this.editTransaction = Object.assign({}, transaction); // clone transaction so that it doesn't change in the transaction view as I edit
-  //   this.dialog.open(this.dialogRef, { data: transaction.name, width: '500px', panelClass: 'custom-modalbox' });
-  // }
+  onOpenIncomeEditDialog(transaction: Transaction): void {
+    this.oldTransactionAmount = transaction.amount;
+    this.oldTransactionAccount = transaction.account;
+    this.editTransaction = Object.assign({}, transaction); // clone transaction so that it doesn't change in the transaction view as I edit
+    this.dialog.open(this.dialogRefIncome, { width: '500px', panelClass: 'custom-modalbox' });
+  }
 
-  // // Used to automatically select the option from Select matching the editTransaction.accountType
-  // compareById(itemOne: any, itemTwo: any) {
-  //   return itemOne && itemTwo && itemOne.id == itemTwo.id;
-  // }
+  // Used to automatically select the option from Select matching the editTransaction.accountType
+  compareById(itemOne: any, itemTwo: any) {
+    return itemOne && itemTwo && itemOne.id == itemTwo.id;
+  }
 
-  // onSubmitEditForm() {
-  //   this.resetFlagsAndErrorMessages();
-  //   this.clientSideValidate();
-  //   console.log(this.editTransaction);
+  onSubmitIncomeEditForm() {
+    this.resetFlagsAndErrorMessages();
+    this.clientSideValidate();
+    console.log(this.editTransaction);
 
-  //   if (this.isNameValid && this.isBalanceValid && this.isTransactionTypeValid) {
-  //     const accountForm: TransactionForm = {
-  //       name: this.editTransaction.name,
-  //       balance: this.editTransaction.balance.toString()
-  //     }
-  //     this.validationService.postTransactionForm(accountForm).subscribe({
-  //       next: (response: Object) => {
-  //         this.resetFlagsAndErrorMessages();
-  //         this.transactionService.editTransaction(this.editTransaction).subscribe({
-  //           next: (response: Transaction) => {
-  //             this.dialog.closeAll();
-  //             this.getTransactions(this.currentPageNumber);
-  //           },
-  //           error: (error: HttpErrorResponse) => {
-  //             this.snackBar.open(error.message + " ❌", "Dismiss");
-  //           }
-  //         })
-  //       },
-  //       error: (errorResponse: HttpErrorResponse) => {
-  //         this.handleServerErrors(errorResponse);
-  //       }
-  //     })
-  //   }
-  // }
+    // if ((document.getElementById('adjust') as HTMLInputElement).checked) {
+    //   this.adjustAccountBalance = true;
+    // }
+    // else {
+    //   this.adjustAccountBalance = false;
+    // }
 
-  // clientSideValidate() {
-  //   if (this.editTransaction.name == null) {
-  //     this.isNameValid = false;
-  //   }
-  //   if (this.editTransaction.balance == null) {
-  //     this.isBalanceValid = false;
-  //   }
-  //   if (this.editTransaction.accountType == null) {
-  //     this.isTransactionTypeValid = false;
-  //   }
+    if (this.isAccountValid && this.isAmountValid && this.isDateValid && this.isSubcategoryValid && this.isNoteValid) {
+      const transactionForm: TransactionForm = {
+        amount: this.editTransaction.amount.toString(),
+        note: this.editTransaction.note,
+        date: this.editTransaction.date
+      }
+      this.validationService.postTransactionForm(transactionForm).subscribe({
+        next: (response: Object) => {
+          this.resetFlagsAndErrorMessages();
+          this.transactionService.editTransaction(this.editTransaction).subscribe({
+            next: (response: Transaction) => {
+              this.dialog.closeAll();
+              this.updateAccount();
+              this.getTransactions(this.currentPageNumber);
+            },
+            error: (error: HttpErrorResponse) => {
+              this.snackBar.open(error.message + " ❌", "Dismiss");
+            }
+          })
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          this.handleServerErrors(errorResponse);
+        }
+      })
+    }
+  }
 
-  //   if (this.isNameValid) {
-  //     if (this.isNameValid && (this.editTransaction.name.length < 2 || this.editTransaction.name.length > 32)) {
-  //       this.isNameValid = false;
-  //       document.getElementById("error-name")!.textContent = "The transaction name has to be between 2 and 32 characters long!";
-  //     }
-  //   }
-  //   if (this.isBalanceValid) {
-  //     let balance = this.editTransaction.balance.toString();
-  //     balance = balance.replace(/\s+/g, '');
-  //     const balanceRegexExp = /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/;
-  //     if (!balanceRegexExp.test(balance)) {
-  //       this.isBalanceValid = false;
-  //     }
-  //     else {
-  //       balance = Number(balance).toFixed(2);
-  //     }
-  //   }
-  // }
+  updateAccount(): boolean {
+    console.log("Update account >:(");
+    // for delete
+    let amount = this.transactionDelete.amount;
+    let balance = this.transactionDelete.account.balance;
+    let isError: boolean = false;
+    if (amount == 0) {
+      return true;
+    }
+    else {
+      if (amount > 0) {
+        balance = balance - amount;
+        this.transactionDelete.account.balance = balance;
+      }
+      else if (amount < 0) {
+        balance = balance + amount;
+        this.transactionDelete.account.balance = balance;
+      }
+      this.accountService.editAccount(this.transactionDelete.account).subscribe({
+        next: (response: Account) => { },
+        error: (error: HttpErrorResponse) => {
+          this.snackBar.open("Updating account balance failed! ❌", "Dismiss");
+          isError = true;
+        }
+      })
+      return (isError ? false : true);
+    }
 
-  // handleServerErrors(errorResponse: HttpErrorResponse) {
-  //   if (errorResponse.status == 400) {
-  //     const errorsMap = new Map<string, string>(Object.entries(errorResponse.error));
-  //     if (errorsMap.has("name")) {
-  //       this.isNameValid = false;
-  //       document.getElementById("error-name")!.textContent = errorsMap.get("name")!;
-  //     }
-  //     if (errorsMap.has("balance")) {
-  //       this.isBalanceValid = false;
-  //       document.getElementById("error-balance")!.textContent = errorsMap.get("balance")!;
-  //     }
-  //   }
-  //   else {
-  //     this.snackBar.open("Server error. ❌", "Dismiss");
-  //   }
-  // }
+    // FOR EDIT !!!!!!!!!!!!!------------------------------------------------
+    // if (this.oldTransactionAccount == this.editTransaction.account && this.oldTransactionAmount == this.editTransaction.amount) {
+    //   return;
+    // }
+    // else if (this.oldTransactionAccount == this.editTransaction.account && this.oldTransactionAmount != this.editTransaction.amount) {
+    //   let currentBalance: number = this.editTransaction.account.balance;
+    //   currentBalance -= this.oldTransactionAmount;
+    //   currentBalance += this.editTransaction.amount;
+    //   this.editTransaction.account.balance = currentBalance;
+    //   this.accountService.editAccount(this.editTransaction.account).subscribe({
+    //     next: (response: Account) => { },
+    //     error: (error: HttpErrorResponse) => {
+    //       this.snackBar.open("Updating account balance failed! ❌", "Dismiss");
+    //     }
+    //   })
+    // }
+    // else {
+    //   let oldAccount = this.oldTransactionAccount;
+    //   let newAccount = this.editTransaction.account;
+    //   oldAccount.balance -= this.oldTransactionAmount;
+    //   newAccount.balance += this.editTransaction.amount;
+    //   this.accountService.editAccount(oldAccount).subscribe({
+    //     next: (response: Account) => { },
+    //     error: (error: HttpErrorResponse) => {
+    //       this.snackBar.open("Updating account balance failed! ❌", "Dismiss");
+    //     }
+    //   })
+    //   this.accountService.editAccount(newAccount).subscribe({
+    //     next: (response: Account) => { },
+    //     error: (error: HttpErrorResponse) => {
+    //       this.snackBar.open("Updating account balance failed! ❌", "Dismiss");
+    //     }
+    //   })
+    // }
+  }
 
-  // resetFlagsAndErrorMessages(): void {
-  //   this.isNameValid = true;
-  //   this.isBalanceValid = true;
-  //   this.isTransactionTypeValid = true;
+  clientSideValidate() {
+    if (this.editTransaction.amount == null) {
+      this.isAmountValid = false;
+    }
+    if (this.editTransaction.date == null) {
+      this.isDateValid = false;
+    }
+    if (this.editTransaction.account == null) {
+      this.isAccountValid = false;
+    }
+    if (this.editTransaction.subcategory == null) {
+      this.isSubcategoryValid = false;
+    }
+    if (this.isAmountValid) {
+      let amount = this.editTransaction.amount.toString();
+      amount = amount.replace(/\s+/g, '');
+      const balanceRegexExp = /^\s*-?[1-9]\d*(\.?\d{1,2})?\s*$/;
+      if (!balanceRegexExp.test(amount)) {
+        this.isAmountValid = false;
+      }
+      else {
+        this.editTransaction.amount = Number(amount);
+      }
+    }
+    if (this.isDateValid) {
+      let date = new Date(this.editTransaction.date);
+      if (date.getTime() == NaN) {
+        this.isDateValid = false;
+      }
+    }
+    if (this.isNoteValid) {
+      if (this.editTransaction.note?.length > 64) {
+        this.isNoteValid = false;
+      }
+    }
+  }
 
-  //   document.getElementById("error-name")!.textContent = "Please enter a name for your transaction!";
-  // }
+  handleServerErrors(errorResponse: HttpErrorResponse) {
+    if (errorResponse.status == 406) {
+      const errorsMap = new Map<string, string>(Object.entries(errorResponse.error));
+      if (errorsMap.has("amount")) {
+        this.isAmountValid = false;
+        document.getElementById("error-amount")!.textContent = errorsMap.get("amount")!;
+      }
+      if (errorsMap.has("date")) {
+        this.isDateValid = false;
+        document.getElementById("error-date")!.textContent = errorsMap.get("date")!;
+      }
+      if (errorsMap.has("note")) {
+        this.isNoteValid = false;
+        document.getElementById("error-note")!.textContent = errorsMap.get("note")!;
+      }
+    }
+    else {
+      this.snackBar.open("Server error. ❌", "Dismiss");
+    }
+  }
 
+  resetFlagsAndErrorMessages(): void {
+    this.isAmountValid = true;
+    this.isDateValid = true;
+    this.isNoteValid = true;
+    this.isAccountValid = true;
+    this.isSubcategoryValid = true;
+  }
 }

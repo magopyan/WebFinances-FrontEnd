@@ -132,6 +132,7 @@ export class AddIncomeComponent implements OnInit {
           }
           this.transactionService.addTransaction(this.newTransaction).subscribe({
             next: (response: Transaction) => {
+              this.updateAccount();
               this.snackBar.open("Transaction saved successfully! ✔️", '', {
                 duration: 4000,
                 panelClass: ['snackbar']
@@ -148,6 +149,17 @@ export class AddIncomeComponent implements OnInit {
         }
       })
     }
+  }
+
+  updateAccount() {
+    let newBalance: number = Number.parseFloat(this.chosenAccount.balance) + Number.parseFloat(this.amount);
+    this.chosenAccount.balance = newBalance.toString();
+    this.accountService.editAccount(this.chosenAccount).subscribe({
+      next: (response: Account) => {},
+      error: (error: HttpErrorResponse) => {
+        this.snackBar.open("Updating account balance failed! ❌", "Dismiss");
+      }
+    })
   }
 
   handleServerErrors(errorResponse: HttpErrorResponse) {

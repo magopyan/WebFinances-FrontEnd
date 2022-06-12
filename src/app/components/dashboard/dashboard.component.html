@@ -23,7 +23,7 @@
                 <app-transaction-view [transaction]="transaction"
                                       (onView)="viewTransaction(transaction)"
                                       (onDelete)="deleteTransaction(transaction)"
-                                      (onEdit)="onOpenEditDialog(transaction)"></app-transaction-view>
+                                      (onEdit)="onOpenIncomeEditDialog(transaction)"></app-transaction-view>
             </div>
             <div class="empty">
                 <div class="pagination"
@@ -40,68 +40,134 @@
 </section>
 
 
-<!-- Edit Account Dialog -->
-<!-- <ng-template #dialogRef
+<!-- DELETE TRANSACTION DIALOG -->
+<ng-template #dialogRefDelete
              let-mydata>
-    <h5>Edit transaction {{mydata}}</h5>
+    <h5>Delete Transaction</h5>
+    <form #deleteForm="ngForm">
+    <input type="checkbox"
+           name="adjust"
+           id="adjust"
+           [(ngModel)]="adjustAccountBalance"
+           [checked]="adjustAccountBalance">
+    <label for="adjust">Also adjust the balance of account <i>{{transactionDelete?.account?.name}}</i></label><br>
+
+        <div class="buttons-container">
+            <button type="button"
+                    class="btn cancel"
+                    mat-dialog-close="{{null}}">Cancel</button>
+            <button type="submit"
+                    class="btn next"
+                    (click)="onDeleteTransaction()">Delete</button>
+        </div>
+    </form>
+</ng-template>
+
+
+
+
+<!-- Edit Income Dialog
+<ng-template #dialogRefIncome
+             let-mydata>
+    <h5>Edit Income</h5>
     <form #editForm="ngForm">
         <input type="hidden"
-               [(ngModel)]="editAccount.id"
+               [(ngModel)]="editTransaction.id"
                name="id"
                class="form-control"
                id="id">
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text"
-                   [(ngModel)]="editAccount.name"
-                   name="name"
-                   class="form-control"
-                   id="name">
-            <div class="error error-name"
-                 [ngClass]="{ hidden: isNameValid }"><span id="error-name">Please enter a name for
-                    your transaction!</span></div>
-        </div>
-        <div class="form-group">
-            <label for="balance">Balance</label>
-            <input type="text"
-                   [(ngModel)]="editAccount.balance"
-                   name="balance"
-                   class="form-control"
-                   id="balance">
-            <div class="error error-balance"
-                 [ngClass]="{ hidden: isBalanceValid }"><span id="error-balance">Please enter a
-                    valid starting balance! <i>(Example: 123.45)</i>
-                </span></div>
-        </div>
-        <div class="form-group form-group-bottom">
-            <label for="transaction-type">Account Type</label>
+            <label for="subcategory">Category</label>
             <div class="img-select">
-                <img src="{{editAccount.accountType.imageUrl}}">
+                <img src="{{editTransaction.subcategory.imageUrl}}">
                 <select class="form-group"
                         id="select"
-                        aria-label="Account Type"
-                        [(ngModel)]="editAccount.accountType"
+                        aria-label="Category"
+                        [(ngModel)]="editTransaction.subcategory"
                         [compareWith]="compareById"
-                        name="accountType"
-                        id="transaction-type">
-                    <option *ngFor="let accountType of accountTypes"
-                            [ngValue]="accountType">
-                        <span>{{ accountType?.name }}</span>
+                        name="subcategory"
+                        id="subcategory">
+                    <option *ngFor="let subcategory of incomeSubcategories"
+                            [ngValue]="subcategory">
+                        <span>{{ subcategory?.name }}</span>
                     </option>
                 </select>
             </div>
-            <div class="error error-transaction-type"
-                 [ngClass]="{ hidden: isAccountTypeValid }"><span id="error-transaction-type">Please select an transaction
-                    type!
+            <div class="error error-subcategory"
+                 [ngClass]="{ hidden: isSubcategoryValid }"><span id="error-subcategory">Please choose a category!
                 </span></div>
         </div>
+        <div class="form-group">
+            <label for="account">Account</label>
+            <div class="img-select">
+                <img src="{{editTransaction.account.accountType.imageUrl}}">
+                <select class="form-group"
+                        id="select1"
+                        aria-label="Account"
+                        [(ngModel)]="editTransaction.account"
+                        [compareWith]="compareById"
+                        name="account"
+                        id="account">
+                    <option *ngFor="let account of allAccounts"
+                            [ngValue]="account">
+                        <span>{{ account?.name }}</span>
+                    </option>
+                </select>
+            </div>
+            <div class="error error-account"
+                 [ngClass]="{ hidden: isAccountValid }"><span id="error-account">Please choose an account!
+                </span></div>
+        </div>
+        <div class="form-group form-group-amount">
+            <label for="amount">Amount</label>
+            <input type="text"
+                   [(ngModel)]="editTransaction.amount"
+                   name="amount"
+                   class="form-control"
+                   id="amount">
+            <div class="error error-amount"
+                 [ngClass]="{ hidden: isAmountValid }"><span id="error-amount">Please enter a
+                    valid amount! <i>(Example: 123.45)</i>
+                </span></div>
+            <label for="date">Date</label>
+        </div>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput
+                   name="date"
+                   [(ngModel)]="editTransaction.date"
+                   [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix
+                                   [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker
+                            [startAt]="editTransaction.date"></mat-datepicker>
+        </mat-form-field>
+        <div class="error error-date"
+             [ngClass]="{ hidden: isDateValid }"><span id="error-date">Please select a valid
+                date!
+            </span></div>
+
+        <div class="form-group form-group-bottom">
+            <label for="note">Note</label>
+            <textarea name="note"
+                      id="note"
+                      cols="10"
+                      rows="5"
+                      [(ngModel)]="editTransaction.note"></textarea>
+        </div>
+        <div class="error error-note"
+             [ngClass]="{ hidden: isNoteValid }"><span id="error-note">The note can be up to
+                64 characters long!</span></div>
+
         <div class="buttons-container">
             <button type="button"
                     class="btn cancel"
-                    mat-dialog-close="{{null}}">Close</button>
+                    mat-dialog-close="{{null}}">Cancel</button>
             <button type="submit"
                     class="btn next"
-                    (click)="onSubmitEditForm()">Save</button>
+                    (click)="onSubmitIncomeEditForm()">Save</button>
         </div>
     </form>
 </ng-template> -->
