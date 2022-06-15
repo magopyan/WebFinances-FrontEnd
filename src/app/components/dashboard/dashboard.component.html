@@ -22,8 +22,7 @@
                  *ngFor="let transaction of transactions">
                 <app-transaction-view [transaction]="transaction"
                                       (onView)="viewTransaction(transaction)"
-                                      (onDelete)="deleteTransaction(transaction)"
-                                      (onEdit)="onOpenIncomeEditDialog(transaction)"></app-transaction-view>
+                                      (onDelete)="deleteTransaction(transaction)"></app-transaction-view>
             </div>
             <div class="empty">
                 <div class="pagination"
@@ -45,12 +44,12 @@
              let-mydata>
     <h5>Delete Transaction</h5>
     <form #deleteForm="ngForm">
-    <input type="checkbox"
-           name="adjust"
-           id="adjust"
-           [(ngModel)]="adjustAccountBalance"
-           [checked]="adjustAccountBalance">
-    <label for="adjust">Also adjust the balance of account <i>{{transactionDelete?.account?.name}}</i></label><br>
+        <input type="checkbox"
+               name="adjust"
+               id="adjust"
+               [(ngModel)]="adjustAccountBalance"
+               [checked]="adjustAccountBalance">
+        <label for="adjust">Also adjust the balance of account <i>{{transactionDelete?.account?.name}}</i></label><br>
 
         <div class="buttons-container">
             <button type="button"
@@ -64,6 +63,26 @@
 </ng-template>
 
 
+<!-- VIEW TRANSACTION DIALOG -->
+<ng-template #dialogRefViewIncome
+             let-mydata>
+    <div class="view-dialog">
+        <h5>View Transaction</h5>
+        <p class="attribute">Category: <span>{{mydata.transaction.subcategory.name}}</span></p>
+        <p class="attribute">Amount: <span>{{mydata.transaction.amount.toFixed(2)}}</span></p>
+        <p class="attribute">Date: <span>{{mydata.date}}</span></p>
+        <p class="attribute">Account: <span>{{mydata.transaction.account.name}}</span>
+            (<i>{{mydata.transaction.account.accountType.name}}</i>)
+        </p>
+        <p class="attribute">Note: <span>{{mydata.transaction.note}}</span></p>
+
+        <div class="buttons-container">
+            <button type="button"
+                    class="btn cancel"
+                    mat-dialog-close="{{null}}">Close</button>
+        </div>
+    </div>
+</ng-template>
 
 
 <!-- Edit Income Dialog

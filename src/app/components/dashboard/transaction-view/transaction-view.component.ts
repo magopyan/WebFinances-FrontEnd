@@ -19,11 +19,16 @@ export class TransactionViewComponent implements OnInit {
   }
 
   isAmountPositive(): boolean {
-    return this.transaction?.amount > 0;
+    return this.transaction?.subcategory?.category?.categoryType?.coefficient > 0;
   }
 
   getAmount() {
-    return Number(this.transaction?.amount).toFixed(2)
+    if(this.transaction.subcategory.category.categoryType.coefficient == -1) {
+      return "-"+Number(this.transaction?.amount).toFixed(2)
+    }
+    else {
+      return Number(this.transaction?.amount).toFixed(2)
+    }
   }
 
   getDate() {

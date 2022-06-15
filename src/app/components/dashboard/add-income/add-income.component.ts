@@ -193,7 +193,7 @@ export class AddIncomeComponent implements OnInit {
 
     if (this.isAmountValid) {
       this.amount = this.amount.replace(/\s+/g, '');
-      const balanceRegexExp = /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/;
+      const balanceRegexExp = /^\s*[1-9]\d*(\.\d{1,2})?\s*$/;
       if (!balanceRegexExp.test(this.amount)) {
         this.isAmountValid = false;
       }
