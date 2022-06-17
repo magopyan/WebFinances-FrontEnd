@@ -1,0 +1,53 @@
+<section>
+    <div class="container">
+        <h2>Reports</h2>
+
+        <div class="left-col">
+            <div class="block">
+                <h3>Income vs. Expenses</h3>
+                <div class="chart chart-container">
+                    <canvas baseChart
+                            class="chart chart1"
+                            [data]="pieChartData1"
+                            [type]="pieChartType"
+                            [options]="pieChartOptions"
+                            [plugins]="pieChartPlugins">
+                    </canvas>
+                </div>
+            </div>
+
+
+            <div class="block">
+                <h3>Income By Categories</h3>
+                <div class="chart chart-container">
+                    <canvas baseChart
+                            class="chart chart2"
+                            [data]="pieChartData2"
+                            [type]="pieChartType"
+                            [options]="pieChartOptions"
+                            [plugins]="pieChartPlugins">
+                    </canvas>
+                </div>
+            </div>
+
+
+            <div class="block block-bottom">
+                <h3>Expenses By Categories</h3>
+                <div class="chart chart-container">
+                    <canvas baseChart
+                            class="chart chart3"
+                            [data]="pieChartData3"
+                            [type]="pieChartType"
+                            [options]="pieChartOptions"
+                            [plugins]="pieChartPlugins">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-col">
+
+        </div>
+
+    </div>
+</section>

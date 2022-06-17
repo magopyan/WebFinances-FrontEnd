@@ -1,0 +1,62 @@
+.container {
+    padding: 0 1rem;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+    margin-left: 1.5rem;
+}
+
+// .chart {
+//     width: 350px;
+// }
+
+.left-col {
+    width: 350px;
+}
+
+.block {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.block-bottom {
+    margin-bottom: 0 !important;
+}
+
+@media only screen and (min-width: 768px) {
+
+    // .chart {
+    //         width: 400px;
+    // }
+    .left-col {
+        width: 400px;
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+
+    // .chart {
+    //     width: 500px;
+    // }
+
+    .block {
+        margin-bottom: 7rem;
+    }
+
+    .left-col {
+        width: 500px;
+    }
+
+    .container {
+        width: 1080px;
+        margin: 0 auto;
+    }
+
+    section {
+        padding: 4rem 4rem 3rem 6rem;
+    }
+}

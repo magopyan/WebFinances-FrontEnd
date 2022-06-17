@@ -18,6 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { NgChartsModule } from 'ng2-charts';
 
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
@@ -46,6 +47,7 @@ import { AddExpenseComponent } from './components/dashboard/add-expense/add-expe
 import { CategoryViewComponent } from './components/dashboard/category-view/category-view.component';
 import { SubcategoryViewComponent } from './components/dashboard/subcategory-view/subcategory-view.component';
 import { AccountListViewComponent } from './components/accounts/account-list-view/account-list-view.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 const appRoutes: Routes = [
   { path: '#', component: HomeComponent },
@@ -56,7 +58,8 @@ const appRoutes: Routes = [
   { path: 'add-account', component: AddAccountComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'add-income', component: AddIncomeComponent },
-  { path: 'add-expense', component: AddExpenseComponent }
+  { path: 'add-expense', component: AddExpenseComponent },
+  { path: 'reports', component: ReportsComponent }
 ]
 
 @NgModule({
@@ -81,7 +84,8 @@ const appRoutes: Routes = [
     AddExpenseComponent,
     CategoryViewComponent,
     SubcategoryViewComponent,
-    AccountListViewComponent
+    AccountListViewComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +106,8 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    NgChartsModule
   ],
   providers: [ValidationService, FirebaseAuthService, AccountService, StaticDataService],
   bootstrap: [AppComponent]
