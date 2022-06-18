@@ -34,11 +34,15 @@
                               #step>
                         <div class="form2">
                             <h3>Choose an account:</h3>
-                            <div class="accounts-container">
+                            <div class="accounts-container" *ngIf="allAccounts.length">
                                 <div class="option"
                                      *ngFor="let account of allAccounts">
                                     <app-account-list-view [account]=account></app-account-list-view>
                                 </div>
+                            </div>
+                            <div class="no-accounts"
+                                 *ngIf="!allAccounts.length">
+                                <h4>You have no accounts. Please create an account first!</h4>
                             </div>
                             <div class="buttons-container b2">
                                 <input (click)="onStepBack(stepper)"

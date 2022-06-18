@@ -10,40 +10,80 @@ h2 {
     margin-left: 1.5rem;
 }
 
-// .chart {
-//     width: 350px;
-// }
-
-.left-col {
-    width: 350px;
-}
-
-.block {
-    text-align: center;
+.row {
     margin-bottom: 4rem;
 }
 
-.block-bottom {
+span {
+    font-weight: 600;
+}
+
+.left-col {
+    width: 350px;
+    text-align: center;
+}
+
+.right-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.bottom-row {
     margin-bottom: 0 !important;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 768px) {
+    .right-col {
+        margin-top: 2rem;
+    }
 
-    // .chart {
-    //         width: 400px;
-    // }
+    h2 {
+        text-align: center;
+        margin-left: 0;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+        padding: 2rem 1rem;
+    }
+
+    .row {
+        margin-bottom: 1.5rem;
+
+    }
+
+    hr {
+        margin-bottom: 2rem;
+        color: var(--primary-dark);
+    }
+}
+
+@media only screen and (min-width: 768px) {
     .left-col {
         width: 400px;
+    }
+
+    hr {
+        display: none;
+    }
+
+    .row {
+        margin-bottom: 4rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .right-col {
+        // margin-left: 5rem;
+        flex: 1;
     }
 }
 
 @media only screen and (min-width: 1080px) {
-
-    // .chart {
-    //     width: 500px;
-    // }
-
-    .block {
+    .row {
         margin-bottom: 7rem;
     }
 
@@ -54,6 +94,10 @@ h2 {
     .container {
         width: 1080px;
         margin: 0 auto;
+    }
+
+    .right-col {
+        font-size: 1.1rem;
     }
 
     section {
