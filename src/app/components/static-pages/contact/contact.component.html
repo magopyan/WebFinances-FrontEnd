@@ -10,14 +10,14 @@
                        name="name"
                        text="?currentUser."
                        [(ngModel)]="name">
-                <div class="error error-name" [ngClass]="{ hidden: isNameValid }"><span id="error-name">Please enter your name!</span></div>
+                <div class="error error-name" [ngClass]="{ 'hidden': isNameValid }"><span id="error-name">Please enter your name!</span></div>
 
                 <label for="email">Email</label>
                 <input type="email"
                        id="email"
                        name="email"
                        [(ngModel)]="email">
-                <div class="error error-email" [ngClass]="{ hidden: isEmailValid }"><span id="error-email">Please enter a valid email!</span></div>
+                <div class="error error-email" [ngClass]="{ 'hidden': isEmailValid }"><span id="error-email">Please enter a valid email!</span></div>
 
                 <label for="message">Message</label>
                 <textarea name="message"
@@ -25,7 +25,7 @@
                           cols="15"
                           rows="8"
                           [(ngModel)]="message"></textarea>
-                <div class="error error-message" [ngClass]="{ hidden: isMessageValid }"><span id="error-message">Please leave us a message!</span></div>
+                <div class="error error-message" [ngClass]="{ 'hidden': isMessageValid }"><span id="error-message">Please leave us a message!</span></div>
 
                 <input type="submit"
                        class="send-message-cta"
@@ -35,13 +35,22 @@
         <div class="contact-right">
             <address>
                 <p class="email">
-                    <mat-icon class="icon">email</mat-icon><span>mihael.b.agopyan@gmail.com</span>
+                    <!-- <mat-icon class="icon">email</mat-icon><span>mihael.b.agopyan@gmail.com</span> -->
+                    <span class="material-icons">
+                        email
+                    </span><span class="detail">+359/890-217-246</span>
                 </p>
                 <p class="phone">
-                    <mat-icon class="icon">phone</mat-icon><span>+359/890-217-246</span>
+                    <!-- <mat-icon class="icon">phone</mat-icon><span>+359/890-217-246</span> -->
+                    <span class="material-icons">
+                        call
+                    </span><span class="detail">+359/890-217-246</span>
                 </p>
                 <p class="location">
-                    <mat-icon class="icon location">location_on</mat-icon><span>Bulgaria</span>
+                    <!-- <mat-icon class="icon location">location_on</mat-icon><span>Bulgaria</span> -->
+                    <span class="material-icons">
+                        place
+                    </span><span class="detail">Bulgaria</span>  
                 </p>
             </address>
         </div>

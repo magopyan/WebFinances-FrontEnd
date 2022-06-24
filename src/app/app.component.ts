@@ -22,9 +22,9 @@ export class AppComponent implements OnInit {
     else {
       this.currentUser = null;
     }
-    // this.currentUser = this.firebaseAuthService.getCurrentUser();
-    // this.firebaseAuthService.getUser().subscribe(user => {
-    //   this.currentUser = user;
-    // })
+    this.currentUser = this.firebaseAuthService.getCurrentUser();
+    this.firebaseAuthService.getUser().subscribe(user => {
+      this.currentUser = user;
+    })
   }
 }

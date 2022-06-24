@@ -89,7 +89,7 @@ input[type="submit"] {
         display: inline-block;
         text-align: left;
 
-        span {
+        .detail {
             color: black;
         }
     }
@@ -100,7 +100,7 @@ input[type="submit"] {
         margin-bottom: 0.8rem;
     }
 
-    .icon {
+    .material-icons {
         margin-right: 0.4rem;
         vertical-align: text-top;
         font-size: 1.3rem;
@@ -156,7 +156,7 @@ input[type="submit"] {
             vertical-align: middle;
         }
 
-        .icon {
+        .material-icons {
             font-size: 1.4rem;
             width: 1.4rem;
             height: 1.4rem;

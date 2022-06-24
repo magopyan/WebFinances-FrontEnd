@@ -111,8 +111,12 @@ export class ReportsComponent implements OnInit {
         this.income += tran.amount;
       }
     }
-    this.incomeVsExpenses.set('Income', this.income);
-    this.incomeVsExpenses.set('Expense', this.expenses);
+    if (this.income > 0) {
+      this.incomeVsExpenses.set('Income', this.income);
+    }
+    if (this.expenses > 0) {
+      this.incomeVsExpenses.set('Expense', this.expenses);
+    }
     let index = 0;
     for (let [key, value] of this.incomeVsExpenses) {
       this.pieChartData1.labels?.push(key);

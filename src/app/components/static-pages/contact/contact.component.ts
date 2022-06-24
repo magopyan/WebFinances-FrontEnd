@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 export class ContactComponent implements OnInit {
 
   name!: string;
-  email!: any;
+  email: any = "";
   message!: string;
 
   isNameValid: boolean = true;
@@ -23,17 +23,19 @@ export class ContactComponent implements OnInit {
 
   subscription!: Subscription;
 
-  constructor(public snackBar: MatSnackBar, private validationService: ValidationService, private firebaseAuthService: FirebaseAuthService) { }
+  constructor(public snackBar: MatSnackBar, private validationService: ValidationService, private firebaseAuthService: FirebaseAuthService) { 
+    console.log("Contact component constructor");
+  }
 
   ngOnInit(): void {
+    console.log("Contact component init");
     let user = localStorage.getItem('user');
-    if (user != null) {
-      this.email = JSON.parse(user).email;
+    if(user != null) {
+      let parsedUser = JSON.parse(user);
+      if(parsedUser != null) {
+        this.email = parsedUser.email;
+      }
     }
-    // this.email = this.firebaseAuthService.getCurrentUser()?.email;
-    // this.firebaseAuthService.getUser().subscribe(user => {
-    //   this.email = user?.email;
-    // })
   }
 
   onSubmitContactForm(): void {

@@ -55,6 +55,11 @@ export class TransactionService {
     return this.http.get<Transaction[]>(`${this.apiUrl}/all?page=${pageNumber}`, httpOptions);
   }
 
+  public getTransactionsByDateRange(pageNumber: number, startDate: string, endDate: string): Observable<Transaction[]> {
+    this.updateHttpHeaders();
+    return this.http.get<Transaction[]>(`${this.apiUrl}/all?page=${pageNumber}&startDate=${startDate}&endDate=${endDate}`, httpOptions);
+  }
+
   public addTransaction(transaction: Transaction): Observable<Transaction> {
     this.updateHttpHeaders();
     return this.http.post<Transaction>(`${this.apiUrl}/add`, transaction, httpOptions);

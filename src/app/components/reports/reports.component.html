@@ -2,8 +2,10 @@
     <div class="container">
         <h2>Reports</h2>
 
+        <div *ngIf="!incomeVsExpenses.size" class="error">No reports to show - you have no transactions.</div>
+
         <div class="row"
-             *ngIf="incomeVsExpenses">
+             *ngIf="incomeVsExpenses.size">
             <div class="left-col">
                 <h3>Income vs. Expenses</h3>
                 <div class="chart chart-container">

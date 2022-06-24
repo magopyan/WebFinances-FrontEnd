@@ -20,7 +20,7 @@ import { TransactionForm } from 'src/app/models/transaction-form';
 export class DashboardComponent implements OnInit {
 
   currentPageNumber = 1;
-  itemsPerPage = 15;
+  itemsPerPage = 14;
   allTransactions!: Transaction[];
   transactions!: Transaction[];
 
@@ -29,6 +29,10 @@ export class DashboardComponent implements OnInit {
   @ViewChild('dialogRefDelete') dialogRefDelete!: TemplateRef<any>;
   @ViewChild('dialogRefViewIncome') dialogRefViewIncome!: TemplateRef<any>;
   @ViewChild('dialogRefViewExpense') dialogRefViewExpense!: TemplateRef<any>;
+
+  startDate!: Date | string;
+  endDate!: Date | string;
+  dateRangeSet: boolean = false;
 
   // editTransaction!: Transaction;
   // categories!: Category[];
@@ -78,6 +82,48 @@ export class DashboardComponent implements OnInit {
         }
       }
     })
+  }
+
+  filterByDateRange() {
+    this.transactionService.getAllTransactions().subscribe({
+      next: (response: Transaction[]) => {
+        this.allTransactions = response;
+        this.dateRangeSet = true;
+        let startDate: Date = new Date(this.startDate);
+        let endDate: Date = new Date(this.endDate);
+
+        this.allTransactions = this.allTransactions.filter(tran =>
+          this.parseDate(tran.date).getTime() >= startDate.getTime() && this.parseDate(tran.date).getTime() <= endDate.getTime());
+
+        let size = this.allTransactions.length;
+        if (size > this.itemsPerPage) {
+          this.transactions = this.allTransactions.slice(0, this.itemsPerPage);
+        }
+        else {
+          this.transactions = this.allTransactions;
+        }
+        this.currentPageNumber = 1;
+
+      },
+      error: (error: HttpErrorResponse) => {
+        if (!this.snackBar._openedSnackBarRef) {
+          this.snackBar.open("Server error when retrieving transactions. Please try to sign in again. ❌", "Dismiss");
+        }
+      }
+    })
+  }
+
+  parseDate(dateString: string): Date {
+    let parts = dateString.split("-");
+    var mydate = new Date(Number.parseInt(parts[0]), Number.parseInt(parts[1]) - 1, Number.parseInt(parts[2]));
+    return mydate;
+  }
+
+  resetDateRange() {
+    this.dateRangeSet = false;
+    this.startDate = "";
+    this.endDate = "";
+    this.pageChanged(1);
   }
 
   viewTransaction(transaction: Transaction) {
@@ -161,15 +207,29 @@ export class DashboardComponent implements OnInit {
   }
 
   pageChanged(newPage: number): void {
-    this.transactionService.getTransactions(newPage - 1).subscribe({
-      next: (response: Transaction[]) => {
-        this.transactions = response;
-        this.currentPageNumber = newPage;
-      },
-      error: (error: HttpErrorResponse) => {
-        this.snackBar.open("Server error when retrieving transactions. Please try to sign in again. ❌", "Dismiss");
+    if (this.dateRangeSet) {
+      let from = (newPage-1) * this.itemsPerPage;
+      let to = from + this.itemsPerPage;
+      let size = this.allTransactions.length;
+      if (size >= to) {
+        this.transactions = this.allTransactions.slice(from, to);
       }
-    })
+      else {
+        this.transactions = this.allTransactions.slice(from);
+      }
+      this.currentPageNumber = newPage;
+    }
+    else {
+      this.transactionService.getTransactions(newPage - 1).subscribe({
+        next: (response: Transaction[]) => {
+          this.transactions = response;
+          this.currentPageNumber = newPage;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.snackBar.open("Server error when retrieving transactions. Please try to sign in again. ❌", "Dismiss");
+        }
+      })
+    }
   }
 
   // getAllAccounts() {
