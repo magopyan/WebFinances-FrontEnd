@@ -55,9 +55,19 @@ export class TransactionService {
     return this.http.get<Transaction[]>(`${this.apiUrl}/all?page=${pageNumber}`, httpOptions);
   }
 
+  public getAllTransactionsByDateRange(startDate: string, endDate: string): Observable<Transaction[]> {
+    this.updateHttpHeaders();
+    return this.http.get<Transaction[]>(`${this.apiUrl}/by-date-all?startDate=${startDate}&endDate=${endDate}`, httpOptions);
+  }
+
   public getTransactionsByDateRange(pageNumber: number, startDate: string, endDate: string): Observable<Transaction[]> {
     this.updateHttpHeaders();
-    return this.http.get<Transaction[]>(`${this.apiUrl}/all?page=${pageNumber}&startDate=${startDate}&endDate=${endDate}`, httpOptions);
+    return this.http.get<Transaction[]>(`${this.apiUrl}/by-date?page=${pageNumber}&startDate=${startDate}&endDate=${endDate}`, httpOptions);
+  }
+
+  public getTransactionsByAccountId(accountId: number): Observable<Transaction[]> {
+    this.updateHttpHeaders();
+    return this.http.get<Transaction[]>(`${this.apiUrl}/by-account?id=${accountId}`, httpOptions);
   }
 
   public addTransaction(transaction: Transaction): Observable<Transaction> {

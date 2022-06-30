@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ValidationService } from 'src/app/services/validation.service';
 import { AccountForm } from 'src/app/models/account-form';
 import { Router } from '@angular/router';
+import { TransactionService } from 'src/app/services/transaction.service';
+import { Transaction } from 'src/app/models/transaction';
 
 @Component({
   selector: 'app-accounts',
@@ -25,6 +27,9 @@ export class AccountsComponent implements OnInit {
   allAccounts!: Account[];
   accounts!: Account[];
 
+  accountDelete!: Account;
+  @ViewChild('dialogRefDelete') dialogRefDelete!: TemplateRef<any>;
+
   editAccount!: Account;
   accountTypes!: AccountType[];
   @ViewChild('dialogRef') dialogRef!: TemplateRef<any>;
@@ -34,7 +39,7 @@ export class AccountsComponent implements OnInit {
 
   constructor(private firebaseAuthService: FirebaseAuthService, private accountService: AccountService,
     public snackBar: MatSnackBar, private staticDataService: StaticDataService, public dialog: MatDialog,
-    private validationService: ValidationService, private router: Router) {
+    private validationService: ValidationService, private router: Router, private transactionService: TransactionService) {
     //this.currentPageNumber = this.router.getCurrentNavigation()?.extras?.state?.['pageNumber'];
   }
 
@@ -98,10 +103,30 @@ export class AccountsComponent implements OnInit {
     })
   }
 
-  deleteAccount(account: Account) {
-    console.log("Delete account. Current page:", this.currentPageNumber);
+  onOpenDeleteDialog(account: Account) {
+    this.accountDelete = account;
+    this.transactionService.getTransactionsByAccountId(this.accountDelete.id!).subscribe({
+      next: (response: Transaction[]) => {
+        this.dialog.open(this.dialogRefDelete, { width: '400px', panelClass: 'custom-modalbox' });
+        if (response.length > 0) {
+          document.getElementById("deleteDialogText")!.textContent = `Are you sure you want to delete account ${this.accountDelete.name}
+            and all of its ${response.length} transactions?`;
+        }
+        else {
+          document.getElementById("deleteDialogText")!.textContent = `Are you sure you want to delete account ${this.accountDelete.name}?`;
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        this.snackBar.open("Server error when retrieving the transactions of account"
+          + this.accountDelete.name + ". ❌", "Dismiss");
+      }
+    })
+
+  }
+
+  onDeleteAccount() {
     let pageEmpty: boolean = this.accounts.length <= 1 && this.currentPageNumber > 1;
-    this.accountService.deleteAccount(account).subscribe({
+    this.accountService.deleteAccount(this.accountDelete).subscribe({
       next: (response: void) => {
         this.snackBar.open('Account deleted successfully.', '', {
           duration: 4000,
@@ -120,6 +145,7 @@ export class AccountsComponent implements OnInit {
         this.snackBar.open("Error when deleting account. ❌", "Dismiss");
       }
     })
+    this.dialog.closeAll();
   }
 
 

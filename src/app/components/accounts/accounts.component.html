@@ -20,7 +20,7 @@
                  *ngFor="let account of accounts">
                 <app-account-view [account]="account"
                                   [areIconsVisible]="true"
-                                  (onDelete)="deleteAccount(account)"
+                                  (onDelete)="onOpenDeleteDialog(account)"
                                   (onEdit)="onOpenEditDialog(account)"></app-account-view>
             </div>
             <div class="empty">
@@ -36,6 +36,24 @@
         </div>
     </div>
 </section>
+
+<!-- Delete Account Dialog -->
+<ng-template #dialogRefDelete
+             let-mydata>
+    <h5>Delete Account</h5>
+    <form #deleteForm="ngForm">
+        <span id="deleteDialogText"></span>
+
+        <div class="buttons-container buttons-container-delete">
+            <button type="button"
+                    class="btn cancel"
+                    mat-dialog-close="{{null}}">Cancel</button>
+            <button type="submit"
+                    class="btn next"
+                    (click)="onDeleteAccount()">Delete</button>
+        </div>
+    </form>
+</ng-template>
 
 
 <!-- Edit Account Dialog -->
