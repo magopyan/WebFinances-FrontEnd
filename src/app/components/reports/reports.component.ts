@@ -28,6 +28,10 @@ export class ReportsComponent implements OnInit {
   income!: number;
   expenses!: number;
 
+  startDate!: Date | string;
+  endDate!: Date | string;
+  dateRangeSet: boolean = false;
+
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
@@ -64,7 +68,7 @@ export class ReportsComponent implements OnInit {
     datasets: [{
       data: []
     }]
-  };;
+  };
 
   constructor(private transactionService: TransactionService, public dialog: MatDialog, public snackBar: MatSnackBar,
     private staticDataService: StaticDataService, private accountService: AccountService) { }
@@ -73,33 +77,66 @@ export class ReportsComponent implements OnInit {
     this.getAllTransactions();
   }
 
-  handleWindowSizeChange(e: any) {
-    if (e.matches()) {
-      console.log("<1080p");
+  getAllTransactions(): void {
+    if (this.dateRangeSet) {
+      this.transactionService.getAllTransactionsByDateRange(this.parseDate(this.startDate as Date), this.parseDate(this.endDate as Date)).subscribe({
+        next: (response: Transaction[]) => {
+          this.resetValues();
+          this.transactions = response;
+          this.setIncomeVsExpenses();
+          this.setIncomeCategories();
+          this.setExpenseCategories();
+          this.charts.forEach((child) => {
+            child.chart?.update()
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          if (!this.snackBar._openedSnackBarRef) {
+            this.snackBar.open("Server error when retrieving transactions. Please try to sign in again. ❌", "Dismiss");
+          }
+        }
+      })
     }
     else {
-      console.log(">1080p");
+      this.transactionService.getAllTransactions().subscribe({
+        next: (response: Transaction[]) => {
+          this.resetValues();
+          this.transactions = response;
+          this.setIncomeVsExpenses();
+          this.setIncomeCategories();
+          this.setExpenseCategories();
+          this.charts.forEach((child) => {
+            child.chart?.update()
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          if (!this.snackBar._openedSnackBarRef) {
+            this.snackBar.open("Server error when retrieving transactions. Please try to sign in again. ❌", "Dismiss");
+          }
+        }
+      })
     }
   }
 
-  getAllTransactions(): void {
-    this.transactionService.getAllTransactions().subscribe({
-      next: (response: Transaction[]) => {
-        this.resetValues();
-        this.transactions = response;
-        this.setIncomeVsExpenses();
-        this.setIncomeCategories();
-        this.setExpenseCategories();
-        this.charts.forEach((child) => {
-          child.chart?.update()
-        });
-      },
-      error: (error: HttpErrorResponse) => {
-        if (!this.snackBar._openedSnackBarRef) {
-          this.snackBar.open("Server error when retrieving transactions. Please try to sign in again. ❌", "Dismiss");
-        }
-      }
+  filterByDateRange() {
+    this.dateRangeSet = true;
+    console.log("filter");
+    this.getAllTransactions();
+  }
+
+  parseDate(date: Date): string {
+    return date.toLocaleDateString("sv-SE", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
     })
+  }
+
+  resetDateRange() {
+    this.dateRangeSet = false;
+    this.startDate = "";
+    this.endDate = "";
+    this.getAllTransactions();
   }
 
   setIncomeVsExpenses() {
@@ -179,5 +216,28 @@ export class ReportsComponent implements OnInit {
   resetValues(): void {
     this.income = 0;
     this.expenses = 0;
+
+    this.incomeVsExpenses = new Map<string, number>();
+    this.incomeCategories = new Map<string, number>();
+    this.expenseCategories = new Map<string, number>();
+
+    this.pieChartData1 = {
+      labels: [],
+      datasets: [{
+        data: []
+      }]
+    };
+    this.pieChartData2 = {
+      labels: [],
+      datasets: [{
+        data: []
+      }]
+    };
+    this.pieChartData3 = {
+      labels: [],
+      datasets: [{
+        data: []
+      }]
+    };
   }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { first } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,12 @@ export class LoginComponent implements OnInit {
   isEmailValid: boolean = true;
   isPasswordValid: boolean = true;
 
-  constructor(private router: Router, private firebaseAuthService: FirebaseAuthService,
+  emailForReset!: string;
+  isEmailResetValid: boolean = true;
+
+  @ViewChild('dialogRefReset') dialogRefReset!: TemplateRef<any>;
+
+  constructor(private router: Router, private firebaseAuthService: FirebaseAuthService, private dialog: MatDialog,
     public snackBar: MatSnackBar, public afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
@@ -29,6 +35,32 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn() {
     return firstValueFrom(this.afAuth.authState.pipe());
+  }
+
+  onResetPassword() {
+    this.isEmailResetValid = true;
+    this.dialog.open(this.dialogRefReset, { width: '400px', panelClass: 'custom-modalbox' });
+  }
+
+  resetPassword() {
+    this.isEmailResetValid = true;
+    this.afAuth
+      .sendPasswordResetEmail(this.emailForReset)
+      .then(() => {
+        this.dialog.closeAll();
+        this.snackBar.open("Password reset email sent successfully! ✔️", '', {
+          duration: 4000,
+          panelClass: ['snackbar']
+        });        
+      })
+      .catch((error) => {
+        if (error.code == "auth/invalid-email" || error.code == "auth/user-not-found") {
+          this.isEmailResetValid = false;
+        }
+        else {
+          this.snackBar.open("Unexpected Firebase error! ❌", "Dismiss");
+        }
+      });
   }
 
   async navigateToDashboard() {

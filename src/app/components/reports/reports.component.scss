@@ -6,10 +6,40 @@
     margin-left: 1.5rem;
 }
 
+.filters {
+    margin-bottom: 2rem;
+    margin-left: 1.5rem;
+
+    input[type="button"] {
+        background-color: var(--primary-green);
+        color: var(--primary-dark-blue);
+        font-size: 0.9rem;
+        border: none;
+        display: inline-block;
+        width: unset;
+        cursor: pointer;
+    }
+
+    .reset {
+        margin-left: 8.2rem;
+        font-weight: bold;
+    }
+
+    .datepicker {
+        transform: scale(0.8);
+        transform-origin: left top; // !!! otherwise it moves to the right
+        width: 100%;
+
+        .datepicker-field {
+            margin-top: 0.3rem;
+        }
+    }
+}
+
 h2 {
     font-size: 2rem;
     font-weight: 900;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     margin-top: 2rem;
     margin-left: 1.5rem;
 }

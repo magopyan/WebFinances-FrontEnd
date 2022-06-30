@@ -2,7 +2,37 @@
     <div class="container">
         <h2>Reports</h2>
 
-        <div *ngIf="!incomeVsExpenses.size" class="error">No reports to show - you have no transactions.</div>
+        <div class="filters">
+            <div class="datepicker">
+                <label for="date">Date range</label><input class="reset"
+                       type="button"
+                       value="Reset"
+                       (click)="resetDateRange()"><br>
+                <mat-form-field class="datepicker-field"
+                                appearance="fill">
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate
+                               name="date"
+                               [(ngModel)]="startDate"
+                               placeholder="Start date">
+                        <input matEndDate
+                               (dateInput)="filterByDateRange()"
+                               (dateChange)="filterByDateRange()"
+                               name="date"
+                               [(ngModel)]="endDate"
+                               placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix
+                                           [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div *ngIf="transactions.length==0"
+             class="error">No reports to show - you have no transactions.</div>
 
         <div class="row"
              *ngIf="incomeVsExpenses.size">

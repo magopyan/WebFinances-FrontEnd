@@ -34,6 +34,29 @@ input {
     resize: none;
 }
 
+input[type="button"] {
+    background-color: var(--primary-green);
+    color: var(--primary-dark-blue);
+    font-size: 0.9rem;
+    border: none;
+    display: inline-block;
+    width: unset;
+    cursor: pointer;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.reset {
+    padding: 0;
+}
+
+.password-label {
+    display: flex;
+    justify-content: space-between;
+}
+
 .error {
     margin-bottom: 1rem;
     font-size: 0.9rem;
@@ -70,6 +93,84 @@ input[type="submit"] {
         background-color: #1977d1;
     }
 }
+
+::ng-deep .custom-modalbox {
+    mat-dialog-container {
+        background-color: var(--primary-light);
+
+        h5 {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-block-end: 1.5rem;
+            margin-block-start: 0rem;
+        }
+
+        .form-group {
+            display: block;
+            margin-bottom: 2rem;
+
+            label {
+                display: block;
+                font-size: 0.9rem;
+            }
+
+            .error {
+                font-size: 0.8rem;
+                color: var(--error);
+                margin-bottom: 1rem;
+            }
+
+            input {
+                width: 80%;
+                padding: 0.4rem;
+                margin-bottom: 0.2rem;
+                border-radius: 0.3rem;
+                border: 1px solid gray;
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
+                resize: none;
+            }
+        }
+
+        .buttons-container {
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+
+            .btn {
+                cursor: pointer;
+                border-radius: 5rem;
+                display: inline-block;
+                width: unset;
+                font-size: 1rem;
+                font-weight: bold;
+            }
+
+            .next {
+                background-color: var(--primary-blue);
+                color: white;
+                border: none;
+                margin-left: 0.3rem;
+                padding: 0.5rem 1.2rem;
+
+                &:hover {
+                    background-color: #1977d1;
+                }
+            }
+
+            .cancel {
+                color: var(--primary-blue);
+                margin-right: 0.3rem;
+                border-radius: 30px;
+                background-color: var(--primary-light);
+                border: 2px solid var(--primary-blue);
+                padding: 0.4rem 0.9rem;
+            }
+        }
+    }
+}
+
 
 
 @media only screen and (min-width: 768px) {
