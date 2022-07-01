@@ -4,10 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Transaction } from 'src/app/models/transaction';
 import { StaticDataService } from 'src/app/services/static-data.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Category, Subcategory } from 'src/app/models/category';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { AccountService } from 'src/app/services/account.service';
-import { Account } from 'src/app/models/account';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
@@ -239,5 +237,40 @@ export class ReportsComponent implements OnInit {
         data: []
       }]
     };
+  }
+
+  downloadReport(): void {
+    if(this.dateRangeSet) {
+      this.transactionService.exportToExcelByDateRange(this.parseDate(this.startDate as Date), this.parseDate(this.endDate as Date)).subscribe({
+        next: (response) => {
+          console.log(response);
+          let blob: Blob = response.body as Blob;
+          let filename = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
+          let downloadLink = document.createElement('a');
+          downloadLink.download = filename!;
+          downloadLink.href = window.URL.createObjectURL(blob);
+          downloadLink.click();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.snackBar.open("Server error when creating report. Please try to sign in again. ❌", "Dismiss");
+        }
+      })
+    }
+    else {
+      this.transactionService.exportToExcel().subscribe({
+        next: (response) => {
+          console.log(response);
+          let blob: Blob = response.body as Blob;
+          let filename = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
+          let downloadLink = document.createElement('a');
+          downloadLink.download = filename!;
+          downloadLink.href = window.URL.createObjectURL(blob);
+          downloadLink.click();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.snackBar.open("Server error when creating report. Please try to sign in again. ❌", "Dismiss");
+        }
+      })
+    }
   }
 }

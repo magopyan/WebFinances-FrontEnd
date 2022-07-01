@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -18,20 +18,7 @@ export class TransactionService {
   private apiUrl: string = `${environment.apiBaseUrl}/transactions`;
   currentUser: any;
 
-  constructor(private http: HttpClient, private firebaseAuthService: FirebaseAuthService) {
-    // this.currentUser = this.firebaseAuthService.getCurrentUser();
-    // this.currentUser?.getIdToken().then((token: string | string[]) => {
-    //   console.log("Token 1: ", token);
-    //   httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    // })
-    // this.firebaseAuthService.getUser().subscribe(user => {
-    //   this.currentUser = user;
-    //   this.currentUser?.getIdToken().then((token: string | string[]) => {
-    //     console.log("Token 2", token);
-    //     httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    //   })
-    // })
-  }
+  constructor(private http: HttpClient, private firebaseAuthService: FirebaseAuthService) {  }
 
   updateHttpHeaders() {
     let token = localStorage.getItem('token');
@@ -43,6 +30,26 @@ export class TransactionService {
       httpOptions.headers = httpOptions.headers.set('Authorization', "");
       console.log("Token NULL in AccountService");
     }
+  }
+
+  public exportToExcel() {
+    this.updateHttpHeaders();
+    return this.http.get<Blob>(`${this.apiUrl}/export-to-excel`,
+      {
+        headers: httpOptions.headers,
+        observe: 'response',
+        responseType: 'blob' as 'json'
+      });
+  }
+
+  public exportToExcelByDateRange(startDate: string, endDate: string) {
+    this.updateHttpHeaders();
+    return this.http.get<Blob>(`${this.apiUrl}/export-to-excel-date?startDate=${startDate}&endDate=${endDate}`,
+      {
+        headers: httpOptions.headers,
+        observe: 'response',
+        responseType: 'blob' as 'json'
+      });
   }
 
   public getAllTransactions(): Observable<Transaction[]> {
