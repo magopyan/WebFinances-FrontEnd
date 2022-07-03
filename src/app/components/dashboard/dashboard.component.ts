@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   currentPageNumber = 1;
   itemsPerPage = 14;
   allTransactions!: Transaction[];
-  transactions!: Transaction[];
+  transactionsPage!: Transaction[];
 
   adjustAccountBalance: boolean = false;
   transactionDelete!: Transaction;
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   getTransactions(pageNumber: number): void {
     this.transactionService.getTransactions(pageNumber - 1).subscribe({
       next: (response: Transaction[]) => {
-        this.transactions = response;
+        this.transactionsPage = response;
       },
       error: (error: HttpErrorResponse) => {
         if (!this.snackBar._openedSnackBarRef) {
@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit {
   getTransactionsByDateRange(pageNumber: number, startDate: string, endDate: string) {
     this.transactionService.getTransactionsByDateRange(pageNumber - 1, startDate, endDate).subscribe({
       next: (response: Transaction[]) => {
-        this.transactions = response;
+        this.transactionsPage = response;
       },
       error: (error: HttpErrorResponse) => {
         if (!this.snackBar._openedSnackBarRef) {
@@ -132,7 +132,7 @@ deleteTransaction(transaction: Transaction) {
 
 onDeleteTransaction() {
   console.log(this.adjustAccountBalance);
-  let pageEmpty: boolean = this.transactions.length <= 1 && this.currentPageNumber > 1;
+  let pageEmpty: boolean = this.transactionsPage.length <= 1 && this.currentPageNumber > 1;
   this.transactionService.deleteTransaction(this.transactionDelete).subscribe({
     next: (response: void) => {
       if (this.adjustAccountBalance) {
@@ -190,7 +190,7 @@ pageChanged(newPage: number): void {
   this.transactionService.getTransactionsByDateRange(newPage - 1,
     this.parseDate(this.startDate as Date), this.parseDate(this.endDate as Date)).subscribe({
       next: (response: Transaction[]) => {
-        this.transactions = response;
+        this.transactionsPage = response;
         this.currentPageNumber = newPage;
       },
       error: (error: HttpErrorResponse) => {
@@ -201,7 +201,7 @@ pageChanged(newPage: number): void {
     else {
   this.transactionService.getTransactions(newPage - 1).subscribe({
     next: (response: Transaction[]) => {
-      this.transactions = response;
+      this.transactionsPage = response;
       this.currentPageNumber = newPage;
     },
     error: (error: HttpErrorResponse) => {

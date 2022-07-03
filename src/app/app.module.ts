@@ -48,18 +48,20 @@ import { CategoryViewComponent } from './components/dashboard/category-view/cate
 import { SubcategoryViewComponent } from './components/dashboard/subcategory-view/subcategory-view.component';
 import { AccountListViewComponent } from './components/accounts/account-list-view/account-list-view.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { LoggedLimitGuard } from './guards/logged-limit.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const appRoutes: Routes = [
-  { path: '#', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'accounts', component: AccountsComponent },
-  { path: 'add-account', component: AddAccountComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'add-income', component: AddIncomeComponent },
-  { path: 'add-expense', component: AddExpenseComponent },
-  { path: 'reports', component: ReportsComponent }
+  { path: 'register', component: RegisterComponent, canActivate: [LoggedLimitGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [LoggedLimitGuard] },
+  { path: 'accounts', component: AccountsComponent, canActivate: [AuthGuard] },
+  { path: 'add-account', component: AddAccountComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'add-income', component: AddIncomeComponent, canActivate: [AuthGuard] },
+  { path: 'add-expense', component: AddExpenseComponent, canActivate: [AuthGuard] },
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({

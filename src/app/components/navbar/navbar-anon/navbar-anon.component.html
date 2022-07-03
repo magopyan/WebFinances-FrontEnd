@@ -1,7 +1,7 @@
 <div class="navbar navbar-anon">
     <div class="container">
         <a class="logo"
-           routerLink="/#">Web<span>Finances</span></a>
+           routerLink="/">Web<span>Finances</span></a>
 
         <mat-icon (click)="onToggleHamburger()"
                   id="mobile-menu-open"
@@ -14,8 +14,9 @@
 
             <ul class="left-nav">
                 <div class="item-container"
-                     routerLink="/#"
-                     routerLinkActive="active-link">
+                     routerLink="/"
+                     routerLinkActive="active-link"
+                     [routerLinkActiveOptions]="{exact: true}">
                     <li><a (click)="onToggleHamburger()">Home</a></li>
                 </div>
                 <!-- <div class="item-container">
