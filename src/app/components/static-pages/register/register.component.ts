@@ -133,6 +133,7 @@ export class RegisterComponent implements OnInit {
     this.isEmailValid = true;
     this.isPasswordValid = true;
     this.isRepeatPasswordValid = true;
+    document.getElementById("error-email")!.textContent = "Please enter a valid email!";
     document.getElementById("error-password")!.textContent = "Your password has to be at least 8 characters long!";
   }
 }

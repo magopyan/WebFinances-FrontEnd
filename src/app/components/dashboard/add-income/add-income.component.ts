@@ -120,7 +120,7 @@ export class AddIncomeComponent implements OnInit {
         date: dateFormatted,
         note: this.note
       }
-      console.log(transactionForm.date);
+      this.amount = Number(this.amount).toFixed(2);
       this.validationService.postTransactionForm(transactionForm).subscribe({
         next: (response: Object) => {
           this.newTransaction = {
@@ -155,7 +155,7 @@ export class AddIncomeComponent implements OnInit {
     let newBalance: number = Number.parseFloat(this.chosenAccount.balance) + Number.parseFloat(this.amount);
     this.chosenAccount.balance = newBalance.toString();
     this.accountService.editAccount(this.chosenAccount).subscribe({
-      next: (response: Account) => {},
+      next: (response: Account) => { },
       error: (error: HttpErrorResponse) => {
         this.snackBar.open("Updating account balance failed! ❌", "Dismiss");
       }
@@ -197,9 +197,9 @@ export class AddIncomeComponent implements OnInit {
       if (!balanceRegexExp.test(this.amount)) {
         this.isAmountValid = false;
       }
-      else {
-        this.amount = Number(this.amount).toFixed(2);
-      }
+      // else {
+      //   this.amount = Number(this.amount).toFixed(2);
+      // }
     }
     if (this.isDateValid) {
       if (this.date.getTime() == NaN) {

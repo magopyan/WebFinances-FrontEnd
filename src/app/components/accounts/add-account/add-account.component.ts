@@ -83,15 +83,18 @@ export class AddAccountComponent implements OnInit {
         name: this.name,
         balance: this.balance
       }
+      this.balance = Number(this.balance).toFixed(2);
 
       this.validationService.postAccountForm(accountForm).subscribe({
         next: (response: Object) => {
           this.resetFlagsAndErrorMessages();
+          console.log(parseFloat(this.balance));
           this.newAccount = {
             name: this.name,
             balance: parseFloat(this.balance),
             accountType: this.chosenAccountType
           }
+          
           this.secondStepCompleted = true;
           stepper!.selected!.completed = true;
           stepper!.next();
@@ -113,7 +116,12 @@ export class AddAccountComponent implements OnInit {
         this.router.navigate(['accounts']);
       },
       error: (error: HttpErrorResponse) => {
-        this.snackBar.open(error.message + " ❌", "Dismiss");
+        if(error.status == 500) {
+          this.snackBar.open("The account name must be unique! ❌", "Dismiss");
+        }
+        else {
+          this.snackBar.open(error.message + " ❌", "Dismiss");
+        }
       }
     })
   }
@@ -155,9 +163,6 @@ export class AddAccountComponent implements OnInit {
       const balanceRegexExp = /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/;
       if (!balanceRegexExp.test(this.balance)) {
         this.isBalanceValid = false;
-      }
-      else {
-        this.balance = Number(this.balance).toFixed(2);
       }
     }
   }

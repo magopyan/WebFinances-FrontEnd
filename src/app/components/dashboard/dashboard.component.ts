@@ -20,7 +20,7 @@ import { TransactionForm } from 'src/app/models/transaction-form';
 export class DashboardComponent implements OnInit {
 
   currentPageNumber = 1;
-  itemsPerPage = 14;
+  itemsPerPage = 15;
   allTransactions!: Transaction[];
   transactionsPage!: Transaction[];
 
@@ -157,23 +157,25 @@ onDeleteTransaction() {
 }
 
 updateAccount(): boolean {
-  console.log("Update account >:(");
   // for delete
   let amount = this.transactionDelete.amount;
   let balance = this.transactionDelete.account.balance;
+  console.log("starting balance:", balance);
   let isError: boolean = false;
   if (amount == 0) {
     return true;
   }
   else {
-    if (amount > 0) {
-      balance = balance - amount;
-      this.transactionDelete.account.balance = balance;
-    }
-    else if (amount < 0) {
+    let coefficient: number = this.transactionDelete.subcategory.category.categoryType.coefficient;
+    console.log("coeff:", coefficient);
+    if(coefficient == -1) {
       balance = balance + amount;
-      this.transactionDelete.account.balance = balance;
     }
+    else {
+      balance = balance - amount;
+    }
+    this.transactionDelete.account.balance = balance;
+    console.log("new balance:", balance);
     this.accountService.editAccount(this.transactionDelete.account).subscribe({
       next: (response: Account) => { },
       error: (error: HttpErrorResponse) => {

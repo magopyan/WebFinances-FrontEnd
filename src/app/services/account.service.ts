@@ -19,20 +19,7 @@ export class AccountService {
   currentUser: any;
   currentPageNumber!: number;
 
-  constructor(private http: HttpClient, private firebaseAuthService: FirebaseAuthService) {
-    // this.currentUser = this.firebaseAuthService.getCurrentUser();
-    // this.currentUser?.getIdToken().then((token: string | string[]) => {
-    //   console.log("Token 1: ", token);
-    //   httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    // })
-    // this.firebaseAuthService.getUser().subscribe(user => {
-    //   this.currentUser = user;
-    //   this.currentUser?.getIdToken().then((token: string | string[]) => {
-    //     console.log("Token 2", token);
-    //     httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    //   })
-    // })
-  }
+  constructor(private http: HttpClient, private firebaseAuthService: FirebaseAuthService) {  }
 
   getCurrentPageNumber() {
     return this.currentPageNumber;

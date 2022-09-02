@@ -148,6 +148,7 @@ export class AddExpenseComponent implements OnInit {
         date: dateFormatted,
         note: this.note
       }
+      this.amount = Number(this.amount).toFixed(2);
       this.validationService.postTransactionForm(transactionForm).subscribe({
         next: (response: Object) => {
           this.newTransaction = {
@@ -224,9 +225,9 @@ export class AddExpenseComponent implements OnInit {
       if (!balanceRegexExp.test(this.amount)) {
         this.isAmountValid = false;
       }
-      else {
-        this.amount = Number(this.amount).toFixed(2);
-      }
+      // else {
+      //   this.amount = Number(this.amount).toFixed(2);
+      // }
     }
     if (this.isDateValid) {
       if (this.date.getTime() == NaN) {

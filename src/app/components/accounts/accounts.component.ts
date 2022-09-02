@@ -181,7 +181,12 @@ export class AccountsComponent implements OnInit {
               this.getAccounts(this.currentPageNumber);
             },
             error: (error: HttpErrorResponse) => {
-              this.snackBar.open(error.message + " ❌", "Dismiss");
+              if (error.status == 500) {
+                this.snackBar.open("The account name must be unique! ❌", "Dismiss");
+              }
+              else {
+                this.snackBar.open(error.message + " ❌", "Dismiss");
+              }
             }
           })
         },
@@ -216,9 +221,6 @@ export class AccountsComponent implements OnInit {
       const balanceRegexExp = /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/;
       if (!balanceRegexExp.test(balance)) {
         this.isBalanceValid = false;
-      }
-      else {
-        balance = Number(balance).toFixed(2);
       }
     }
   }
